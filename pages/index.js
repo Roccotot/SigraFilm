@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useRouter } from "next/router";
+import Layout from "../components/Layout";
 
 export default function Home() {
   const router = useRouter();
@@ -30,39 +31,29 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="bg-white shadow-lg rounded-2xl p-8 w-full max-w-md">
-        <h1 className="text-2xl font-bold text-center mb-6 text-gray-800">
-          🎬 Sigra Film
-        </h1>
+    <Layout>
+      <div className="max-w-md mx-auto bg-white p-8 rounded-2xl shadow-lg">
+        <h2 className="text-2xl font-bold text-center text-gray-800 mb-6">
+          Accedi a Sigra Film
+        </h2>
         <form onSubmit={handleLogin} className="space-y-4">
-          <div>
-            <label className="block text-sm font-medium text-gray-700">
-              Nome utente
-            </label>
-            <input
-              type="text"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              className="mt-1 block w-full px-3 py-2 border rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-              placeholder="Inserisci nome utente"
-              required
-            />
-          </div>
+          <input
+            type="text"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+            className="w-full border px-3 py-2 rounded-lg shadow-sm"
+            placeholder="Nome utente"
+            required
+          />
 
-          <div>
-            <label className="block text-sm font-medium text-gray-700">
-              Password
-            </label>
-            <input
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              className="mt-1 block w-full px-3 py-2 border rounded-lg shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-              placeholder="Inserisci password"
-              required
-            />
-          </div>
+          <input
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            className="w-full border px-3 py-2 rounded-lg shadow-sm"
+            placeholder="Password"
+            required
+          />
 
           {error && <p className="text-red-500 text-sm">{error}</p>}
 
@@ -73,17 +64,7 @@ export default function Home() {
             Accedi
           </button>
         </form>
-
-        <div className="mt-6 text-center">
-          <p className="text-sm text-gray-600">Oppure</p>
-          <button
-            onClick={() => router.push("/admin")}
-            className="mt-2 w-full bg-gray-800 text-white py-2 px-4 rounded-lg hover:bg-gray-900 transition"
-          >
-            Login Admin
-          </button>
-        </div>
       </div>
-    </div>
+    </Layout>
   );
 }
