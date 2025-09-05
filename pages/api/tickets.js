@@ -1,47 +1,33 @@
 import prisma from "../../lib/prisma";
-import { getUserFromReq, requireRole } from "../../lib/auth";
 
 export default async function handler(req, res) {
-  if (req.method === 'GET') {
-    const user = requireRole(req, res, ['admin']);
-    if (!user) return; // risposta già inviata
-    const tickets = await prisma.ticket.findMany({ orderBy: { createdAt: 'desc' } });
-    return res.json(tickets);
-  }
-
-  if (req.method === 'POST') {
-    const user = getUserFromReq(req);
-    if (!user) return res.status(401).json({ error: 'Non autenticato' });
-
-    const { cinema, sala, tipo, descrizione, urgenza } = req.body || {};
-    if (!cinema || !sala || !tipo || !descrizione || !urgenza) {
-      return res.status(400).json({ error: 'Campi obbligatori mancanti' });
+  if (req.method === "GET") {
+    try {
+      const tickets = await prisma.ticket.findMany({
+        orderBy: { createdAt: "desc" },
+      });
+      res.status(200).json(tickets);
+    } catch (err) {
+      console.error("Errore recupero ticket:", err);
+      res.status(500).json({ error: "Errore del server" });
     }
-    const ticket = await prisma.ticket.create({
-      data: { cinema, sala, tipo, descrizione, urgenza, createdById: user.id },
-    });
-    return res.status(201).json(ticket);
-  }
+  } else if (req.method === "POST") {
+    const { title, description, userId } = req.body;
 
-  if (req.method === 'PUT') {
-    const user = requireRole(req, res, ['admin']);
-    if (!user) return;
-    const id = parseInt(req.query.id);
-    const { stato } = req.body || {};
-    if (!['NON_RISOLTO','IN_RISOLUZIONE','RISOLTO'].includes(stato)) {
-      return res.status(400).json({ error: 'Stato non valido' });
+    try {
+      const newTicket = await prisma.ticket.create({
+        data: {
+          title,
+          description,
+          userId,
+        },
+      });
+      res.status(201).json(newTicket);
+    } catch (err) {
+      console.error("Errore creazione ticket:", err);
+      res.status(500).json({ error: "Errore del server" });
     }
-    const updated = await prisma.ticket.update({ where: { id }, data: { stato } });
-    return res.json(updated);
+  } else {
+    res.status(405).json({ error: "Metodo non consentito" });
   }
-
-  if (req.method === 'DELETE') {
-    const user = requireRole(req, res, ['admin']);
-    if (!user) return;
-    const id = parseInt(req.query.id);
-    await prisma.ticket.delete({ where: { id } });
-    return res.json({ ok: true });
-  }
-
-  return res.status(405).end();
 }
