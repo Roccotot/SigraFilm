@@ -4,18 +4,12 @@ import jwt from "jsonwebtoken";
 
 export default async function handler(req, res) {
   if (req.method !== "POST") {
-    res.setHeader("Allow", ["POST"]);
-    return res.status(405).json({ error: `Metodo ${req.method} non consentito` });
+    return res.status(405).json({ error: "Metodo non consentito" });
   }
 
   const { username, password } = req.body;
 
-  if (!username || !password) {
-    return res.status(400).json({ error: "Username e password sono obbligatori" });
-  }
-
   try {
-    // Trova l’utente
     const user = await prisma.user.findUnique({
       where: { username },
     });
@@ -24,27 +18,20 @@ export default async function handler(req, res) {
       return res.status(401).json({ error: "Credenziali non valide" });
     }
 
-    // Confronta la password
-    const isPasswordValid = await bcrypt.compare(password, user.password);
-
-    if (!isPasswordValid) {
+    const validPassword = await bcrypt.compare(password, user.password);
+    if (!validPassword) {
       return res.status(401).json({ error: "Credenziali non valide" });
     }
 
-    // Genera token JWT
     const token = jwt.sign(
       { id: user.id, role: user.role },
       process.env.JWT_SECRET || "default_secret",
       { expiresIn: "1d" }
     );
 
-    return res.status(200).json({
-      message: "Login effettuato con successo",
-      token,
-      role: user.role,
-    });
+    res.status(200).json({ token, role: user.role });
   } catch (err) {
-    console.error("Errore durante il login:", err);
-    return res.status(500).json({ error: "Errore interno del server" });
+    console.error("Errore login:", err);
+    res.status(500).json({ error: "Errore del server" });
   }
 }
