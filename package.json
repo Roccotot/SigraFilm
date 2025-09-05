@@ -5,11 +5,11 @@
   "scripts": {
     "dev": "next dev",
     "build": "prisma generate && next build",
-    "vercel-build": "prisma generate && prisma migrate deploy && next build",
     "start": "next start",
     "postinstall": "prisma generate",
     "prisma:studio": "prisma studio",
-    "seed": "node scripts/seed.js"
+    "seed": "node scripts/seed.js",
+    "vercel-build": "prisma generate && next build"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
