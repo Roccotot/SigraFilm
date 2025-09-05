@@ -1,39 +1,43 @@
+// pages/index.js
 import { useState } from "react";
 
 export default function Home() {
-  const [result, setResult] = useState(null);
+  const [message, setMessage] = useState("");
 
-  const testConnection = async () => {
-    setResult("⏳ Test in corso...");
+  const runSeed = async () => {
     try {
-      const res = await fetch("/api/test-db");
+      const res = await fetch("/api/seed", {
+        method: "POST",
+      });
       const data = await res.json();
-      if (data.success) {
-        setResult(
-          `✅ OK: ${data.message} ${
-            data.sampleUser
-              ? "(utente trovato: " + data.sampleUser.username + ")"
-              : "(nessun utente in DB)"
-          }`
-        );
+      if (res.ok) {
+        setMessage(data.message);
       } else {
-        setResult(`❌ Errore: ${data.message}`);
+        setMessage(data.error || "Errore sconosciuto");
       }
     } catch (err) {
-      setResult("❌ Errore imprevisto: " + err.message);
+      setMessage("Errore di rete");
     }
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 text-center">
-      <h1 className="text-3xl font-bold mb-6">Benvenuto su SigraFilm 🎬</h1>
+    <div style={{ textAlign: "center", padding: "2rem" }}>
+      <h1>Benvenuto su SigraFilm 🎬</h1>
       <button
-        onClick={testConnection}
-        className="px-6 py-3 bg-blue-600 text-white rounded-lg shadow hover:bg-blue-700"
+        onClick={runSeed}
+        style={{
+          padding: "10px 20px",
+          background: "black",
+          color: "white",
+          border: "none",
+          borderRadius: "5px",
+          cursor: "pointer",
+          marginTop: "20px",
+        }}
       >
-        🔗 Test Connessione Database
+        Avvia Seed Database
       </button>
-      {result && <p className="mt-4 text-lg">{result}</p>}
+      {message && <p style={{ marginTop: "20px" }}>{message}</p>}
     </div>
   );
 }
