@@ -9,6 +9,10 @@ export default async function handler(req, res) {
 
   const { username, password } = req.body;
 
+  if (!username || !password) {
+    return res.status(400).json({ error: "Credenziali mancanti" });
+  }
+
   try {
     const user = await prisma.user.findUnique({
       where: { username },
@@ -18,20 +22,22 @@ export default async function handler(req, res) {
       return res.status(401).json({ error: "Credenziali non valide" });
     }
 
-    const validPassword = await bcrypt.compare(password, user.password);
-    if (!validPassword) {
+    const isPasswordValid = await bcrypt.compare(password, user.password);
+
+    if (!isPasswordValid) {
       return res.status(401).json({ error: "Credenziali non valide" });
     }
 
+    // genera JWT
     const token = jwt.sign(
-      { id: user.id, role: user.role },
-      process.env.JWT_SECRET || "default_secret",
+      { id: user.id, username: user.username, role: user.role },
+      process.env.JWT_SECRET,
       { expiresIn: "1d" }
     );
 
-    res.status(200).json({ token, role: user.role });
-  } catch (err) {
-    console.error("Errore login:", err);
+    res.status(200).json({ message: "Login effettuato con successo", token, user });
+  } catch (error) {
+    console.error("Errore login:", error);
     res.status(500).json({ error: "Errore del server" });
   }
 }
