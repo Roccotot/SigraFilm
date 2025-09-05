@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useRouter } from "next/router";
 import Layout from "../components/Layout";
 
-export default function Home() {
+export default function LoginPage() {
   const router = useRouter();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -20,10 +20,10 @@ export default function Home() {
 
     if (res.ok) {
       const data = await res.json();
-      if (data.role === "cinema") {
-        router.push("/cinema");
-      } else if (data.role === "admin") {
+      if (data.role === "admin") {
         router.push("/admin");
+      } else {
+        router.push("/cinema");
       }
     } else {
       setError("Credenziali non valide");
@@ -34,15 +34,15 @@ export default function Home() {
     <Layout>
       <div className="max-w-md mx-auto bg-white p-8 rounded-2xl shadow-lg">
         <h2 className="text-2xl font-bold text-center text-gray-800 mb-6">
-          Accedi a Sigra Film
+          Login Sigra Film
         </h2>
         <form onSubmit={handleLogin} className="space-y-4">
           <input
             type="text"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
-            className="w-full border px-3 py-2 rounded-lg shadow-sm"
             placeholder="Nome utente"
+            className="w-full border px-3 py-2 rounded-lg shadow-sm"
             required
           />
 
@@ -50,8 +50,8 @@ export default function Home() {
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            className="w-full border px-3 py-2 rounded-lg shadow-sm"
             placeholder="Password"
+            className="w-full border px-3 py-2 rounded-lg shadow-sm"
             required
           />
 
