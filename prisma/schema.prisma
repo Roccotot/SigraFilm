@@ -8,30 +8,27 @@ datasource db {
 }
 
 model User {
-  id       Int      @id @default(autoincrement())
-  username String   @unique
-  password String
-  role     Role
-  tickets  Ticket[]
+  id        Int      @id @default(autoincrement())
+  username  String   @unique
+  password  String
+  role      Role     @default(USER)
+  tickets   Ticket[]
+  createdAt DateTime @default(now())
 }
 
 model Ticket {
   id          Int      @id @default(autoincrement())
-  cinema      String
-  sala        String
-  tipo        String
-  descrizione String
-  urgenza     String
-  stato       Stato    @default(NON_RISOLTO)
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-  userId      Int
+  title       String
+  description String
   user        User     @relation(fields: [userId], references: [id])
+  userId      Int
+  status      Stato    @default(NON_RISOLTO)
+  createdAt   DateTime @default(now())
 }
 
 enum Role {
-  admin
-  cinema
+  ADMIN
+  USER
 }
 
 enum Stato {
