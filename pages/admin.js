@@ -1,101 +1,93 @@
-import Navbar from "../components/Navbar";
-import { getUserFromReq } from "../lib/auth";
+import { useEffect, useState } from "react";
+import Layout from "../components/Layout";
 
-export async function getServerSideProps({ req }) {
-  const user = getUserFromReq(req);
-  if (!user || user.role !== 'admin') {
-    return { redirect: { destination: '/login', permanent: false } };
-  }
-  return { props: { user } };
-}
-
-import { useEffect, useState } from 'react';
-
-export default function Admin({ user }) {
+export default function Admin() {
   const [tickets, setTickets] = useState([]);
-  const [loading, setLoading] = useState(true);
 
-  async function load() {
-    setLoading(true);
-    const res = await fetch('/api/tickets');
-    const data = await res.json();
-    setTickets(data);
-    setLoading(false);
-  }
+  const fetchTickets = async () => {
+    const res = await fetch("/api/tickets/list");
+    if (res.ok) {
+      const data = await res.json();
+      setTickets(data);
+    }
+  };
 
-  useEffect(() => { load(); }, []);
+  const updateStatus = async (id, status) => {
+    await fetch(`/api/tickets/update/${id}`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ stato: status }),
+    });
+    fetchTickets();
+  };
 
-  async function changeStatus(id, stato) {
-    await fetch(`/api/tickets?id=${id}`, { method: 'PUT', headers: {'Content-Type':'application/json'}, body: JSON.stringify({ stato }) });
-    load();
-  }
+  const deleteTicket = async (id) => {
+    await fetch(`/api/tickets/delete/${id}`, { method: "DELETE" });
+    fetchTickets();
+  };
 
-  async function del(id) {
-    if (!confirm('Cancellare questo ticket?')) return;
-    await fetch(`/api/tickets?id=${id}`, { method: 'DELETE' });
-    load();
-  }
-
-  function Badge({ stato }) {
-    const map = {
-      NON_RISOLTO: 'bg-rose-100 text-rose-700',
-      IN_RISOLUZIONE: 'bg-amber-100 text-amber-700',
-      RISOLTO: 'bg-emerald-100 text-emerald-700',
-    };
-    return <span className={`badge ${map[stato]}`}>{stato.replace('_',' ')}</span>;
-  }
+  useEffect(() => {
+    fetchTickets();
+  }, []);
 
   return (
-    <>
-      <Navbar user={user} />
-      <main className="container py-8">
-        <div className="card">
-          <div className="flex items-center justify-between">
-            <h1 className="text-xl font-bold">Pannello Admin</h1>
-            <button onClick={load} className="btn">Aggiorna</button>
-          </div>
-
-          {loading ? <p className="mt-6">Caricamento…</p> : (
-            <div className="mt-6 overflow-x-auto">
-              <table className="min-w-full text-sm">
-                <thead>
-                  <tr className="text-left text-gray-500">
-                    <th className="py-2 pr-4">ID</th>
-                    <th className="py-2 pr-4">Cinema</th>
-                    <th className="py-2 pr-4">Sala</th>
-                    <th className="py-2 pr-4">Tipo</th>
-                    <th className="py-2 pr-4">Urgenza</th>
-                    <th className="py-2 pr-4">Stato</th>
-                    <th className="py-2 pr-4">Creato</th>
-                    <th className="py-2 pr-4">Azioni</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {tickets.map(t => (
-                    <tr key={t.id} className="border-t border-gray-200 dark:border-gray-700">
-                      <td className="py-2 pr-4">{t.id}</td>
-                      <td className="py-2 pr-4 font-medium">{t.cinema}</td>
-                      <td className="py-2 pr-4">{t.sala}</td>
-                      <td className="py-2 pr-4">{t.tipo}</td>
-                      <td className="py-2 pr-4">{t.urgenza}</td>
-                      <td className="py-2 pr-4"><Badge stato={t.stato} /></td>
-                      <td className="py-2 pr-4">{new Date(t.createdAt).toLocaleString()}</td>
-                      <td className="py-2 pr-4 flex gap-2">
-                        <select className="select" value={t.stato} onChange={e=>changeStatus(t.id, e.target.value)}>
-                          <option value="NON_RISOLTO">Non risolto</option>
-                          <option value="IN_RISOLUZIONE">In via di risoluzione</option>
-                          <option value="RISOLTO">Risolto</option>
-                        </select>
-                        <button className="btn btn-danger" onClick={()=>del(t.id)}>Elimina</button>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          )}
-        </div>
-      </main>
-    </>
+    <Layout>
+      <h2 className="text-2xl font-bold text-indigo-700 mb-6 text-center">
+        Pannello Admin - Segnalazioni
+      </h2>
+      <div className="overflow-x-auto">
+        <table className="w-full bg-white shadow-lg rounded-lg overflow-hidden">
+          <thead className="bg-indigo-600 text-white">
+            <tr>
+              <th className="p-3 text-left">Cinema</th>
+              <th className="p-3 text-left">Sala</th>
+              <th className="p-3 text-left">Problema</th>
+              <th className="p-3 text-left">Urgenza</th>
+              <th className="p-3 text-left">Stato</th>
+              <th className="p-3 text-left">Azioni</th>
+            </tr>
+          </thead>
+          <tbody>
+            {tickets.length > 0 ? (
+              tickets.map((t) => (
+                <tr key={t.id} className="border-b hover:bg-gray-50">
+                  <td className="p-3">{t.cinema}</td>
+                  <td className="p-3">{t.sala}</td>
+                  <td className="p-3">{t.tipo}</td>
+                  <td className="p-3">{t.urgenza}</td>
+                  <td className="p-3">{t.stato}</td>
+                  <td className="p-3 space-x-2">
+                    <button
+                      onClick={() => updateStatus(t.id, "IN_RISOLUZIONE")}
+                      className="bg-yellow-500 text-white px-2 py-1 rounded-lg text-sm"
+                    >
+                      In Risoluzione
+                    </button>
+                    <button
+                      onClick={() => updateStatus(t.id, "RISOLTO")}
+                      className="bg-green-600 text-white px-2 py-1 rounded-lg text-sm"
+                    >
+                      Risolto
+                    </button>
+                    <button
+                      onClick={() => deleteTicket(t.id)}
+                      className="bg-red-600 text-white px-2 py-1 rounded-lg text-sm"
+                    >
+                      Elimina
+                    </button>
+                  </td>
+                </tr>
+              ))
+            ) : (
+              <tr>
+                <td colSpan="6" className="text-center p-6 text-gray-500">
+                  Nessuna segnalazione trovata
+                </td>
+              </tr>
+            )}
+          </tbody>
+        </table>
+      </div>
+    </Layout>
   );
 }
