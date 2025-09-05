@@ -1,31 +1,41 @@
-import prisma from '../../../lib/prisma';
-import bcrypt from 'bcrypt';
+import prisma from "../../../../lib/prisma";
+import bcrypt from "bcryptjs";
 
 export default async function handler(req, res) {
-  if (req.method !== 'POST') {
-    return res.status(405).json({ message: 'Metodo non consentito' });
+  if (req.method !== "POST") {
+    return res.status(405).json({ error: "Metodo non consentito" });
   }
 
   const { username, password, role } = req.body;
 
-  if (!username || !password || !role) {
-    return res.status(400).json({ message: 'Dati mancanti' });
+  if (!username || !password) {
+    return res.status(400).json({ error: "Username e password sono obbligatori" });
   }
 
   try {
+    // controlla se esiste già
+    const existingUser = await prisma.user.findUnique({
+      where: { username },
+    });
+
+    if (existingUser) {
+      return res.status(400).json({ error: "Utente già esistente" });
+    }
+
+    // hash password con bcryptjs
     const hashedPassword = await bcrypt.hash(password, 10);
 
     const user = await prisma.user.create({
       data: {
         username,
         password: hashedPassword,
-        role,
+        role: role || "user",
       },
     });
 
-    return res.status(201).json({ message: 'Utente creato', user });
+    res.status(201).json({ message: "Utente creato con successo", user });
   } catch (error) {
-    console.error('Errore creazione utente:', error);
-    return res.status(500).json({ message: 'Errore interno del server' });
+    console.error("Errore creazione utente:", error);
+    res.status(500).json({ error: "Errore del server" });
   }
 }
