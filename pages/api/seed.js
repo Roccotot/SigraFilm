@@ -1,42 +1,41 @@
 // pages/api/seed.js
-import prisma from "../../lib/prisma";
+import { PrismaClient } from "@prisma/client";
 import bcrypt from "bcryptjs";
 
+const prisma = new PrismaClient();
+
 export default async function handler(req, res) {
-  if (req.method !== "GET") {
+  if (req.method !== "POST") {
     return res.status(405).json({ error: "Metodo non consentito" });
   }
 
   try {
-    // password hash
-    const adminPassword = await bcrypt.hash("fgQGCYDn60XnUwUA", 10);
-    const userPassword = await bcrypt.hash("giometti2025", 10);
+    const hashedAdminPass = await bcrypt.hash("fgQGCYDn60XnUwUA", 10);
+    const hashedUserPass = await bcrypt.hash("giometti2025", 10);
 
-    // crea o aggiorna admin
     await prisma.user.upsert({
       where: { username: "admin" },
-      update: { password: adminPassword, role: "ADMIN" },
+      update: {},
       create: {
         username: "admin",
-        password: adminPassword,
-        role: "ADMIN",
+        password: hashedAdminPass,
       },
     });
 
-    // crea o aggiorna giomettiprato
     await prisma.user.upsert({
       where: { username: "giomettiprato" },
-      update: { password: userPassword, role: "USER" },
+      update: {},
       create: {
         username: "giomettiprato",
-        password: userPassword,
-        role: "USER",
+        password: hashedUserPass,
       },
     });
 
-    return res.status(200).json({ message: "Utenti iniziali creati con successo" });
+    res.status(200).json({ message: "Seed completato con successo!" });
   } catch (error) {
-    console.error("Errore nel seed:", error);
-    return res.status(500).json({ error: "Errore durante il seed", details: error.message });
+    console.error(error);
+    res.status(500).json({ error: "Errore durante il seed", details: error.message });
+  } finally {
+    await prisma.$disconnect();
   }
 }
