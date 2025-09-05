@@ -1,70 +1,39 @@
 import { useState } from "react";
-import { useRouter } from "next/router";
-import Layout from "../components/Layout";
 
-export default function LoginPage() {
-  const router = useRouter();
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
+export default function Home() {
+  const [result, setResult] = useState(null);
 
-  const handleLogin = async (e) => {
-    e.preventDefault();
-    setError("");
-
-    const res = await fetch("/api/auth/login", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ username, password }),
-    });
-
-    if (res.ok) {
+  const testConnection = async () => {
+    setResult("⏳ Test in corso...");
+    try {
+      const res = await fetch("/api/test-db");
       const data = await res.json();
-      if (data.role === "admin") {
-        router.push("/admin");
+      if (data.success) {
+        setResult(
+          `✅ OK: ${data.message} ${
+            data.sampleUser
+              ? "(utente trovato: " + data.sampleUser.username + ")"
+              : "(nessun utente in DB)"
+          }`
+        );
       } else {
-        router.push("/cinema");
+        setResult(`❌ Errore: ${data.message}`);
       }
-    } else {
-      setError("Credenziali non valide");
+    } catch (err) {
+      setResult("❌ Errore imprevisto: " + err.message);
     }
   };
 
   return (
-    <Layout>
-      <div className="max-w-md mx-auto bg-white p-8 rounded-2xl shadow-lg">
-        <h2 className="text-2xl font-bold text-center text-gray-800 mb-6">
-          Login Sigra Film
-        </h2>
-        <form onSubmit={handleLogin} className="space-y-4">
-          <input
-            type="text"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            placeholder="Nome utente"
-            className="w-full border px-3 py-2 rounded-lg shadow-sm"
-            required
-          />
-
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            placeholder="Password"
-            className="w-full border px-3 py-2 rounded-lg shadow-sm"
-            required
-          />
-
-          {error && <p className="text-red-500 text-sm">{error}</p>}
-
-          <button
-            type="submit"
-            className="w-full bg-indigo-600 text-white py-2 px-4 rounded-lg hover:bg-indigo-700 transition"
-          >
-            Accedi
-          </button>
-        </form>
-      </div>
-    </Layout>
+    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 text-center">
+      <h1 className="text-3xl font-bold mb-6">Benvenuto su SigraFilm 🎬</h1>
+      <button
+        onClick={testConnection}
+        className="px-6 py-3 bg-blue-600 text-white rounded-lg shadow hover:bg-blue-700"
+      >
+        🔗 Test Connessione Database
+      </button>
+      {result && <p className="mt-4 text-lg">{result}</p>}
+    </div>
   );
 }
