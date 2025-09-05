@@ -1,43 +1,42 @@
+// pages/api/seed.js
 import prisma from "../../lib/prisma";
 import bcrypt from "bcryptjs";
 
 export default async function handler(req, res) {
   if (req.method !== "GET") {
-    return res.status(405).json({ error: "Method not allowed" });
+    return res.status(405).json({ error: "Metodo non consentito" });
   }
 
   try {
-    // Passwords in chiaro
-    const adminPassword = "fgQGCYDn60XnUwUA";
-    const giomettiPassword = "giometti2025";
+    // password hash
+    const adminPassword = await bcrypt.hash("fgQGCYDn60XnUwUA", 10);
+    const userPassword = await bcrypt.hash("giometti2025", 10);
 
-    // Hash delle password
-    const hashedAdmin = await bcrypt.hash(adminPassword, 10);
-    const hashedGiometti = await bcrypt.hash(giomettiPassword, 10);
-
-    // Inserimento utenti
-    const users = await prisma.user.createMany({
-      data: [
-        {
-          username: "admin",
-          password: hashedAdmin,
-          role: "ADMIN",
-        },
-        {
-          username: "giomettiprato",
-          password: hashedGiometti,
-          role: "USER",
-        },
-      ],
-      skipDuplicates: true, // evita errori se già esistono
+    // crea o aggiorna admin
+    await prisma.user.upsert({
+      where: { username: "admin" },
+      update: { password: adminPassword, role: "ADMIN" },
+      create: {
+        username: "admin",
+        password: adminPassword,
+        role: "ADMIN",
+      },
     });
 
-    return res.status(200).json({
-      message: "Utenti creati con successo!",
-      users,
+    // crea o aggiorna giomettiprato
+    await prisma.user.upsert({
+      where: { username: "giomettiprato" },
+      update: { password: userPassword, role: "USER" },
+      create: {
+        username: "giomettiprato",
+        password: userPassword,
+        role: "USER",
+      },
     });
+
+    return res.status(200).json({ message: "Utenti iniziali creati con successo" });
   } catch (error) {
-    console.error("Errore seed:", error);
-    return res.status(500).json({ error: "Errore durante il seed" });
+    console.error("Errore nel seed:", error);
+    return res.status(500).json({ error: "Errore durante il seed", details: error.message });
   }
 }
