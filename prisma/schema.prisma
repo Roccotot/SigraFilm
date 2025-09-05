@@ -1,26 +1,31 @@
+// Generatore client Prisma
 generator client {
   provider = "prisma-client-js"
 }
 
+// Collegamento al database Supabase (Postgres)
 datasource db {
-  provider = "sqlite"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
+// Modello utenti (cinema o admin)
 model User {
-  id        Int     @id @default(autoincrement())
-  username  String  @unique
+  id        Int      @id @default(autoincrement())
+  username  String   @unique
   password  String
   role      Role
   tickets   Ticket[] @relation("UserTickets")
   createdAt DateTime @default(now())
 }
 
+// Ruoli possibili
 enum Role {
   cinema
   admin
 }
 
+// Modello ticket (problemi segnalati dai cinema)
 model Ticket {
   id          Int      @id @default(autoincrement())
   cinema      String
@@ -34,6 +39,7 @@ model Ticket {
   createdById Int?
 }
 
+// Stati del ticket
 enum Stato {
   NON_RISOLTO
   IN_RISOLUZIONE
