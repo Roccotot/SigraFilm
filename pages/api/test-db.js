@@ -1,22 +1,15 @@
-import prisma from "../../lib/prisma";
+import { PrismaClient } from "@prisma/client";
+
+const prisma = new PrismaClient();
 
 export default async function handler(req, res) {
   try {
-    // Proviamo a leggere un utente
-    const users = await prisma.user.findMany({
-      take: 1,
-    });
-
-    res.status(200).json({
-      success: true,
-      message: "Connessione al database riuscita ✅",
-      sampleUser: users.length > 0 ? users[0] : null,
-    });
+    const users = await prisma.user.findMany();
+    res.status(200).json({ success: true, users });
   } catch (error) {
-    res.status(500).json({
-      success: false,
-      message: "Errore di connessione ❌",
-      details: error.message,
-    });
+    console.error("Errore connessione DB:", error);
+    res.status(500).json({ success: false, error: error.message });
+  } finally {
+    await prisma.$disconnect();
   }
 }
