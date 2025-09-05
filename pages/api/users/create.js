@@ -1,4 +1,4 @@
-import prisma from "../../../../lib/prisma";
+import prisma from "../../../lib/prisma";
 import bcrypt from "bcryptjs";
 
 export default async function handler(req, res) {
@@ -13,16 +13,12 @@ export default async function handler(req, res) {
   }
 
   try {
-    // controlla se esiste già
-    const existingUser = await prisma.user.findUnique({
-      where: { username },
-    });
+    const existingUser = await prisma.user.findUnique({ where: { username } });
 
     if (existingUser) {
       return res.status(400).json({ error: "Utente già esistente" });
     }
 
-    // hash password con bcryptjs
     const hashedPassword = await bcrypt.hash(password, 10);
 
     const user = await prisma.user.create({
