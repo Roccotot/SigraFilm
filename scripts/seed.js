@@ -1,10 +1,10 @@
-import { PrismaClient } from "@prisma/client";
-import bcrypt from "bcryptjs";
+const { PrismaClient } = require("@prisma/client");
+const bcrypt = require("bcryptjs");
 
 const prisma = new PrismaClient();
 
 async function main() {
-  // 🔑 Admin di default
+  // 🔑 Admin
   const adminPassword = await bcrypt.hash("fgQGCYDn60XnUwUA", 10);
   await prisma.user.upsert({
     where: { username: "admin" },
@@ -16,7 +16,7 @@ async function main() {
     },
   });
 
-  // 🎬 Utente cinema: Giometti Prato
+  // 🎬 Cinema
   const cinemaPassword = await bcrypt.hash("giomettiprato2025", 10);
   await prisma.user.upsert({
     where: { username: "giomettiprato" },
