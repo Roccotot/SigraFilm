@@ -3,6 +3,7 @@ import Layout from "../components/Layout";
 
 export default function Admin() {
   const [tickets, setTickets] = useState([]);
+  const [newUser, setNewUser] = useState({ username: "", password: "" });
 
   const fetchTickets = async () => {
     const res = await fetch("/api/tickets/list");
@@ -12,11 +13,11 @@ export default function Admin() {
     }
   };
 
-  const updateStatus = async (id, status) => {
+  const updateStatus = async (id, stato) => {
     await fetch(`/api/tickets/update/${id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ stato: status }),
+      body: JSON.stringify({ stato }),
     });
     fetchTickets();
   };
@@ -26,6 +27,21 @@ export default function Admin() {
     fetchTickets();
   };
 
+  const handleCreateUser = async (e) => {
+    e.preventDefault();
+    const res = await fetch("/api/users/create", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(newUser),
+    });
+    if (res.ok) {
+      alert("Utente creato con successo ✅");
+      setNewUser({ username: "", password: "" });
+    } else {
+      alert("Errore nella creazione utente");
+    }
+  };
+
   useEffect(() => {
     fetchTickets();
   }, []);
@@ -33,9 +49,11 @@ export default function Admin() {
   return (
     <Layout>
       <h2 className="text-2xl font-bold text-indigo-700 mb-6 text-center">
-        Pannello Admin - Segnalazioni
+        Pannello Admin
       </h2>
-      <div className="overflow-x-auto">
+
+      {/* Ticket Table */}
+      <div className="overflow-x-auto mb-10">
         <table className="w-full bg-white shadow-lg rounded-lg overflow-hidden">
           <thead className="bg-indigo-600 text-white">
             <tr>
@@ -87,6 +105,37 @@ export default function Admin() {
             )}
           </tbody>
         </table>
+      </div>
+
+      {/* Create User Form */}
+      <div className="max-w-md mx-auto bg-white p-6 rounded-lg shadow-lg">
+        <h3 className="text-lg font-bold mb-4 text-gray-700">
+          Crea nuovo utente Cinema
+        </h3>
+        <form onSubmit={handleCreateUser} className="space-y-4">
+          <input
+            type="text"
+            value={newUser.username}
+            onChange={(e) => setNewUser({ ...newUser, username: e.target.value })}
+            placeholder="Nome utente"
+            className="w-full border px-3 py-2 rounded-lg shadow-sm"
+            required
+          />
+          <input
+            type="password"
+            value={newUser.password}
+            onChange={(e) => setNewUser({ ...newUser, password: e.target.value })}
+            placeholder="Password"
+            className="w-full border px-3 py-2 rounded-lg shadow-sm"
+            required
+          />
+          <button
+            type="submit"
+            className="w-full bg-indigo-600 text-white py-2 px-4 rounded-lg hover:bg-indigo-700 transition"
+          >
+            Crea Utente
+          </button>
+        </form>
       </div>
     </Layout>
   );
