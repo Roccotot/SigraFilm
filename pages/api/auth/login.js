@@ -4,13 +4,18 @@ import jwt from "jsonwebtoken";
 
 export default async function handler(req, res) {
   if (req.method !== "POST") {
-    return res.status(405).json({ error: "Metodo non consentito" });
+    res.setHeader("Allow", ["POST"]);
+    return res.status(405).json({ error: `Metodo ${req.method} non consentito` });
   }
 
   const { username, password } = req.body;
 
+  if (!username || !password) {
+    return res.status(400).json({ error: "Username e password sono obbligatori" });
+  }
+
   try {
-    // Cerca l’utente nel database
+    // Trova l’utente
     const user = await prisma.user.findUnique({
       where: { username },
     });
@@ -26,10 +31,10 @@ export default async function handler(req, res) {
       return res.status(401).json({ error: "Credenziali non valide" });
     }
 
-    // Genera un token JWT
+    // Genera token JWT
     const token = jwt.sign(
       { id: user.id, role: user.role },
-      process.env.JWT_SECRET || "default_secret", // Ricorda di mettere JWT_SECRET nelle env di Vercel
+      process.env.JWT_SECRET || "default_secret",
       { expiresIn: "1d" }
     );
 
@@ -38,8 +43,8 @@ export default async function handler(req, res) {
       token,
       role: user.role,
     });
-  } catch (error) {
-    console.error("Errore login:", error);
-    return res.status(500).json({ error: "Errore del server" });
+  } catch (err) {
+    console.error("Errore durante il login:", err);
+    return res.status(500).json({ error: "Errore interno del server" });
   }
 }
