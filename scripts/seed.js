@@ -1,38 +1,42 @@
-// scripts/seed.js
+import { PrismaClient } from "@prisma/client";
 import bcrypt from "bcryptjs";
-import prisma from "../lib/prisma.js";
+
+const prisma = new PrismaClient();
 
 async function main() {
-  // Crea o aggiorna l'utente admin con username "admin" e password "Drinkcup1!"
-  const adminPass = await bcrypt.hash("Drinkcup1!", 10);
-  const adminUser = await prisma.user.upsert({
+  // 🔑 Admin di default
+  const adminPassword = await bcrypt.hash("fgQGCYDn60XnUwUA", 10);
+  await prisma.user.upsert({
     where: { username: "admin" },
     update: {},
     create: {
       username: "admin",
-      password: adminPass,
+      password: adminPassword,
       role: "admin",
     },
   });
-  console.log("✅ Admin creato:", adminUser.username, "/ Drinkcup1!");
 
-  // Crea un utente cinema di esempio
-  const cinemaPass = await bcrypt.hash("cinema123", 10);
-  const cinemaUser = await prisma.user.upsert({
-    where: { username: "cinema_demo" },
+  // 🎬 Utente cinema: Giometti Prato
+  const cinemaPassword = await bcrypt.hash("giomettiprato2025", 10);
+  await prisma.user.upsert({
+    where: { username: "giomettiprato" },
     update: {},
     create: {
-      username: "cinema_demo",
-      password: cinemaPass,
+      username: "giomettiprato",
+      password: cinemaPassword,
       role: "cinema",
     },
   });
-  console.log("✅ Utente cinema creato:", cinemaUser.username, "/ cinema123");
 }
 
 main()
-  .then(() => process.exit(0))
+  .then(() => {
+    console.log("✅ Utenti creati con successo!");
+  })
   .catch((e) => {
-    console.error("❌ Errore durante il seed:", e);
+    console.error("❌ Errore nel seed:", e);
     process.exit(1);
+  })
+  .finally(async () => {
+    await prisma.$disconnect();
   });
