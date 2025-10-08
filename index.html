@@ -134,19 +134,46 @@
       font-size: 0.9rem;
     }
 
+    /* ----- STRUMENTI ONLINE ----- */
+    #strumenti {
+      background: linear-gradient(145deg, #b31313, #d12b2b);
+      color: #fff;
+      text-align: center;
+      padding: 60px 20px;
+      margin-top: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    }
+
+    #strumenti h2 {
+      color: #fff;
+      border: none;
+      font-size: 2rem;
+      margin-bottom: 15px;
+    }
+
+    #strumenti a {
+      display: inline-block;
+      margin: 15px 10px;
+      background: #f9c200;
+      color: #000;
+      font-weight: bold;
+      padding: 12px 25px;
+      border-radius: 30px;
+      text-decoration: none;
+      transition: 0.3s;
+    }
+
+    #strumenti a:hover {
+      background: #fff;
+      color: #d12b2b;
+    }
+
     @media (max-width: 768px) {
-      header img {
-        width: 140px;
-      }
-      header h1 {
-        font-size: 1.8rem;
-      }
-      header {
-        padding: 60px 10px 30px;
-      }
-      section {
-        padding: 20px;
-      }
+      header img { width: 140px; }
+      header h1 { font-size: 1.8rem; }
+      header { padding: 60px 10px 30px; }
+      section { padding: 20px; }
     }
   </style>
 </head>
@@ -160,10 +187,10 @@
 
   <nav>
     <a href="#chisiamo">Chi Siamo</a>
+    <a href="#strumenti">Strumenti</a>
     <a href="#servizi">Servizi</a>
     <a href="#noleggio">Noleggio</a>
     <a href="#marchi">Marchi</a>
-    <a href="#strumenti">Strumenti</a>
     <a href="#contatti">Contatti</a>
   </nav>
 
@@ -172,6 +199,15 @@
     <p><strong>Sigra Film</strong> opera da molti anni nel settore cinematografico e audiovisivo, offrendo soluzioni professionali per sale cinema, multisala, eventi e manifestazioni. Grazie alla collaborazione con <strong>Cinemeccanica</strong> e ai migliori brand del settore, garantiamo impianti tecnologicamente avanzati e un’assistenza tecnica qualificata in tutta Italia.</p>
     <p>Seguiamo ogni progetto dalla consulenza iniziale fino alla realizzazione completa, offrendo installazione, manutenzione e assistenza su impianti di proiezione, audio e illuminazione per cinema, teatri, congressi e grandi eventi.</p>
     <a class="button" href="mailto:assistenza@sigrafilm.it?subject=Richiesta%20preventivo%20-%20Sigra%20Film&body=Buongiorno,%0D%0Avorrei ricevere un preventivo per...">Richiedi Preventivo</a>
+  </section>
+
+  <!-- ✅ SEZIONE STRUMENTI ONLINE SPOSATA E RESTYLING -->
+  <section id="strumenti">
+    <h2>🎬 Strumenti Online</h2>
+    <p>Accedi subito ai nostri strumenti web dedicati ai cinema e agli operatori del settore:</p>
+
+    <a href="https://roccotot.github.io/locandine-web/" target="_blank">🖼️ Crea locandine personalizzate</a>
+    <a href="https://sigrafilm.onrender.com/login" target="_blank">🛠️ Portale OC segnalazioni cinema</a>
   </section>
 
   <section id="servizi">
@@ -232,23 +268,6 @@
       <li>Lampade e ricambi originali</li>
       <li>Soluzioni audio Dolby Atmos certificate</li>
     </ul>
-  </section>
-
-  <section id="strumenti" style="background:#f9f9f9; border-top:4px solid #d12b2b; padding:40px 20px; text-align:center;">
-    <h2>Strumenti Online</h2>
-    <p>Sigra Film mette a disposizione strumenti web dedicati ai cinema e agli operatori del settore:</p>
-
-    <p>
-      🎬 <a href="https://roccotot.github.io/locandine-web/" target="_blank" style="font-weight:bold; color:#d12b2b;">
-        Crea locandine personalizzate per il tuo cinema
-      </a>
-    </p>
-
-    <p>
-      🛠️ <a href="https://sigrafilm.onrender.com/login" target="_blank" style="font-weight:bold; color:#d12b2b;">
-        Accedi al portale OC per segnalare problemi tecnici nel tuo cinema
-      </a>
-    </p>
   </section>
 
   <section id="contatti" class="contacts">
