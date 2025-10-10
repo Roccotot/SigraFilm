@@ -17,7 +17,7 @@
     /* ----- HEADER CON BANNER ----- */
     header {
       background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), 
-                  url('banner_cinema.jpg') center/cover no-repeat;
+                  url('img/banner_cinema.jpg') center/cover no-repeat;
       color: #fff;
       text-align: center;
       padding: 80px 10px 40px;
@@ -57,6 +57,33 @@
       text-shadow: 1px 1px 3px #000;
     }
 
+    /* ----- CAROSELLO ----- */
+    .carousel {
+      position: relative;
+      width: 100%;
+      max-width: 1100px;
+      margin: 30px auto;
+      overflow: hidden;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    }
+
+    .carousel img {
+      width: 100%;
+      display: none;
+      height: auto;
+    }
+
+    .carousel img.active {
+      display: block;
+      animation: fade 1s ease-in-out;
+    }
+
+    @keyframes fade {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
     /* ----- NAVBAR ----- */
     nav {
       background: #222;
@@ -73,78 +100,6 @@
 
     nav a:hover {
       color: #f9c200;
-    }
-
-    /* ----- CAROSELLO ----- */
-    .carousel {
-      position: relative;
-      max-width: 1100px;
-      margin: 30px auto;
-      overflow: hidden;
-      border-radius: 10px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-    }
-
-    .carousel img {
-      width: 100%;
-      height: auto;
-      display: none;
-      border-radius: 10px;
-    }
-
-    .carousel img.active {
-      display: block;
-      animation: fade 1s ease-in-out;
-    }
-
-    @keyframes fade {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
-
-    /* Frecce */
-    .carousel .prev, .carousel .next {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      background-color: rgba(0,0,0,0.5);
-      color: #fff;
-      font-size: 2rem;
-      padding: 8px 14px;
-      border-radius: 50%;
-      cursor: pointer;
-      user-select: none;
-      transition: background 0.3s;
-    }
-
-    .carousel .prev:hover, .carousel .next:hover {
-      background-color: rgba(0,0,0,0.8);
-    }
-
-    .carousel .prev { left: 10px; }
-    .carousel .next { right: 10px; }
-
-    /* Pallini (indicatori) */
-    .dots {
-      text-align: center;
-      padding: 12px 0;
-      background: #111;
-      border-radius: 0 0 10px 10px;
-    }
-
-    .dot {
-      display: inline-block;
-      width: 12px;
-      height: 12px;
-      margin: 0 6px;
-      background: #777;
-      border-radius: 50%;
-      cursor: pointer;
-      transition: background 0.3s;
-    }
-
-    .dot.active {
-      background: #f9c200;
     }
 
     /* ----- SEZIONI ----- */
@@ -252,26 +207,13 @@
 <body>
 
   <header>
-    <img src="logo_sigra.png" alt="Logo Sigra Film">
+    <img src="img/logo_sigra.png" alt="Logo Sigra Film">
     <h1>SIGRA FILM</h1>
     <p>Specialisti in proiezione cinematografica, eventi e tecnologie audiovisive</p>
   </header>
 
-  <!-- ✅ CAROSELLO IMMAGINI -->
-  <div class="carousel">
-    <img src="C1.jpg" alt="Proiezione Cinema 1" class="active">
-    <img src="C2.jpg" alt="Proiezione Cinema 2">
-    <img src="C3.jpg" alt="Proiezione Cinema 3">
-
-    <div class="prev">&#10094;</div>
-    <div class="next">&#10095;</div>
-
-    <div class="dots">
-      <span class="dot active"></span>
-      <span class="dot"></span>
-      <span class="dot"></span>
-    </div>
-  </div>
+  <!-- ✅ CAROSELLO AUTOMATICO -->
+  <div class="carousel" id="carousel"></div>
 
   <nav>
     <a href="#chisiamo">Chi Siamo</a>
@@ -282,133 +224,49 @@
     <a href="#contatti">Contatti</a>
   </nav>
 
-  <section id="chisiamo">
-    <h2>Chi Siamo</h2>
-    <p><strong>Sigra Film</strong> opera da molti anni nel settore cinematografico e audiovisivo, offrendo soluzioni professionali per sale cinema, multisala, eventi e manifestazioni. Grazie alla collaborazione con <strong>Cinemeccanica</strong> e ai migliori brand del settore, garantiamo impianti tecnologicamente avanzati e un’assistenza tecnica qualificata in tutta Italia.</p>
-    <p>Seguiamo ogni progetto dalla consulenza iniziale fino alla realizzazione completa, offrendo installazione, manutenzione e assistenza su impianti di proiezione, audio e illuminazione per cinema, teatri, congressi e grandi eventi.</p>
-    <a class="button" href="mailto:assistenza@sigrafilm.it?subject=Richiesta%20preventivo%20-%20Sigra%20Film&body=Buongiorno,%0D%0Avorrei ricevere un preventivo per...">Richiedi Preventivo</a>
-  </section>
-
-  <section id="strumenti">
-    <h2>🎬 Strumenti Online</h2>
-    <p>Accedi subito ai nostri strumenti web dedicati ai cinema e agli operatori del settore:</p>
-
-    <a href="https://roccotot.github.io/locandine-web/" target="_blank">🖼️ Crea locandine personalizzate</a>
-    <a href="https://sigrafilm.onrender.com/login" target="_blank">🛠️ Portale NOC segnalazioni cinema</a>
-  </section>
-
-  <section id="servizi">
-    <h2>Servizi</h2>
-    <p>Da anni siamo specializzati in <strong>cinema monosala, multisala e multiplex</strong>. Offriamo assistenza tecnica, vendita ed installazione di:</p>
-    <ul>
-      <li>Videoproiettori DCI Cinemeccanica, Barco e Christie</li>
-      <li>Server e IMB Doremi, Dolby, Barco, Cinemeccanica</li>
-      <li>Schermi di proiezione microforati e da retroproiezione</li>
-      <li>Poltroncine e arredi per cinema e teatri</li>
-      <li>Sistemi audio 5.1, 7.1 e Dolby Atmos</li>
-      <li>Equalizzazione e taratura di sistemi audio</li>
-      <li>Tappezzeria e rivestimenti per cinema e teatri</li>
-      <li>Ricambi originali Barco, Cinemeccanica e Christie</li>
-    </ul>
-    <p>Offriamo inoltre le migliori tecnologie per <strong>eventi, fiere, meeting, congressi e spettacoli</strong>.</p>
-  </section>
-
-  <section id="noleggio">
-    <h2>Noleggio</h2>
-    <ul>
-      <li>Maxischermi LCD, Plasma, LED, OLED, Laser</li>
-      <li>Videowall e Ledwall</li>
-      <li>Videoproiettori da 7000 a 32000 lumen</li>
-      <li>Schermi di proiezione di qualsiasi dimensione</li>
-      <li>Regia eventi, amplificazione, microfonia, registrazione audio</li>
-      <li>Conference systems e videoconferenze</li>
-      <li>Traduzione simultanea digitale e analogica</li>
-      <li>Allestimenti scenografici, palchi e luci</li>
-      <li>Assistenza tecnica con personale specializzato</li>
-    </ul>
-  </section>
-
-  <section id="marchi">
-    <h2>Marchi Trattati</h2>
-    <p>Sigra Film tratta da sempre i migliori brand professionali nel campo audio e video.</p>
-
-    <h3>Proiettori</h3>
-    <p>Barco – Cinemeccanica – Christie</p>
-
-    <h3>Mediaplayer e Server Cinema</h3>
-    <p>Cinecloud – Barco Alchemy – Doremi Cinema – Dolby</p>
-
-    <h3>Audio</h3>
-    <p>Dolby 5.1 / 7.1 / Atmos – DTS – JBL – Electro Voice – QSC – Crown – D.A.S. – K.C.S.</p>
-
-    <h3>Lampade Xenon</h3>
-    <p>Osram – Ushio</p>
-
-    <h3>Schermi per proiezione</h3>
-    <p>Harkness Screens</p>
-
-    <p>In collaborazione con <strong>Cinemeccanica</strong>, offriamo anche:</p>
-    <ul>
-      <li>Proiettori cinema Barco e Christie</li>
-      <li>Kit laser RGB e fosforo per conversione xenon → laser</li>
-      <li>Proiettori 35/70mm per ogni tipologia di sala</li>
-      <li>Lampade e ricambi originali</li>
-      <li>Soluzioni audio Dolby Atmos certificate</li>
-    </ul>
-  </section>
-
-  <section id="contatti" class="contacts">
-    <h2>Contatti</h2>
-    <p><strong>Indirizzo:</strong> Via S. Antonino 7/R – Firenze</p>
-    <p><strong>Email:</strong> <a href="mailto:assistenza@sigrafilm.it">assistenza@sigrafilm.it</a></p>
-    <p><strong>Telefono:</strong> <a href="tel:+393381025100">+39 338 1025100</a></p>
-    <p><strong>WhatsApp:</strong> <a href="https://wa.me/3381025100" target="_blank">Scrivici su WhatsApp</a></p>
-  </section>
+  <!-- ... resto del tuo codice invariato ... -->
 
   <footer>
     © 2025 Sigra Film | Powered by Rocco Totaro
   </footer>
 
+  <!-- ✅ SCRIPT PER IL CAROSELLO -->
   <script>
-    const slides = document.querySelectorAll('.carousel img');
-    const dots = document.querySelectorAll('.dot');
+    // Percorso della cartella
+    const folder = 'caroselli/';
+    const totalImages = 10; // numero massimo previsto (puoi aumentarlo)
+    const images = [];
+
+    // Carica automaticamente immagini esistenti (C1.jpg, C2.jpg, ecc.)
+    for (let i = 1; i <= totalImages; i++) {
+      const img = new Image();
+      img.src = `${folder}C${i}.jpg`;
+      img.onerror = () => {}; // ignora se non esiste
+      img.onload = () => {
+        images.push(img);
+        if (images.length === 1) showImage(0);
+      };
+    }
+
     let current = 0;
-    let timer;
 
-    const showSlide = (index) => {
-      slides.forEach((s, i) => {
-        s.classList.toggle('active', i === index);
-        dots[i].classList.toggle('active', i === index);
-      });
-      current = index;
-    };
+    function showImage(index) {
+      const carousel = document.getElementById('carousel');
+      carousel.innerHTML = ''; // pulisce
+      const img = images[index];
+      if (img) {
+        img.classList.add('active');
+        carousel.appendChild(img);
+      }
+    }
 
-    const nextSlide = () => showSlide((current + 1) % slides.length);
-    const prevSlide = () => showSlide((current - 1 + slides.length) % slides.length);
-
-    document.querySelector('.next').addEventListener('click', () => {
-      nextSlide();
-      resetTimer();
-    });
-    document.querySelector('.prev').addEventListener('click', () => {
-      prevSlide();
-      resetTimer();
-    });
-
-    dots.forEach((dot, i) => {
-      dot.addEventListener('click', () => {
-        showSlide(i);
-        resetTimer();
-      });
-    });
-
-    const startTimer = () => timer = setInterval(nextSlide, 5000);
-    const resetTimer = () => {
-      clearInterval(timer);
-      startTimer();
-    };
-
-    startTimer();
+    // Cambio automatico ogni 4 secondi
+    setInterval(() => {
+      if (images.length > 0) {
+        current = (current + 1) % images.length;
+        showImage(current);
+      }
+    }, 4000);
   </script>
 
 </body>
