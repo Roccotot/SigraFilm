@@ -75,6 +75,55 @@
       color: #f9c200;
     }
 
+    /* ----- CAROSELLO ----- */
+    .carousel {
+      position: relative;
+      max-width: 1100px;
+      margin: 30px auto;
+      overflow: hidden;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    }
+
+    .carousel img {
+      width: 100%;
+      height: auto;
+      display: none;
+      border-radius: 10px;
+    }
+
+    .carousel img.active {
+      display: block;
+      animation: fade 1s ease-in-out;
+    }
+
+    @keyframes fade {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    /* Controlli frecce */
+    .carousel .prev, .carousel .next {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background-color: rgba(0,0,0,0.5);
+      color: #fff;
+      font-size: 2rem;
+      padding: 8px 14px;
+      border-radius: 50%;
+      cursor: pointer;
+      user-select: none;
+      transition: background 0.3s;
+    }
+
+    .carousel .prev:hover, .carousel .next:hover {
+      background-color: rgba(0,0,0,0.8);
+    }
+
+    .carousel .prev { left: 10px; }
+    .carousel .next { right: 10px; }
+
     /* ----- SEZIONI ----- */
     section {
       background: #fff;
@@ -185,6 +234,16 @@
     <p>Specialisti in proiezione cinematografica, eventi e tecnologie audiovisive</p>
   </header>
 
+  <!-- ✅ CAROSELLO IMMAGINI -->
+  <div class="carousel">
+    <img src="C1.jpg" alt="Proiezione Cinema 1" class="active">
+    <img src="C2.jpg" alt="Proiezione Cinema 2">
+    <img src="C3.jpg" alt="Proiezione Cinema 3">
+
+    <div class="prev">&#10094;</div>
+    <div class="next">&#10095;</div>
+  </div>
+
   <nav>
     <a href="#chisiamo">Chi Siamo</a>
     <a href="#strumenti">Strumenti</a>
@@ -201,7 +260,6 @@
     <a class="button" href="mailto:assistenza@sigrafilm.it?subject=Richiesta%20preventivo%20-%20Sigra%20Film&body=Buongiorno,%0D%0Avorrei ricevere un preventivo per...">Richiedi Preventivo</a>
   </section>
 
-  <!-- ✅ SEZIONE STRUMENTI ONLINE SPOSATA E RESTYLING -->
   <section id="strumenti">
     <h2>🎬 Strumenti Online</h2>
     <p>Accedi subito ai nostri strumenti web dedicati ai cinema e agli operatori del settore:</p>
@@ -275,20 +333,34 @@
     <p><strong>Indirizzo:</strong> Via S. Antonino 7/R – Firenze</p>
     <p><strong>Email:</strong> <a href="mailto:assistenza@sigrafilm.it">assistenza@sigrafilm.it</a></p>
     <p><strong>Telefono:</strong> <a href="tel:+393381025100">+39 338 1025100</a></p>
-    <p><strong>WhatsApp:</strong> <a href="https://wa.me/3381025100" target="_blank">Scrivici su WhatsApp</p>
+    <p><strong>WhatsApp:</strong> <a href="https://wa.me/3381025100" target="_blank">Scrivici su WhatsApp</a></p>
   </section>
 
- 
- 
   <footer>
     © 2025 Sigra Film | Powered by Rocco Totaro
   </footer>
 
+  <script>
+    const slides = document.querySelectorAll('.carousel img');
+    let current = 0;
+
+    const nextSlide = () => {
+      slides[current].classList.remove('active');
+      current = (current + 1) % slides.length;
+      slides[current].classList.add('active');
+    };
+
+    const prevSlide = () => {
+      slides[current].classList.remove('active');
+      current = (current - 1 + slides.length) % slides.length;
+      slides[current].classList.add('active');
+    };
+
+    document.querySelector('.next').addEventListener('click', nextSlide);
+    document.querySelector('.prev').addEventListener('click', prevSlide);
+
+    setInterval(nextSlide, 5000); // Cambio automatico ogni 5 secondi
+  </script>
+
 </body>
 </html>
-
-
-
-
-
-
