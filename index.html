@@ -224,35 +224,94 @@
     <a href="#contatti">Contatti</a>
   </nav>
 
-  <!-- ... resto del tuo codice invariato ... -->
+  <section id="chisiamo">
+    <h2>Chi Siamo</h2>
+    <p><strong>Sigra Film</strong> opera da molti anni nel settore cinematografico e audiovisivo, offrendo soluzioni professionali per sale cinema, multisala, eventi e manifestazioni. Grazie alla collaborazione con <strong>Cinemeccanica</strong> e ai migliori brand del settore, garantiamo impianti tecnologicamente avanzati e un’assistenza tecnica qualificata in tutta Italia.</p>
+    <p>Seguiamo ogni progetto dalla consulenza iniziale fino alla realizzazione completa, offrendo installazione, manutenzione e assistenza su impianti di proiezione, audio e illuminazione per cinema, teatri, congressi e grandi eventi.</p>
+    <a class="button" href="mailto:assistenza@sigrafilm.it?subject=Richiesta%20preventivo%20-%20Sigra%20Film&body=Buongiorno,%0D%0Avorrei ricevere un preventivo per...">Richiedi Preventivo</a>
+  </section>
+
+  <section id="strumenti">
+    <h2>🎬 Strumenti Online</h2>
+    <p>Accedi subito ai nostri strumenti web dedicati ai cinema e agli operatori del settore:</p>
+
+    <a href="https://roccotot.github.io/locandine-web/" target="_blank">🖼️ Crea locandine personalizzate</a>
+    <a href="https://sigrafilm.onrender.com/login" target="_blank">🛠️ Portale NOC segnalazioni cinema</a>
+  </section>
+
+  <section id="servizi">
+    <h2>Servizi</h2>
+    <p>Da anni siamo specializzati in <strong>cinema monosala, multisala e multiplex</strong>. Offriamo assistenza tecnica, vendita ed installazione di:</p>
+    <ul>
+      <li>Videoproiettori DCI Cinemeccanica, Barco e Christie</li>
+      <li>Server e IMB Doremi, Dolby, Barco, Cinemeccanica</li>
+      <li>Schermi di proiezione microforati e da retroproiezione</li>
+      <li>Poltroncine e arredi per cinema e teatri</li>
+      <li>Sistemi audio 5.1, 7.1 e Dolby Atmos</li>
+      <li>Equalizzazione e taratura di sistemi audio</li>
+      <li>Tappezzeria e rivestimenti per cinema e teatri</li>
+      <li>Ricambi originali Barco, Cinemeccanica e Christie</li>
+    </ul>
+  </section>
+
+  <section id="noleggio">
+    <h2>Noleggio</h2>
+    <ul>
+      <li>Maxischermi LCD, Plasma, LED, OLED, Laser</li>
+      <li>Videowall e Ledwall</li>
+      <li>Videoproiettori da 7000 a 32000 lumen</li>
+      <li>Schermi di proiezione di qualsiasi dimensione</li>
+      <li>Regia eventi, amplificazione, microfonia, registrazione audio</li>
+      <li>Conference systems e videoconferenze</li>
+      <li>Traduzione simultanea digitale e analogica</li>
+      <li>Allestimenti scenografici, palchi e luci</li>
+      <li>Assistenza tecnica con personale specializzato</li>
+    </ul>
+  </section>
+
+  <section id="marchi">
+    <h2>Marchi Trattati</h2>
+    <p>Sigra Film tratta da sempre i migliori brand professionali nel campo audio e video.</p>
+    <p><strong>Proiettori:</strong> Barco – Cinemeccanica – Christie</p>
+    <p><strong>Server Cinema:</strong> Cinecloud – Barco Alchemy – Doremi – Dolby</p>
+    <p><strong>Audio:</strong> Dolby Atmos – JBL – QSC – Crown – D.A.S. – K.C.S.</p>
+    <p><strong>Lampade:</strong> Osram – Ushio</p>
+    <p><strong>Schermi:</strong> Harkness Screens</p>
+  </section>
+
+  <section id="contatti" class="contacts">
+    <h2>Contatti</h2>
+    <p><strong>Indirizzo:</strong> Via S. Antonino 7/R – Firenze</p>
+    <p><strong>Email:</strong> <a href="mailto:assistenza@sigrafilm.it">assistenza@sigrafilm.it</a></p>
+    <p><strong>Telefono:</strong> <a href="tel:+393381025100">+39 338 1025100</a></p>
+    <p><strong>WhatsApp:</strong> <a href="https://wa.me/393381025100" target="_blank">Scrivici su WhatsApp</a></p>
+  </section>
 
   <footer>
     © 2025 Sigra Film | Powered by Rocco Totaro
   </footer>
 
-  <!-- ✅ SCRIPT PER IL CAROSELLO -->
+  <!-- ✅ SCRIPT PER IL CAROSELLO AUTOMATICO -->
   <script>
-    // Percorso della cartella
     const folder = 'caroselli/';
-    const totalImages = 10; // numero massimo previsto (puoi aumentarlo)
+    const maxImages = 20; // numero massimo immagini previste
     const images = [];
+    const carousel = document.getElementById('carousel');
+    let current = 0;
 
-    // Carica automaticamente immagini esistenti (C1.jpg, C2.jpg, ecc.)
-    for (let i = 1; i <= totalImages; i++) {
+    // Carica immagini se esistono (C1.jpg, C2.jpg, ecc.)
+    for (let i = 1; i <= maxImages; i++) {
       const img = new Image();
       img.src = `${folder}C${i}.jpg`;
-      img.onerror = () => {}; // ignora se non esiste
       img.onload = () => {
         images.push(img);
         if (images.length === 1) showImage(0);
       };
+      img.onerror = () => {}; // ignora se il file non esiste
     }
 
-    let current = 0;
-
     function showImage(index) {
-      const carousel = document.getElementById('carousel');
-      carousel.innerHTML = ''; // pulisce
+      carousel.innerHTML = '';
       const img = images[index];
       if (img) {
         img.classList.add('active');
@@ -260,7 +319,6 @@
       }
     }
 
-    // Cambio automatico ogni 4 secondi
     setInterval(() => {
       if (images.length > 0) {
         current = (current + 1) % images.length;
