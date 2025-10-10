@@ -14,9 +14,8 @@
       line-height: 1.6;
     }
 
-    /* ----- HEADER CON BANNER ----- */
     header {
-      background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), 
+      background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)),
                   url('img/banner_cinema.jpg') center/cover no-repeat;
       color: #fff;
       text-align: center;
@@ -36,7 +35,6 @@
 
     header img {
       width: 200px;
-      height: auto;
       margin-bottom: 15px;
       background: rgba(255,255,255,0.9);
       padding: 10px 20px;
@@ -57,7 +55,7 @@
       text-shadow: 1px 1px 3px #000;
     }
 
-    /* ----- CAROSELLO ----- */
+    /* --- CAROSELLO --- */
     .carousel {
       position: relative;
       width: 100%;
@@ -84,7 +82,60 @@
       to { opacity: 1; }
     }
 
-    /* ----- NAVBAR ----- */
+    /* --- FRECCE --- */
+    .arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(0,0,0,0.5);
+      color: white;
+      border: none;
+      font-size: 2rem;
+      padding: 8px 14px;
+      border-radius: 50%;
+      cursor: pointer;
+      transition: background 0.3s;
+      z-index: 10;
+    }
+
+    .arrow:hover {
+      background: rgba(255,255,255,0.8);
+      color: #d12b2b;
+    }
+
+    .arrow-left { left: 15px; }
+    .arrow-right { right: 15px; }
+
+    /* --- BARRE DI PROGRESSO --- */
+    .progress-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 6px;
+      max-width: 1100px;
+      margin: 8px auto 0;
+      height: 6px;
+    }
+
+    .progress-bar {
+      flex: 1;
+      height: 6px;
+      background: #ccc;
+      border-radius: 4px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .progress-fill {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #f9c200, #d12b2b);
+      transition: width 4s linear;
+    }
+
     nav {
       background: #222;
       text-align: center;
@@ -102,7 +153,6 @@
       color: #f9c200;
     }
 
-    /* ----- SEZIONI ----- */
     section {
       background: #fff;
       margin: 30px auto;
@@ -161,7 +211,6 @@
       font-size: 0.9rem;
     }
 
-    /* ----- STRUMENTI ONLINE ----- */
     #strumenti {
       background: linear-gradient(145deg, #b31313, #d12b2b);
       color: #fff;
@@ -201,6 +250,7 @@
       header h1 { font-size: 1.8rem; }
       header { padding: 60px 10px 30px; }
       section { padding: 20px; }
+      .arrow { font-size: 1.5rem; padding: 6px 10px; }
     }
   </style>
 </head>
@@ -213,7 +263,11 @@
   </header>
 
   <!-- ✅ CAROSELLO AUTOMATICO -->
-  <div class="carousel" id="carousel"></div>
+  <div class="carousel" id="carousel">
+    <button class="arrow arrow-left" id="prev">&#10094;</button>
+    <button class="arrow arrow-right" id="next">&#10095;</button>
+  </div>
+  <div class="progress-container" id="progress"></div>
 
   <nav>
     <a href="#chisiamo">Chi Siamo</a>
@@ -226,62 +280,18 @@
 
   <section id="chisiamo">
     <h2>Chi Siamo</h2>
-    <p><strong>Sigra Film</strong> opera da molti anni nel settore cinematografico e audiovisivo, offrendo soluzioni professionali per sale cinema, multisala, eventi e manifestazioni. Grazie alla collaborazione con <strong>Cinemeccanica</strong> e ai migliori brand del settore, garantiamo impianti tecnologicamente avanzati e un’assistenza tecnica qualificata in tutta Italia.</p>
-    <p>Seguiamo ogni progetto dalla consulenza iniziale fino alla realizzazione completa, offrendo installazione, manutenzione e assistenza su impianti di proiezione, audio e illuminazione per cinema, teatri, congressi e grandi eventi.</p>
-    <a class="button" href="mailto:assistenza@sigrafilm.it?subject=Richiesta%20preventivo%20-%20Sigra%20Film&body=Buongiorno,%0D%0Avorrei ricevere un preventivo per...">Richiedi Preventivo</a>
+    <p><strong>Sigra Film</strong> opera da molti anni nel settore cinematografico e audiovisivo, offrendo soluzioni professionali per sale cinema, multisala, eventi e manifestazioni.</p>
   </section>
 
   <section id="strumenti">
     <h2>🎬 Strumenti Online</h2>
     <p>Accedi subito ai nostri strumenti web dedicati ai cinema e agli operatori del settore:</p>
-
     <a href="https://roccotot.github.io/locandine-web/" target="_blank">🖼️ Crea locandine personalizzate</a>
     <a href="https://sigrafilm.onrender.com/login" target="_blank">🛠️ Portale NOC segnalazioni cinema</a>
   </section>
 
-  <section id="servizi">
-    <h2>Servizi</h2>
-    <p>Da anni siamo specializzati in <strong>cinema monosala, multisala e multiplex</strong>. Offriamo assistenza tecnica, vendita ed installazione di:</p>
-    <ul>
-      <li>Videoproiettori DCI Cinemeccanica, Barco e Christie</li>
-      <li>Server e IMB Doremi, Dolby, Barco, Cinemeccanica</li>
-      <li>Schermi di proiezione microforati e da retroproiezione</li>
-      <li>Poltroncine e arredi per cinema e teatri</li>
-      <li>Sistemi audio 5.1, 7.1 e Dolby Atmos</li>
-      <li>Equalizzazione e taratura di sistemi audio</li>
-      <li>Tappezzeria e rivestimenti per cinema e teatri</li>
-      <li>Ricambi originali Barco, Cinemeccanica e Christie</li>
-    </ul>
-  </section>
-
-  <section id="noleggio">
-    <h2>Noleggio</h2>
-    <ul>
-      <li>Maxischermi LCD, Plasma, LED, OLED, Laser</li>
-      <li>Videowall e Ledwall</li>
-      <li>Videoproiettori da 7000 a 32000 lumen</li>
-      <li>Schermi di proiezione di qualsiasi dimensione</li>
-      <li>Regia eventi, amplificazione, microfonia, registrazione audio</li>
-      <li>Conference systems e videoconferenze</li>
-      <li>Traduzione simultanea digitale e analogica</li>
-      <li>Allestimenti scenografici, palchi e luci</li>
-      <li>Assistenza tecnica con personale specializzato</li>
-    </ul>
-  </section>
-
-  <section id="marchi">
-    <h2>Marchi Trattati</h2>
-    <p>Sigra Film tratta da sempre i migliori brand professionali nel campo audio e video.</p>
-    <p><strong>Proiettori:</strong> Barco – Cinemeccanica – Christie</p>
-    <p><strong>Server Cinema:</strong> Cinecloud – Barco Alchemy – Doremi – Dolby</p>
-    <p><strong>Audio:</strong> Dolby Atmos – JBL – QSC – Crown – D.A.S. – K.C.S.</p>
-    <p><strong>Lampade:</strong> Osram – Ushio</p>
-    <p><strong>Schermi:</strong> Harkness Screens</p>
-  </section>
-
   <section id="contatti" class="contacts">
     <h2>Contatti</h2>
-    <p><strong>Indirizzo:</strong> Via S. Antonino 7/R – Firenze</p>
     <p><strong>Email:</strong> <a href="mailto:assistenza@sigrafilm.it">assistenza@sigrafilm.it</a></p>
     <p><strong>Telefono:</strong> <a href="tel:+393381025100">+39 338 1025100</a></p>
     <p><strong>WhatsApp:</strong> <a href="https://wa.me/393381025100" target="_blank">Scrivici su WhatsApp</a></p>
@@ -291,40 +301,93 @@
     © 2025 Sigra Film | Powered by Rocco Totaro
   </footer>
 
-  <!-- ✅ SCRIPT PER IL CAROSELLO AUTOMATICO -->
+  <!-- ✅ SCRIPT CAROSELLO CON BARRE DI PROGRESSO -->
   <script>
     const folder = 'caroselli/';
-    const maxImages = 20; // numero massimo immagini previste
+    const maxImages = 20;
     const images = [];
     const carousel = document.getElementById('carousel');
+    const progressContainer = document.getElementById('progress');
     let current = 0;
+    let interval;
+    const delay = 4000;
 
-    // Carica immagini se esistono (C1.jpg, C2.jpg, ecc.)
     for (let i = 1; i <= maxImages; i++) {
       const img = new Image();
       img.src = `${folder}C${i}.jpg`;
       img.onload = () => {
         images.push(img);
         if (images.length === 1) showImage(0);
+        updateProgressBars();
       };
-      img.onerror = () => {}; // ignora se il file non esiste
     }
 
     function showImage(index) {
-      carousel.innerHTML = '';
+      carousel.querySelectorAll('img').forEach(img => img.remove());
       const img = images[index];
       if (img) {
         img.classList.add('active');
-        carousel.appendChild(img);
+        carousel.insertBefore(img, document.getElementById('prev'));
       }
+      updateProgressBars();
     }
 
-    setInterval(() => {
+    function updateProgressBars() {
+      progressContainer.innerHTML = '';
+      images.forEach((_, i) => {
+        const bar = document.createElement('div');
+        bar.classList.add('progress-bar');
+        const fill = document.createElement('div');
+        fill.classList.add('progress-fill');
+        if (i === current) {
+          setTimeout(() => (fill.style.width = '100%'), 50);
+        }
+        bar.appendChild(fill);
+        progressContainer.appendChild(bar);
+        bar.addEventListener('click', () => {
+          stopAutoSlide();
+          current = i;
+          showImage(current);
+          startAutoSlide();
+        });
+      });
+    }
+
+    function nextImage() {
       if (images.length > 0) {
         current = (current + 1) % images.length;
         showImage(current);
       }
-    }, 4000);
+    }
+
+    function prevImage() {
+      if (images.length > 0) {
+        current = (current - 1 + images.length) % images.length;
+        showImage(current);
+      }
+    }
+
+    function startAutoSlide() {
+      interval = setInterval(nextImage, delay);
+    }
+
+    function stopAutoSlide() {
+      clearInterval(interval);
+    }
+
+    document.getElementById('next').addEventListener('click', () => {
+      stopAutoSlide();
+      nextImage();
+      startAutoSlide();
+    });
+
+    document.getElementById('prev').addEventListener('click', () => {
+      stopAutoSlide();
+      prevImage();
+      startAutoSlide();
+    });
+
+    startAutoSlide();
   </script>
 
 </body>
