@@ -102,7 +102,7 @@
       to { opacity: 1; }
     }
 
-    /* Controlli frecce */
+    /* Frecce */
     .carousel .prev, .carousel .next {
       position: absolute;
       top: 50%;
@@ -123,6 +123,29 @@
 
     .carousel .prev { left: 10px; }
     .carousel .next { right: 10px; }
+
+    /* Pallini (indicatori) */
+    .dots {
+      text-align: center;
+      padding: 12px 0;
+      background: #111;
+      border-radius: 0 0 10px 10px;
+    }
+
+    .dot {
+      display: inline-block;
+      width: 12px;
+      height: 12px;
+      margin: 0 6px;
+      background: #777;
+      border-radius: 50%;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .dot.active {
+      background: #f9c200;
+    }
 
     /* ----- SEZIONI ----- */
     section {
@@ -242,6 +265,12 @@
 
     <div class="prev">&#10094;</div>
     <div class="next">&#10095;</div>
+
+    <div class="dots">
+      <span class="dot active"></span>
+      <span class="dot"></span>
+      <span class="dot"></span>
+    </div>
   </div>
 
   <nav>
@@ -342,24 +371,44 @@
 
   <script>
     const slides = document.querySelectorAll('.carousel img');
+    const dots = document.querySelectorAll('.dot');
     let current = 0;
+    let timer;
 
-    const nextSlide = () => {
-      slides[current].classList.remove('active');
-      current = (current + 1) % slides.length;
-      slides[current].classList.add('active');
+    const showSlide = (index) => {
+      slides.forEach((s, i) => {
+        s.classList.toggle('active', i === index);
+        dots[i].classList.toggle('active', i === index);
+      });
+      current = index;
     };
 
-    const prevSlide = () => {
-      slides[current].classList.remove('active');
-      current = (current - 1 + slides.length) % slides.length;
-      slides[current].classList.add('active');
+    const nextSlide = () => showSlide((current + 1) % slides.length);
+    const prevSlide = () => showSlide((current - 1 + slides.length) % slides.length);
+
+    document.querySelector('.next').addEventListener('click', () => {
+      nextSlide();
+      resetTimer();
+    });
+    document.querySelector('.prev').addEventListener('click', () => {
+      prevSlide();
+      resetTimer();
+    });
+
+    dots.forEach((dot, i) => {
+      dot.addEventListener('click', () => {
+        showSlide(i);
+        resetTimer();
+      });
+    });
+
+    const startTimer = () => timer = setInterval(nextSlide, 5000);
+    const resetTimer = () => {
+      clearInterval(timer);
+      startTimer();
     };
 
-    document.querySelector('.next').addEventListener('click', nextSlide);
-    document.querySelector('.prev').addEventListener('click', prevSlide);
-
-    setInterval(nextSlide, 5000); // Cambio automatico ogni 5 secondi
+    startTimer();
   </script>
 
 </body>
