@@ -5,695 +5,162 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Sigra Film - Servizi professionali per cinema, eventi e audiovisivi a Firenze. Vendita, noleggio e assistenza tecnica.">
   <title>Sigra Film | Cinema, Audio, Video, Eventi</title>
+
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
+    *{margin:0;padding:0;box-sizing:border-box}
+    body{
+      font-family:'Segoe UI',Arial,sans-serif;
+      background:linear-gradient(rgba(0,0,0,.85),rgba(0,0,0,.85)),
+      url('img/banner_cinema.jpg') center/cover fixed;
+      color:#333;line-height:1.6;overflow-x:hidden
+    }
+    html{scroll-behavior:smooth}
+
+    header{
+      background:linear-gradient(rgba(0,0,0,.7),rgba(0,0,0,.7)),
+      url('img/banner_cinema.jpg') center/cover no-repeat fixed;
+      color:#fff;text-align:center;padding:120px 10px 60px;
+      min-height:60vh;display:flex;flex-direction:column;
+      justify-content:center;align-items:center
+    }
+    header::after{
+      content:"";position:absolute;bottom:0;left:0;right:0;height:8px;
+      background:linear-gradient(90deg,#d12b2b,#f9c200,#d12b2b);
+      background-size:200% 100%;animation:gradientMove 3s ease infinite
+    }
+    @keyframes gradientMove{
+      0%,100%{background-position:0% 50%}
+      50%{background-position:100% 50%}
+    }
+    header img{
+      width:350px;margin-bottom:30px;padding:25px 40px;
+      border-radius:20px;box-shadow:0 15px 50px rgba(0,0,0,.6)
+    }
+    header p{color:#eee;font-size:1.4rem;margin-top:10px}
+
+    nav{
+      background:rgba(34,34,34,.95);
+      text-align:center;padding:15px 0;position:sticky;top:0;z-index:1000
+    }
+    nav a{
+      color:#fff;text-decoration:none;margin:0 20px;
+      font-weight:bold;font-size:1.1rem
+    }
+    nav a:hover{color:#f9c200}
+
+    section{
+      background:rgba(255,255,255,.05);
+      margin:40px auto;padding:50px;max-width:1200px;
+      border-radius:20px;color:#fff
+    }
+    h2{color:#f9c200;margin-bottom:20px}
+
+    ul{list-style:none}
+    ul li{padding:8px 0}
+
+    .button{
+      display:inline-block;background:#d12b2b;color:#fff;
+      padding:15px 35px;border-radius:50px;
+      text-decoration:none;font-weight:bold;margin-top:25px
     }
 
-    body {
-      font-family: 'Segoe UI', Arial, sans-serif;
-      background: linear-gradient(rgba(0,0,0,0.85), rgba(0,0,0,0.85)), 
-                  url('img/banner_cinema.jpg') center/cover fixed;
-      color: #333;
-      line-height: 1.6;
-      overflow-x: hidden;
+    .contacts{
+      background:#000;color:#fff;padding:60px 40px;text-align:center
+    }
+    .contacts a{color:#f9c200;text-decoration:none;font-weight:bold}
+
+    footer{background:#000;color:#666;text-align:center;padding:20px}
+
+    /* STRUMENTI */
+    #strumenti{
+      background:linear-gradient(135deg,#b31313,#d12b2b,#f9c200);
+      text-align:center;padding:70px 30px;color:#fff
+    }
+    #strumenti h2{color:#fff;font-size:2.4rem}
+    #strumenti a{
+      display:inline-block;margin:15px;
+      background:#fff;color:#d12b2b;
+      padding:15px 35px;border-radius:50px;
+      text-decoration:none;font-weight:bold
+    }
+    #strumenti a:hover{
+      background:#000;color:#f9c200
     }
 
-    /* Smooth scroll */
-    html {
-      scroll-behavior: smooth;
-    }
-
-    /* ----- HEADER CON PARALLAX ----- */
-    header {
-      background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), 
-                  url('img/banner_cinema.jpg') center/cover no-repeat fixed;
-      color: #fff;
-      text-align: center;
-      padding: 120px 10px 60px;
-      position: relative;
-      min-height: 60vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-    }
-
-    header::after {
-      content: "";
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      height: 8px;
-      background: linear-gradient(90deg, #d12b2b, #f9c200, #d12b2b);
-      background-size: 200% 100%;
-      animation: gradientMove 3s ease infinite;
-    }
-
-    @keyframes gradientMove {
-      0%, 100% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-    }
-
-    header img {
-      width: 350px;
-      height: auto;
-      margin-bottom: 30px;
-      padding: 25px 40px;
-      border-radius: 20px;
-      box-shadow: 0 15px 50px rgba(0,0,0,0.6);
-      transition: transform 0.3s ease;
-      animation: fadeInDown 1s ease;
-      filter: drop-shadow(0 0 20px rgba(249,194,0,0.5));
-    }
-
-    header img:hover {
-      transform: scale(1.05);
-      filter: drop-shadow(0 0 30px rgba(249,194,0,0.8));
-    }
-
-    header p {
-      color: #eee;
-      font-size: 1.4rem;
-      text-shadow: 1px 1px 3px #000;
-      animation: fadeInDown 1s ease 0.2s both;
-      margin-top: 10px;
-    }
-
-    @keyframes fadeInDown {
-      from {
-        opacity: 0;
-        transform: translateY(-30px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    /* ----- NAVBAR STICKY ----- */
-    nav {
-      background: rgba(34, 34, 34, 0.95);
-      backdrop-filter: blur(10px);
-      text-align: center;
-      padding: 15px 0;
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
-      transition: all 0.3s ease;
-    }
-
-    nav.scrolled {
-      padding: 10px 0;
-      background: rgba(0, 0, 0, 0.98);
-    }
-
-    nav a {
-      color: #fff;
-      text-decoration: none;
-      margin: 0 20px;
-      font-weight: bold;
-      font-size: 1.1rem;
-      transition: all 0.3s ease;
-      position: relative;
-      display: inline-block;
-    }
-
-    nav a::after {
-      content: '';
-      position: absolute;
-      bottom: -5px;
-      left: 50%;
-      width: 0;
-      height: 2px;
-      background: #f9c200;
-      transition: all 0.3s ease;
-      transform: translateX(-50%);
-    }
-
-    nav a:hover::after {
-      width: 100%;
-    }
-
-    nav a:hover {
-      color: #f9c200;
-      transform: translateY(-2px);
-    }
-
-    /* ----- CAROSELLO AVANZATO ----- */
-    .carousel {
-      position: relative;
-      width: 100%;
-      max-width: 1200px;
-      margin: 50px auto;
-      overflow: hidden;
-      border-radius: 20px;
-      box-shadow: 0 20px 60px rgba(249,194,0,0.3);
-      cursor: pointer;
-    }
-
-    .carousel img {
-      width: 100%;
-      display: none;
-      height: auto;
-    }
-
-    .carousel img.active {
-      display: block;
-      animation: zoomFade 1s ease-in-out;
-    }
-
-    @keyframes zoomFade {
-      from {
-        opacity: 0;
-        transform: scale(1.1);
-      }
-      to {
-        opacity: 1;
-        transform: scale(1);
-      }
-    }
-
-    .carousel-arrow {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      background: rgba(0,0,0,0.6);
-      backdrop-filter: blur(5px);
-      color: #fff;
-      border: 2px solid rgba(255,255,255,0.3);
-      font-size: 2.5rem;
-      padding: 15px 25px;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      z-index: 10;
-      border-radius: 10px;
-    }
-
-    .carousel-arrow:hover {
-      background: rgba(209,43,43,0.9);
-      transform: translateY(-50%) scale(1.1);
-      border-color: #f9c200;
-    }
-
-    .carousel-arrow.left { left: 20px; }
-    .carousel-arrow.right { right: 20px; }
-
-    .carousel-progress {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      height: 5px;
-      background: linear-gradient(90deg, #f9c200, #d12b2b);
-      width: 0%;
-      transition: width 0.1s linear;
-      z-index: 10;
-      box-shadow: 0 0 10px rgba(249,194,0,0.8);
-    }
-
-    /* ----- SEZIONI CON GLASSMORPHISM ----- */
-    section {
-      background: rgba(255, 255, 255, 0.05);
-      backdrop-filter: blur(10px);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      margin: 40px auto;
-      padding: 50px;
-      max-width: 1200px;
-      border-radius: 20px;
-      box-shadow: 0 8px 32px rgba(0,0,0,0.3);
-      opacity: 0;
-      transform: translateY(30px);
-      transition: all 0.6s ease;
-      color: #fff;
-    }
-
-    section.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    section:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 15px 50px rgba(249,194,0,0.2);
-    }
-
-    h2 {
-      color: #f9c200;
-      border-bottom: 3px solid #d12b2b;
-      padding-bottom: 10px;
-      font-size: 2rem;
-      margin-bottom: 20px;
-      position: relative;
-    }
-
-    h2::before {
-      content: '▶';
-      position: absolute;
-      left: -30px;
-      color: #d12b2b;
-      animation: pulse 2s ease infinite;
-    }
-
-    @keyframes pulse {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.5; }
-    }
-
-    ul {
-      list-style: none;
-      padding-left: 0;
-    }
-
-    ul li {
-      padding: 10px 0;
-      padding-left: 30px;
-      position: relative;
-      transition: all 0.3s ease;
-    }
-
-    ul li::before {
-      content: '▸';
-      position: absolute;
-      left: 0;
-      color: #f9c200;
-      font-size: 1.2rem;
-      transition: all 0.3s ease;
-    }
-
-    ul li:hover {
-      padding-left: 40px;
-      color: #f9c200;
-    }
-
-    ul li:hover::before {
-      left: 5px;
-    }
-
-    .button {
-      display: inline-block;
-      background: linear-gradient(135deg, #d12b2b, #b31313);
-      color: #fff;
-      text-decoration: none;
-      padding: 15px 35px;
-      border-radius: 50px;
-      font-weight: bold;
-      margin-top: 25px;
-      transition: all 0.3s ease;
-      box-shadow: 0 5px 20px rgba(209,43,43,0.4);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .button::before {
-      content: '';
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      width: 0;
-      height: 0;
-      border-radius: 50%;
-      background: rgba(249,194,0,0.3);
-      transform: translate(-50%, -50%);
-      transition: width 0.5s, height 0.5s;
-    }
-
-    .button:hover::before {
-      width: 300px;
-      height: 300px;
-    }
-
-    .button:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 10px 30px rgba(249,194,0,0.5);
-    }
-
-    /* ----- CONTATORI ANIMATI ----- */
-    .stats {
-      display: flex;
-      justify-content: space-around;
-      flex-wrap: wrap;
-      margin: 40px 0;
-    }
-
-    .stat-box {
-      text-align: center;
-      padding: 30px;
-      background: rgba(255,255,255,0.05);
-      border-radius: 15px;
-      min-width: 200px;
-      margin: 10px;
-      transition: all 0.3s ease;
-    }
-
-    .stat-box:hover {
-      background: rgba(249,194,0,0.1);
-      transform: scale(1.05);
-    }
-
-    .stat-number {
-      font-size: 3rem;
-      font-weight: bold;
-      color: #f9c200;
-      text-shadow: 0 0 20px rgba(249,194,0,0.5);
-    }
-
-    .stat-label {
-      font-size: 1.1rem;
-      color: #ccc;
-      margin-top: 10px;
-    }
-
-    .contacts {
-      background: linear-gradient(135deg, rgba(34,34,34,0.95), rgba(0,0,0,0.95));
-      color: #fff;
-      padding: 60px 40px;
-      text-align: center;
-    }
-
-    .contacts a {
-      color: #f9c200;
-      text-decoration: none;
-      font-weight: bold;
-      transition: all 0.3s ease;
-      display: inline-block;
-    }
-
-    .contacts a:hover {
-      color: #fff;
-      transform: scale(1.05);
-    }
-
-    footer {
-      background: #000;
-      color: #666;
-      text-align: center;
-      padding: 20px;
-      font-size: 0.9rem;
-    }
-
-    /* ----- STRUMENTI ONLINE ----- */
-    #strumenti {
-      background: linear-gradient(135deg, #b31313, #d12b2b, #f9c200);
-      background-size: 200% 200%;
-      animation: gradientShift 5s ease infinite;
-      color: #fff;
-      text-align: center;
-      padding: 70px 30px;
-    }
-
-    @keyframes gradientShift {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
-    }
-
-    #strumenti h2 {
-      color: #fff;
-      border: none;
-      font-size: 2.5rem;
-      margin-bottom: 20px;
-    }
-
-    #strumenti a {
-      display: inline-block;
-      margin: 15px 15px;
-      background: rgba(255,255,255,0.95);
-      color: #d12b2b;
-      font-weight: bold;
-      padding: 15px 35px;
-      border-radius: 50px;
-      text-decoration: none;
-      transition: all 0.3s ease;
-      box-shadow: 0 5px 20px rgba(0,0,0,0.3);
-    }
-
-    #strumenti a:hover {
-      background: #000;
-      color: #f9c200;
-      transform: translateY(-5px) scale(1.05);
-      box-shadow: 0 10px 40px rgba(0,0,0,0.5);
-    }
-
-    @media (max-width: 768px) {
-      header img { width: 220px; }
-      header { padding: 80px 10px 40px; min-height: 50vh; }
-      section { padding: 30px 20px; margin: 20px 10px; }
-      nav a { margin: 0 10px; font-size: 0.9rem; }
-      .carousel-arrow { padding: 10px 15px; font-size: 1.8rem; }
-      .stats { flex-direction: column; }
+    @media(max-width:768px){
+      header img{width:220px}
+      section{padding:30px 20px;margin:20px 10px}
+      nav a{margin:0 10px;font-size:.9rem}
     }
   </style>
 </head>
+
 <body>
 
-  <header>
-    <img src="img/logo_sigra.png" alt="Logo Sigra Film">
-    <p>Specialisti in proiezione cinematografica, eventi e tecnologie audiovisive</p>
-  </header>
+<header>
+  <img src="img/logo_sigra.png" alt="Logo Sigra Film">
+  <p>Specialisti in proiezione cinematografica, eventi e tecnologie audiovisive</p>
+</header>
 
-  <nav id="navbar">
-    <a href="#chisiamo">Chi Siamo</a>
-    <a href="#strumenti">Strumenti</a>
-    <a href="#servizi">Servizi</a>
-    <a href="#noleggio">Noleggio</a>
-    <a href="#marchi">Marchi</a>
-    <a href="#contatti">Contatti</a>
-  </nav>
+<nav>
+  <a href="#chisiamo">Chi Siamo</a>
+  <a href="#strumenti">Strumenti</a>
+  <a href="#servizi">Servizi</a>
+  <a href="#noleggio">Noleggio</a>
+  <a href="#marchi">Marchi</a>
+  <a href="#contatti">Contatti</a>
+</nav>
 
-  <div class="carousel" id="carousel" onclick="changeSlide(1)">
-    <button class="carousel-arrow left" onclick="event.stopPropagation(); changeSlide(-1)">‹</button>
-    <button class="carousel-arrow right" onclick="event.stopPropagation(); changeSlide(1)">›</button>
-    <div class="carousel-progress" id="progress"></div>
-  </div>
+<section id="chisiamo">
+  <h2>Chi Siamo</h2>
+  <p><strong>Sigra Film</strong> opera nel settore cinematografico e audiovisivo con soluzioni professionali per cinema, eventi e installazioni tecniche.</p>
+  <a class="button" href="mailto:assistenza@sigrafilm.it">Richiedi Preventivo</a>
+</section>
 
-  <section id="chisiamo">
-    <h2>Chi Siamo</h2>
-    <p><strong>Sigra Film</strong> opera da molti anni nel settore cinematografico e audiovisivo, offrendo soluzioni professionali per sale cinema, multisala, eventi e manifestazioni. Grazie alla collaborazione con <strong>Cinemeccanica</strong> e ai migliori brand del settore, garantiamo impianti tecnologicamente avanzati e un'assistenza tecnica qualificata in tutta Italia.</p>
-    <p>Seguiamo ogni progetto dalla consulenza iniziale fino alla realizzazione completa, offrendo installazione, manutenzione e assistenza su impianti di proiezione, audio e illuminazione per cinema, teatri, congressi e grandi eventi.</p>
-    
-    <div class="stats">
-      <div class="stat-box">
-        <div class="stat-number" data-target="25">0</div>
-        <div class="stat-label">Anni di Esperienza</div>
-      </div>
-      <div class="stat-box">
-        <div class="stat-number" data-target="500">0</div>
-        <div class="stat-label">Progetti Completati</div>
-      </div>
-      <div class="stat-box">
-        <div class="stat-number" data-target="150">0</div>
-        <div class="stat-label">Clienti Soddisfatti</div>
-      </div>
-    </div>
-    
-    <a class="button" href="mailto:assistenza@sigrafilm.it?subject=Richiesta%20preventivo%20-%20Sigra%20Film&body=Buongiorno,%0D%0Avorrei ricevere un preventivo per...">Richiedi Preventivo</a>
-  </section>
+<!-- STRUMENTI ONLINE -->
+<section id="strumenti">
+  <h2>🎬 Strumenti Online</h2>
+  <p>Accedi ai nostri strumenti web per operatori cinema:</p>
 
-  <section id="strumenti">
-    <h2>🎬 Strumenti Online</h2>
-    <p>Accedi subito ai nostri strumenti web dedicati ai cinema e agli operatori del settore:</p>
+  <a href="https://roccotot.github.io/Converter/" target="_blank">⚙️ Convertitore Macro</a>
+  <a href="https://roccotot.github.io/locandine-web/" target="_blank">🖼️ Crea locandine</a>
+  <a href="https://sigrafilm.onrender.com/login" target="_blank">🛠️ Portale NOC</a>
+</section>
 
-    <a href="https://roccotot.github.io/locandine-web/" target="_blank">🖼️ Crea locandine personalizzate</a>
-    <a href="https://sigrafilm.onrender.com/login" target="_blank">🛠️ Portale NOC segnalazioni cinema</a>
-  </section>
+<section id="servizi">
+  <h2>Servizi</h2>
+  <ul>
+    <li>Videoproiettori DCI</li>
+    <li>Server cinema Dolby, Doremi, Barco</li>
+    <li>Sistemi audio e Dolby Atmos</li>
+    <li>Installazioni e assistenza cinema</li>
+  </ul>
+</section>
 
-  <section id="servizi">
-    <h2>Servizi</h2>
-    <p>Da anni siamo specializzati in <strong>cinema monosala, multisala e multiplex</strong>. Offriamo assistenza tecnica, vendita ed installazione di:</p>
-    <ul>
-      <li>Videoproiettori DCI Cinemeccanica, Barco e Christie</li>
-      <li>Server e IMB Doremi, Dolby, Barco, Cinemeccanica</li>
-      <li>Schermi di proiezione microforati e da retroproiezione</li>
-      <li>Poltroncine e arredi per cinema e teatri</li>
-      <li>Sistemi audio 5.1, 7.1 e Dolby Atmos</li>
-      <li>Equalizzazione e taratura di sistemi audio</li>
-      <li>Tappezzeria e rivestimenti per cinema e teatri</li>
-      <li>Ricambi originali Barco, Cinemeccanica e Christie</li>
-    </ul>
-  </section>
+<section id="noleggio">
+  <h2>Noleggio</h2>
+  <ul>
+    <li>Videoproiettori professionali</li>
+    <li>Ledwall e schermi</li>
+    <li>Regia eventi</li>
+  </ul>
+</section>
 
-  <section id="noleggio">
-    <h2>Noleggio</h2>
-    <ul>
-      <li>Maxischermi LCD, Plasma, LED, OLED, Laser</li>
-      <li>Videowall e Ledwall</li>
-      <li>Videoproiettori da 7000 a 32000 lumen</li>
-      <li>Schermi di proiezione di qualsiasi dimensione</li>
-      <li>Regia eventi, amplificazione, microfonia, registrazione audio</li>
-      <li>Conference systems e videoconferenze</li>
-      <li>Traduzione simultanea digitale e analogica</li>
-      <li>Allestimenti scenografici, palchi e luci</li>
-      <li>Assistenza tecnica con personale specializzato</li>
-    </ul>
-  </section>
+<section id="marchi">
+  <h2>Marchi</h2>
+  <p>Barco – Cinemeccanica – Christie – Dolby – JBL – QSC</p>
+</section>
 
-  <section id="marchi">
-    <h2>Marchi Trattati</h2>
-    <p>Sigra Film tratta da sempre i migliori brand professionali nel campo audio e video.</p>
-    <p><strong>Proiettori:</strong> Barco – Cinemeccanica – Christie</p>
-    <p><strong>Server Cinema:</strong> Cinecloud – Barco Alchemy – Doremi – Dolby</p>
-    <p><strong>Audio:</strong> Dolby Atmos – JBL – QSC – Crown – D.A.S. – K.C.S.</p>
-    <p><strong>Lampade:</strong> Osram – Ushio</p>
-    <p><strong>Schermi:</strong> Harkness Screens</p>
-    <img src="img/Logos-1280px-2-1.jpg" alt="Marchi Trattati" style="width: 100%; max-width: 1000px; margin: 30px auto; display: block; border-radius: 15px; box-shadow: 0 10px 40px rgba(0,0,0,0.5);">
-  </section>
+<section id="contatti" class="contacts">
+  <h2>Contatti</h2>
+  <p>Via S. Antonino 7/R – Firenze</p>
+  <p>Email: <a href="mailto:assistenza@sigrafilm.it">assistenza@sigrafilm.it</a></p>
+  <p>Tel: <a href="tel:+393381025100">+39 338 1025100</a></p>
+</section>
 
-  <section id="contatti" class="contacts">
-    <h2>Contatti</h2>
-    <p><strong>Indirizzo:</strong> Via S. Antonino 7/R – Firenze</p>
-    <p><strong>Email:</strong> <a href="mailto:assistenza@sigrafilm.it">assistenza@sigrafilm.it</a></p>
-    <p><strong>Telefono:</strong> <a href="tel:+393381025100">+39 338 1025100</a></p>
-    <p><strong>WhatsApp:</strong> <a href="https://wa.me/393381025100" target="_blank">Scrivici su WhatsApp</a></p>
-  </section>
-
-  <footer>
-    © 2025 Sigra Film | Powered by Rocco Totaro
-  </footer>
-
-  <script>
-    // ===== CAROSELLO =====
-    const folder = 'caroselli/';
-    const maxImages = 20;
-    const images = [];
-    const carousel = document.getElementById('carousel');
-    const progressBar = document.getElementById('progress');
-    let current = 0;
-    let autoSlideInterval;
-    let progressInterval;
-    const slideDuration = 4000;
-
-    for (let i = 1; i <= maxImages; i++) {
-      const img = new Image();
-      img.src = `${folder}C${i}.jpg`;
-      img.onload = () => {
-        images.push(img);
-        if (images.length === 1) {
-          showImage(0);
-          startAutoSlide();
-        }
-      };
-      img.onerror = () => {};
-    }
-
-    function showImage(index) {
-      const container = carousel;
-      const existingImg = container.querySelector('img');
-      if (existingImg) existingImg.remove();
-      
-      const img = images[index].cloneNode();
-      img.classList.add('active');
-      container.insertBefore(img, container.firstChild);
-      
-      resetProgress();
-    }
-
-    function changeSlide(direction) {
-      if (images.length === 0) return;
-      current = (current + direction + images.length) % images.length;
-      showImage(current);
-      restartAutoSlide();
-    }
-
-    function resetProgress() {
-      progressBar.style.width = '0%';
-      clearInterval(progressInterval);
-      
-      let progress = 0;
-      progressInterval = setInterval(() => {
-        progress += 100 / (slideDuration / 100);
-        progressBar.style.width = progress + '%';
-        if (progress >= 100) clearInterval(progressInterval);
-      }, 100);
-    }
-
-    function startAutoSlide() {
-      autoSlideInterval = setInterval(() => {
-        if (images.length > 0) {
-          current = (current + 1) % images.length;
-          showImage(current);
-        }
-      }, slideDuration);
-    }
-
-    function restartAutoSlide() {
-      clearInterval(autoSlideInterval);
-      startAutoSlide();
-    }
-
-    // ===== SCROLL ANIMATIONS =====
-    const sections = document.querySelectorAll('section');
-    
-    const observerOptions = {
-      threshold: 0.1,
-      rootMargin: '0px 0px -100px 0px'
-    };
-
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible');
-        }
-      });
-    }, observerOptions);
-
-    sections.forEach(section => {
-      observer.observe(section);
-    });
-
-    // ===== STICKY NAVBAR =====
-    const navbar = document.getElementById('navbar');
-    let lastScroll = 0;
-
-    window.addEventListener('scroll', () => {
-      const currentScroll = window.pageYOffset;
-      
-      if (currentScroll > 100) {
-        navbar.classList.add('scrolled');
-      } else {
-        navbar.classList.remove('scrolled');
-      }
-      
-      lastScroll = currentScroll;
-    });
-
-    // ===== CONTATORI ANIMATI =====
-    const statNumbers = document.querySelectorAll('.stat-number');
-    let hasAnimated = false;
-
-    const statsObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting && !hasAnimated) {
-          hasAnimated = true;
-          animateCounters();
-        }
-      });
-    }, { threshold: 0.5 });
-
-    statNumbers.forEach(stat => statsObserver.observe(stat));
-
-    function animateCounters() {
-      statNumbers.forEach(stat => {
-        const target = parseInt(stat.getAttribute('data-target'));
-        const duration = 2000;
-        const increment = target / (duration / 16);
-        let current = 0;
-
-        const timer = setInterval(() => {
-          current += increment;
-          if (current >= target) {
-            stat.textContent = target + '+';
-            clearInterval(timer);
-          } else {
-            stat.textContent = Math.floor(current);
-          }
-        }, 16);
-      });
-    }
-  </script>
+<footer>
+© 2025 Sigra Film | Powered by Rocco Totaro
+</footer>
 
 </body>
 </html>
