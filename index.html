@@ -1,166 +1,227 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Sigra Film - Servizi professionali per cinema, eventi e audiovisivi a Firenze. Vendita, noleggio e assistenza tecnica.">
-  <title>Sigra Film | Cinema, Audio, Video, Eventi</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sigra Film</title>
 
-  <style>
-    *{margin:0;padding:0;box-sizing:border-box}
-    body{
-      font-family:'Segoe UI',Arial,sans-serif;
-      background:linear-gradient(rgba(0,0,0,.85),rgba(0,0,0,.85)),
-      url('img/banner_cinema.jpg') center/cover fixed;
-      color:#333;line-height:1.6;overflow-x:hidden
-    }
-    html{scroll-behavior:smooth}
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+font-family:'Segoe UI',Arial,sans-serif;
+background:linear-gradient(rgba(0,0,0,.85),rgba(0,0,0,.85)),
+url('img/banner_cinema.jpg') center/cover fixed;
+color:#fff;overflow-x:hidden
+}
+html{scroll-behavior:smooth}
 
-    header{
-      background:linear-gradient(rgba(0,0,0,.7),rgba(0,0,0,.7)),
-      url('img/banner_cinema.jpg') center/cover no-repeat fixed;
-      color:#fff;text-align:center;padding:120px 10px 60px;
-      min-height:60vh;display:flex;flex-direction:column;
-      justify-content:center;align-items:center
-    }
-    header::after{
-      content:"";position:absolute;bottom:0;left:0;right:0;height:8px;
-      background:linear-gradient(90deg,#d12b2b,#f9c200,#d12b2b);
-      background-size:200% 100%;animation:gradientMove 3s ease infinite
-    }
-    @keyframes gradientMove{
-      0%,100%{background-position:0% 50%}
-      50%{background-position:100% 50%}
-    }
-    header img{
-      width:350px;margin-bottom:30px;padding:25px 40px;
-      border-radius:20px;box-shadow:0 15px 50px rgba(0,0,0,.6)
-    }
-    header p{color:#eee;font-size:1.4rem;margin-top:10px}
+/* HEADER */
+header{
+background:linear-gradient(rgba(0,0,0,.7),rgba(0,0,0,.7)),
+url('img/banner_cinema.jpg') center/cover fixed;
+text-align:center;
+padding:120px 10px 60px;
+min-height:60vh;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center
+}
+header img{
+width:350px;
+padding:25px 40px;
+border-radius:20px;
+box-shadow:0 15px 50px rgba(0,0,0,.6);
+animation:fadeDown 1s ease
+}
+@keyframes fadeDown{
+from{opacity:0;transform:translateY(-40px)}
+to{opacity:1;transform:translateY(0)}
+}
+header p{font-size:1.4rem;margin-top:15px}
 
-    nav{
-      background:rgba(34,34,34,.95);
-      text-align:center;padding:15px 0;position:sticky;top:0;z-index:1000
-    }
-    nav a{
-      color:#fff;text-decoration:none;margin:0 20px;
-      font-weight:bold;font-size:1.1rem
-    }
-    nav a:hover{color:#f9c200}
+/* NAV */
+nav{
+background:#111;
+text-align:center;
+padding:15px 0;
+position:sticky;top:0;z-index:1000
+}
+nav a{
+color:#fff;text-decoration:none;
+margin:0 20px;font-weight:bold
+}
+nav a:hover{color:#f9c200}
 
-    section{
-      background:rgba(255,255,255,.05);
-      margin:40px auto;padding:50px;max-width:1200px;
-      border-radius:20px;color:#fff
-    }
-    h2{color:#f9c200;margin-bottom:20px}
+/* SEZIONI */
+section{
+background:rgba(255,255,255,.05);
+margin:40px auto;
+padding:50px;
+max-width:1200px;
+border-radius:20px;
+opacity:0;
+transform:translateY(40px);
+transition:.6s
+}
+section.visible{opacity:1;transform:translateY(0)}
+h2{color:#f9c200;margin-bottom:20px}
 
-    ul{list-style:none}
-    ul li{padding:8px 0}
+/* STATS */
+.stats{display:flex;justify-content:space-around;flex-wrap:wrap}
+.stat-box{text-align:center;margin:15px}
+.stat-number{font-size:3rem;color:#f9c200}
+.stat-label{color:#ccc}
 
-    .button{
-      display:inline-block;background:#d12b2b;color:#fff;
-      padding:15px 35px;border-radius:50px;
-      text-decoration:none;font-weight:bold;margin-top:25px
-    }
+/* STRUMENTI */
+#strumenti{
+background:linear-gradient(135deg,#b31313,#d12b2b,#f9c200);
+text-align:center
+}
+#strumenti a{
+display:inline-block;
+margin:15px;
+background:#fff;
+color:#d12b2b;
+padding:15px 35px;
+border-radius:40px;
+font-weight:bold;
+text-decoration:none;
+transition:.3s
+}
+#strumenti a:hover{
+background:#000;color:#f9c200;
+transform:scale(1.05)
+}
 
-    .contacts{
-      background:#000;color:#fff;padding:60px 40px;text-align:center
-    }
-    .contacts a{color:#f9c200;text-decoration:none;font-weight:bold}
+/* MARCHI */
+#marchi img{
+width:100%;
+max-width:1000px;
+display:block;
+margin:30px auto;
+border-radius:15px;
+box-shadow:0 10px 40px rgba(0,0,0,.6)
+}
 
-    footer{background:#000;color:#666;text-align:center;padding:20px}
-
-    /* STRUMENTI */
-    #strumenti{
-      background:linear-gradient(135deg,#b31313,#d12b2b,#f9c200);
-      text-align:center;padding:70px 30px;color:#fff
-    }
-    #strumenti h2{color:#fff;font-size:2.4rem}
-    #strumenti a{
-      display:inline-block;margin:15px;
-      background:#fff;color:#d12b2b;
-      padding:15px 35px;border-radius:50px;
-      text-decoration:none;font-weight:bold
-    }
-    #strumenti a:hover{
-      background:#000;color:#f9c200
-    }
-
-    @media(max-width:768px){
-      header img{width:220px}
-      section{padding:30px 20px;margin:20px 10px}
-      nav a{margin:0 10px;font-size:.9rem}
-    }
-  </style>
+/* FOOTER */
+footer{background:#000;text-align:center;padding:20px;color:#777}
+</style>
 </head>
 
 <body>
 
 <header>
-  <img src="img/logo_sigra.png" alt="Logo Sigra Film">
-  <p>Specialisti in proiezione cinematografica, eventi e tecnologie audiovisive</p>
+<img src="img/logo_sigra.png">
+<p>Specialisti in proiezione cinematografica e tecnologie audiovisive</p>
 </header>
 
 <nav>
-  <a href="#chisiamo">Chi Siamo</a>
-  <a href="#strumenti">Strumenti</a>
-  <a href="#servizi">Servizi</a>
-  <a href="#noleggio">Noleggio</a>
-  <a href="#marchi">Marchi</a>
-  <a href="#contatti">Contatti</a>
+<a href="#chisiamo">Chi siamo</a>
+<a href="#strumenti">Strumenti</a>
+<a href="#servizi">Servizi</a>
+<a href="#marchi">Marchi</a>
+<a href="#contatti">Contatti</a>
 </nav>
 
 <section id="chisiamo">
-  <h2>Chi Siamo</h2>
-  <p><strong>Sigra Film</strong> opera nel settore cinematografico e audiovisivo con soluzioni professionali per cinema, eventi e installazioni tecniche.</p>
-  <a class="button" href="mailto:assistenza@sigrafilm.it">Richiedi Preventivo</a>
+<h2>Chi siamo</h2>
+<p>Sigra Film opera nel settore cinema e audiovisivo con installazioni professionali e assistenza tecnica in tutta Italia.</p>
+
+<div class="stats">
+<div class="stat-box">
+<div class="stat-number" data-target="25">0</div>
+<div class="stat-label">Anni esperienza</div>
+</div>
+<div class="stat-box">
+<div class="stat-number" data-target="500">0</div>
+<div class="stat-label">Progetti</div>
+</div>
+<div class="stat-box">
+<div class="stat-number" data-target="150">0</div>
+<div class="stat-label">Clienti</div>
+</div>
+</div>
 </section>
 
-<!-- STRUMENTI ONLINE -->
+<!-- STRUMENTI -->
 <section id="strumenti">
-  <h2>🎬 Strumenti Online</h2>
-  <p>Accedi ai nostri strumenti web per operatori cinema:</p>
+<h2>🎬 Strumenti Online</h2>
 
-  <a href="https://roccotot.github.io/Converter/" target="_blank">⚙️ Convertitore Macro</a>
-  <a href="https://roccotot.github.io/locandine-web/" target="_blank">🖼️ Crea locandine</a>
-  <a href="https://sigrafilm.onrender.com/login" target="_blank">🛠️ Portale NOC</a>
+<a href="https://roccotot.github.io/Converter/" target="_blank">
+⚙️ Convertitore Macro
+</a>
+
+<a href="https://roccotot.github.io/locandine-web/" target="_blank">
+🖼️ Crea locandine
+</a>
+
+<a href="https://sigrafilm.onrender.com/login" target="_blank">
+🛠️ Portale NOC
+</a>
+
 </section>
 
 <section id="servizi">
-  <h2>Servizi</h2>
-  <ul>
-    <li>Videoproiettori DCI</li>
-    <li>Server cinema Dolby, Doremi, Barco</li>
-    <li>Sistemi audio e Dolby Atmos</li>
-    <li>Installazioni e assistenza cinema</li>
-  </ul>
-</section>
-
-<section id="noleggio">
-  <h2>Noleggio</h2>
-  <ul>
-    <li>Videoproiettori professionali</li>
-    <li>Ledwall e schermi</li>
-    <li>Regia eventi</li>
-  </ul>
+<h2>Servizi</h2>
+<ul>
+<li>Videoproiettori DCI</li>
+<li>Server Dolby e Doremi</li>
+<li>Audio cinema e Atmos</li>
+<li>Installazioni cinema</li>
+</ul>
 </section>
 
 <section id="marchi">
-  <h2>Marchi</h2>
-  <p>Barco – Cinemeccanica – Christie – Dolby – JBL – QSC</p>
+<h2>Marchi trattati</h2>
+<p>Barco – Cinemeccanica – Christie – Dolby – JBL</p>
+
+<img src="img/Logos-1280px-2-1.jpg" alt="marchi">
 </section>
 
-<section id="contatti" class="contacts">
-  <h2>Contatti</h2>
-  <p>Via S. Antonino 7/R – Firenze</p>
-  <p>Email: <a href="mailto:assistenza@sigrafilm.it">assistenza@sigrafilm.it</a></p>
-  <p>Tel: <a href="tel:+393381025100">+39 338 1025100</a></p>
+<section id="contatti">
+<h2>Contatti</h2>
+<p>Via S. Antonino 7/R – Firenze</p>
+<p>Email: assistenza@sigrafilm.it</p>
+<p>Tel: +39 338 1025100</p>
 </section>
 
 <footer>
-© 2025 Sigra Film | Powered by Rocco Totaro
+© 2025 Sigra Film
 </footer>
+
+<script>
+/* SCROLL ANIMATION */
+const sections=document.querySelectorAll("section");
+const obs=new IntersectionObserver(entries=>{
+entries.forEach(e=>{
+if(e.isIntersecting){e.target.classList.add("visible")}
+});
+});
+sections.forEach(s=>obs.observe(s));
+
+/* COUNTERS */
+const nums=document.querySelectorAll(".stat-number");
+let done=false;
+const obs2=new IntersectionObserver(entries=>{
+entries.forEach(e=>{
+if(e.isIntersecting&&!done){
+done=true;
+nums.forEach(n=>{
+let target=+n.dataset.target;
+let c=0;
+let inc=target/100;
+let t=setInterval(()=>{
+c+=inc;
+if(c>=target){n.textContent=target+"+";clearInterval(t)}
+else n.textContent=Math.floor(c);
+},20);
+});
+}
+});
+},{threshold:.5});
+nums.forEach(n=>obs2.observe(n));
+</script>
 
 </body>
 </html>
