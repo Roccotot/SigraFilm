@@ -414,6 +414,15 @@ h2 .line {
   align-items: center;
   gap: 18px;
   transition: .3s ease;
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+  min-width: 0;
+}
+
+.contact-text {
+  min-width: 0;
+  overflow: hidden;
 }
 
 .contact-card:hover {
@@ -446,15 +455,11 @@ h2 .line {
   font-size: 1rem;
   font-weight: 600;
   line-height: 1.4;
+  word-break: break-all;
+  overflow-wrap: break-word;
 }
 
-.contact-value a {
-  color: #fff;
-  text-decoration: none;
-  transition: color .25s;
-}
-
-.contact-value a:hover { color: var(--gold); }
+.contact-card:hover .contact-value { color: var(--gold); }
 
 /* ===== FOOTER ===== */
 footer {
@@ -625,34 +630,34 @@ footer a:hover { color: var(--gold); }
 <section id="contatti">
   <h2>Contatti <span class="line"></span></h2>
   <div class="contacts-grid">
-    <div class="contact-card">
+    <a class="contact-card" href="https://maps.google.com/?q=Via+S.+Antonino+7R+Firenze" target="_blank" rel="noopener">
       <div class="contact-icon">📍</div>
-      <div>
+      <div class="contact-text">
         <div class="contact-label">Indirizzo</div>
         <div class="contact-value">Via S. Antonino 7/R<br>Firenze (FI)</div>
       </div>
-    </div>
-    <div class="contact-card">
+    </a>
+    <a class="contact-card" href="mailto:assistenza@sigrafilm.it">
       <div class="contact-icon">✉️</div>
-      <div>
+      <div class="contact-text">
         <div class="contact-label">Email</div>
-        <div class="contact-value"><a href="mailto:assistenza@sigrafilm.it">assistenza@sigrafilm.it</a></div>
+        <div class="contact-value">assistenza@sigrafilm.it</div>
       </div>
-    </div>
-    <div class="contact-card">
+    </a>
+    <a class="contact-card" href="tel:+393381025100">
       <div class="contact-icon">📞</div>
-      <div>
+      <div class="contact-text">
         <div class="contact-label">Telefono</div>
-        <div class="contact-value"><a href="tel:+393381025100">+39 338 1025100</a></div>
+        <div class="contact-value">+39 338 1025100</div>
       </div>
-    </div>
-    <div class="contact-card">
+    </a>
+    <a class="contact-card" href="https://wa.me/390552691489" target="_blank" rel="noopener">
       <div class="contact-icon">💬</div>
-      <div>
+      <div class="contact-text">
         <div class="contact-label">WhatsApp</div>
-        <div class="contact-value"><a href="https://wa.me/390552691489" target="_blank" rel="noopener">+39 055 269 1489</a></div>
+        <div class="contact-value">+39 055 269 1489</div>
       </div>
-    </div>
+    </a>
   </div>
 </section>
 
