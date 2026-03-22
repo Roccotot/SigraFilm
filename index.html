@@ -167,6 +167,9 @@ nav a:hover        { color: var(--gold); }
 nav a:hover::after { width: 100%; }
 nav a.active       { color: var(--gold); }
 nav a.active::after{ width: 100%; }
+nav a.nav-noc { border: 1px solid var(--gold); border-radius: 4px; padding: 3px 10px; color: var(--gold); }
+nav a.nav-noc:hover { background: var(--gold); color: #000; }
+nav a.nav-noc::after { display: none; }
 
 /* ===== SECTIONS ===== */
 section {
@@ -509,6 +512,7 @@ footer a:hover { color: var(--gold); }
   <a href="#servizi">Servizi</a>
   <a href="#marchi">Marchi</a>
   <a href="#contatti">Contatti</a>
+  <a href="http://188.8.192.138:5000/login" target="_blank" rel="noopener" class="nav-noc">NOC</a>
 </nav>
 
 <!-- CHI SIAMO -->
@@ -629,6 +633,13 @@ footer a:hover { color: var(--gold); }
       <div>
         <div class="contact-label">Telefono</div>
         <div class="contact-value"><a href="tel:+393381025100">+39 338 1025100</a></div>
+      </div>
+    </div>
+    <div class="contact-card">
+      <div class="contact-icon">💬</div>
+      <div>
+        <div class="contact-label">WhatsApp</div>
+        <div class="contact-value"><a href="https://wa.me/390552691489" target="_blank" rel="noopener">+39 055 269 1489</a></div>
       </div>
     </div>
   </div>
