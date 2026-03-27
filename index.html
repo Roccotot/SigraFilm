@@ -261,9 +261,8 @@ h2 .line {
 }
 
 .tools-grid {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
   gap: 22px;
   margin-top: 32px;
 }
@@ -280,7 +279,6 @@ h2 .line {
   text-decoration: none;
   color: #fff;
   transition: .3s ease;
-  min-width: 175px;
 }
 
 .tool-card:hover {
