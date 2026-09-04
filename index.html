@@ -1075,7 +1075,7 @@ footer {
     </div>
 
     <div class="gallery-grid reveal">
-      <button class="g-item" type="button" data-full="caroselli/C1.jpg" data-caption="Sala cinema · impianto di proiezione">
+      <button class="g-item" type="button" data-full="caroselli/C1-1400.webp" data-full-fallback="caroselli/C1.jpg" data-caption="Sala cinema · impianto di proiezione">
         <picture>
           <source type="image/webp" srcset="caroselli/C1-720.webp">
           <img src="caroselli/C1.jpg" alt="Sala cinema con impianto di proiezione" width="1919" height="1080" loading="lazy" decoding="async">
@@ -1083,7 +1083,7 @@ footer {
         <span class="g-caption">Sala cinema · impianto di proiezione <span class="zoom" aria-hidden="true">⤢</span></span>
       </button>
 
-      <button class="g-item" type="button" data-full="caroselli/C2.jpg" data-caption="Sala digitale · schermo e audio">
+      <button class="g-item" type="button" data-full="caroselli/C2-1400.webp" data-full-fallback="caroselli/C2.jpg" data-caption="Sala digitale · schermo e audio">
         <picture>
           <source type="image/webp" srcset="caroselli/C2-720.webp">
           <img src="caroselli/C2.jpg" alt="Sala di proiezione digitale con schermo illuminato" width="1920" height="1080" loading="lazy" decoding="async">
@@ -1091,7 +1091,7 @@ footer {
         <span class="g-caption">Sala digitale · schermo e audio <span class="zoom" aria-hidden="true">⤢</span></span>
       </button>
 
-      <button class="g-item" type="button" data-full="caroselli/C3.jpg" data-caption="Teatro storico · grande schermo">
+      <button class="g-item" type="button" data-full="caroselli/C3-1400.webp" data-full-fallback="caroselli/C3.jpg" data-caption="Teatro storico · grande schermo">
         <picture>
           <source type="image/webp" srcset="caroselli/C3-720.webp">
           <img src="caroselli/C3.jpg" alt="Teatro storico con grande schermo di proiezione" width="1920" height="1080" loading="lazy" decoding="async">
@@ -1099,7 +1099,7 @@ footer {
         <span class="g-caption">Teatro storico · grande schermo <span class="zoom" aria-hidden="true">⤢</span></span>
       </button>
 
-      <button class="g-item" type="button" data-full="caroselli/C4.jpg" data-caption="Arena estiva · proiezione all'aperto">
+      <button class="g-item" type="button" data-full="caroselli/C4-1400.webp" data-full-fallback="caroselli/C4.jpg" data-caption="Arena estiva · proiezione all'aperto">
         <picture>
           <source type="image/webp" srcset="caroselli/C4-720.webp">
           <img src="caroselli/C4.jpg" alt="Arena estiva con proiezione all'aperto in notturna" width="768" height="512" loading="lazy" decoding="async">
@@ -1107,7 +1107,7 @@ footer {
         <span class="g-caption">Arena estiva · proiezione all'aperto <span class="zoom" aria-hidden="true">⤢</span></span>
       </button>
 
-      <button class="g-item" type="button" data-full="caroselli/C5.jpg" data-caption="Struttura mobile · schermo per eventi">
+      <button class="g-item" type="button" data-full="caroselli/C5-1400.webp" data-full-fallback="caroselli/C5.jpg" data-caption="Struttura mobile · schermo per eventi">
         <picture>
           <source type="image/webp" srcset="caroselli/C5-720.webp">
           <img src="caroselli/C5.jpg" alt="Struttura mobile con schermo per eventi all'aperto" width="531" height="398" loading="lazy" decoding="async">
@@ -1115,7 +1115,7 @@ footer {
         <span class="g-caption">Struttura mobile · schermo per eventi <span class="zoom" aria-hidden="true">⤢</span></span>
       </button>
 
-      <button class="g-item" type="button" data-full="caroselli/C6.jpg" data-caption="Arena all'aperto · allestimento completo">
+      <button class="g-item" type="button" data-full="caroselli/C6-1400.webp" data-full-fallback="caroselli/C6.jpg" data-caption="Arena all'aperto · allestimento completo">
         <picture>
           <source type="image/webp" srcset="caroselli/C6-720.webp">
           <img src="caroselli/C6.jpg" alt="Arena all'aperto con schermo e platea allestita" width="768" height="576" loading="lazy" decoding="async">
@@ -1458,9 +1458,14 @@ footer {
     current = (i + items.length) % items.length;
     var item = items[current];
     lbImg.style.opacity = '0';
-    lbImg.src = item.dataset.full;
     lbImg.alt = item.querySelector('img').alt;
     lbImg.onload = function () { lbImg.style.opacity = '1'; };
+    lbImg.onerror = function () {
+      // Browser senza WebP: ripiega sul JPEG originale
+      var jpg = item.dataset.fullFallback;
+      if (jpg && lbImg.getAttribute('src') !== jpg) lbImg.src = jpg;
+    };
+    lbImg.src = item.dataset.full;
     lbCap.textContent = item.dataset.caption;
     lbCount.textContent = (current + 1) + ' / ' + items.length;
   }
