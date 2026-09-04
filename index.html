@@ -363,12 +363,14 @@ section[id] { scroll-margin-top: calc(var(--nav-h) + 14px); }
 .hero-content { max-width: 720px; will-change: transform, opacity; }
 .hero-bg { will-change: transform; }
 
-/* Entrata scaglionata degli elementi della testata */
-.js .hero-content > *:not(h1) { animation: salita .8s var(--mo) both; }
-.js .hero-content > .eyebrow    { animation-delay: .18s; }
-.js .hero-content > .hero-lead  { animation-delay: .72s; }
-.js .hero-content > .hero-actions { animation-delay: .84s; }
-.js .hero-content > .hero-trust { animation-delay: .95s; }
+/* Entrata scaglionata della testata. Non dipende dal JavaScript: sono
+   animazioni CSS pure, e se il JS non parte è proprio quando serve che
+   qualcosa continui a muoversi. */
+.hero-content > *:not(h1) { animation: salita .8s var(--mo) both; }
+.hero-content > .eyebrow      { animation-delay: .18s; }
+.hero-content > .hero-lead    { animation-delay: .72s; }
+.hero-content > .hero-actions { animation-delay: .84s; }
+.hero-content > .hero-trust   { animation-delay: .95s; }
 @keyframes salita { from { opacity: 0; transform: translateY(22px); } }
 
 .eyebrow {
@@ -1183,6 +1185,35 @@ footer {
 }
 
 /* ============================================================
+   DIAGNOSTICA
+   Si apre aggiungendo #diag all'indirizzo. Regge su :target, non sul
+   JavaScript, così resta leggibile anche quando è proprio il JS a mancare.
+   ============================================================ */
+.diag {
+  display: none;
+  position: fixed; inset: auto 12px 12px 12px;
+  z-index: 5000; max-width: 460px; margin-inline: auto;
+  background: #101014;
+  border: 2px solid var(--gold);
+  border-radius: 14px;
+  padding: 16px 18px;
+  font-family: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  font-size: .82rem; line-height: 1.75;
+  color: #fff;
+  box-shadow: 0 20px 60px rgba(0,0,0,.8);
+  overflow-wrap: anywhere;
+}
+.diag:target { display: block; }
+.diag h3 { font-family: inherit; font-size: .82rem; color: var(--gold); margin-bottom: 8px; }
+.diag b { color: var(--gold); font-weight: 700; }
+.diag .chiudi { display: block; margin-top: 10px; color: var(--text-3); }
+.diag .rm-si { display: none; }
+@media (prefers-reduced-motion: reduce) {
+  .diag .rm-no { display: none; }
+  .diag .rm-si { display: inline; color: var(--gold); }
+}
+
+/* ============================================================
    AZIONI FLUTTUANTI
    ============================================================ */
 #to-top {
@@ -1816,6 +1847,17 @@ footer {
   </div>
 </div>
 
+<!-- Diagnostica: si apre con #diag in coda all'indirizzo -->
+<div class="diag" id="diag">
+  <h3>Diagnostica pagina</h3>
+  <div>Versione: <b>2026-09-04 20:00 UTC</b></div>
+  <div>JavaScript: <b id="diag-js">NON attivo</b></div>
+  <div>Riduci movimento: <span class="rm-no"><b>no</b></span><span class="rm-si"><b>SÌ — le animazioni sono disattivate dal sistema</b></span></div>
+  <div>Movimento pronto: <b id="diag-mov">no</b></div>
+  <div id="diag-extra"></div>
+  <a class="chiudi" href="#top">chiudi ×</a>
+</div>
+
 <!-- ============================ AZIONI RAPIDE ============================ -->
 <button id="to-top" type="button" aria-label="Torna in cima">↑</button>
 
@@ -1854,6 +1896,22 @@ footer {
   'use strict';
 
   var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ---------- Diagnostica ---------- */
+  (function () {
+    var box = document.getElementById('diag');
+    if (!box) return;
+    document.getElementById('diag-js').textContent = 'attivo';
+    var cta = document.querySelector('.nav-cta');
+    var pronto = document.documentElement.classList.contains('js');
+    document.getElementById('diag-mov').textContent =
+      pronto ? 'sì (classe .js applicata)' : 'NO — la classe .js manca';
+    document.getElementById('diag-extra').innerHTML =
+      'Schermo: <b>' + window.innerWidth + '×' + window.innerHeight + '</b><br>' +
+      'Opacità pulsante in cima: <b>' + (cta ? getComputedStyle(cta).opacity : '-') + '</b><br>' +
+      'Osservatore: <b>' + ('IntersectionObserver' in window ? 'sì' : 'NO') + '</b><br>' +
+      'Browser: ' + navigator.userAgent;
+  })();
 
   /* ---------- Titoli di testa: il titolo sale parola per parola ---------- */
   (function () {
