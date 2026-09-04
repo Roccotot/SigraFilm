@@ -11,7 +11,8 @@ img/                            logo e immagini fisse
 caroselli/                      le foto della galleria
   didascalie.txt                i testi sotto le foto
 strumenti/aggiorna_galleria.py  rigenera la galleria
-.github/workflows/galleria.yml  la fa rigenerare da sola su GitHub
+strumenti/aggiorna_mappa.py     riallinea mappa e numeri all'inventario
+.github/workflows/galleria.yml  fa rigenerare la galleria da sola su GitHub
 ```
 
 ## Aggiungere foto alla galleria
@@ -64,6 +65,30 @@ python3 strumenti/aggiorna_galleria.py
 
 Poi committa `caroselli/` e `index.html`. Lo script è ripetibile: rilanciarlo
 non rifà il lavoro già fatto.
+
+## La mappa di copertura
+
+La sezione «Dove operiamo» mostra un punto per ogni struttura seguita —
+🎬 al chiuso, ☀️ arene estive — **senza nomi, senza città e con le coordinate
+arrotondate a circa un chilometro**. Racconta il territorio coperto, non quali
+sale sono clienti.
+
+I dati arrivano dall'inventario del
+[Support-Tool](https://github.com/Roccotot/Support-Tool). Quando l'inventario
+cambia, per riallineare mappa e numeri del sito:
+
+```bash
+git clone https://github.com/Roccotot/Support-Tool ../Support-Tool   # una volta sola
+python3 strumenti/aggiorna_mappa.py ../Support-Tool/index.html
+```
+
+Lo script riscrive da solo, dentro `index.html`, le coordinate della mappa, i
+quattro numeri della sezione «Chi siamo» e i conteggi della legenda. Poi basta
+committare `index.html`.
+
+La mappa usa Leaflet e le mattonelle scure di CARTO, entrambi da CDN, caricati
+solo quando la sezione sta per entrare in vista. Se la CDN non risponde, al
+posto della mappa compare una riga di testo con il totale.
 
 ## Le altre immagini
 
