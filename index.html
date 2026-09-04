@@ -489,6 +489,85 @@ section[id] { scroll-margin-top: calc(var(--nav-h) + 14px); }
 .stat-label { color: var(--text-3); font-size: .92rem; line-height: 1.35; }
 
 /* ============================================================
+   MAPPA DI COPERTURA
+   ============================================================ */
+.map-wrap {
+  margin-top: clamp(30px, 4vw, 44px);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  background: var(--surface);
+  overflow: hidden;
+}
+
+.map-head {
+  display: flex; flex-wrap: wrap; gap: 20px 32px;
+  align-items: flex-start; justify-content: space-between;
+  padding: 26px 26px 22px;
+}
+.map-head h3 {
+  font-family: var(--ff-display);
+  font-size: 1.15rem; font-weight: 600;
+  margin-bottom: 7px;
+}
+.map-head p { color: var(--text-3); font-size: .89rem; max-width: 58ch; }
+
+.map-legend { list-style: none; display: grid; gap: 9px; flex-shrink: 0; }
+.map-legend li {
+  display: flex; align-items: center; gap: 10px;
+  font-size: .88rem; color: var(--text-2);
+  white-space: nowrap;
+}
+.map-legend b { color: var(--gold); font-variant-numeric: tabular-nums; }
+
+.pin {
+  width: 28px; height: 28px; flex-shrink: 0;
+  display: grid; place-items: center;
+  border-radius: 50%;
+  background: rgba(16,16,22,.92);
+  border: 1.5px solid rgba(255,255,255,.42);
+  color: #e9e9ec;
+}
+.pin-e { border-color: var(--gold); color: var(--gold); }
+
+#mappa {
+  height: clamp(320px, 52vh, 520px);
+  background: #12121a;
+  border-top: 1px solid var(--border);
+  z-index: 0;                       /* resta sotto la navbar fissa */
+}
+#mappa:focus-visible { outline: 2px solid var(--gold); outline-offset: -2px; }
+
+/* I marcatori: un dischetto con il glifo, senza nomi né etichette */
+.map-pin {
+  display: grid; place-items: center;
+  width: 22px; height: 22px;
+  border-radius: 50%;
+  background: rgba(16,16,22,.92);
+  border: 1.5px solid rgba(255,255,255,.42);
+  box-shadow: 0 2px 7px rgba(0,0,0,.65);
+  color: #e9e9ec;
+}
+.map-pin.estivo { border-color: var(--gold); color: var(--gold); }
+
+.map-nojs { padding: 22px 26px; color: var(--text-3); font-size: .9rem; }
+
+/* Leaflet: adatta i comandi al fondo scuro */
+.leaflet-container { background: #12121a !important; font-family: var(--ff-body) !important; }
+.leaflet-control-attribution {
+  background: rgba(10,10,11,.82) !important;
+  color: var(--text-3) !important;
+  font-size: .68rem !important;
+  padding: 2px 14px 2px 8px !important;   /* scansa l'angolo arrotondato */
+}
+.leaflet-control-attribution a { color: var(--text-2) !important; }
+.leaflet-bar a {
+  background: rgba(18,18,26,.92) !important;
+  color: var(--text) !important;
+  border-color: rgba(255,255,255,.18) !important;
+}
+.leaflet-bar a:hover { background: rgba(40,40,52,.95) !important; }
+
+/* ============================================================
    SERVIZI
    ============================================================ */
 .services-grid {
@@ -890,6 +969,7 @@ footer {
 }
 
 @media (max-width: 520px) {
+  .map-head { padding: 20px 18px 18px; }
   .eyebrow { font-size: .68rem; letter-spacing: .07em; padding: 6px 13px 6px 10px; }
   .footer-grid { grid-template-columns: 1fr; }
   .gallery-grid { grid-template-columns: 1fr; }
@@ -985,7 +1065,7 @@ footer {
 
       <div class="hero-trust">
         <span><span class="check">✓</span> <b>70+</b>&nbsp;anni di attività</span>
-        <span><span class="check">✓</span> <b>153</b>&nbsp;sale seguite</span>
+        <span><span class="check">✓</span> <b data-dato="hero-sale">153</b>&nbsp;sale seguite</span>
         <span><span class="check">✓</span> Barco &middot; Cinemeccanica &middot; Dolby</span>
       </div>
     </div>
@@ -1037,22 +1117,41 @@ footer {
 
     <div class="stats-band reveal" data-delay="2">
       <div class="stat-box">
-        <div class="stat-number" data-target="70" data-suffix="+">70+</div>
+        <div class="stat-number" data-dato="anni" data-target="72" data-suffix="+">70+</div>
         <div class="stat-label">Anni di attività,<br>dal 1954</div>
       </div>
       <div class="stat-box">
-        <div class="stat-number" data-target="75">75</div>
+        <div class="stat-number" data-dato="chiusi" data-target="75">75</div>
         <div class="stat-label">Cinema al chiuso<br>seguiti</div>
       </div>
       <div class="stat-box">
-        <div class="stat-number" data-target="28">28</div>
+        <div class="stat-number" data-dato="estivi" data-target="28">28</div>
         <div class="stat-label">Arene estive<br>all'aperto</div>
       </div>
       <div class="stat-box">
-        <div class="stat-number" data-target="153">153</div>
+        <div class="stat-number" data-dato="sale" data-target="153">153</div>
         <div class="stat-label">Sale sotto<br>assistenza</div>
       </div>
     </div>
+
+    <figure class="map-wrap reveal">
+      <figcaption class="map-head">
+        <div>
+          <h3>Dove operiamo</h3>
+          <p>
+            <span data-dato="totale-strutture">103</span> strutture seguite fra Toscana e
+            territori vicini. I punti sono approssimati e senza nomi: la mappa racconta il
+            territorio coperto, non chi sono i nostri clienti.
+          </p>
+        </div>
+        <ul class="map-legend">
+          <li><span class="pin pin-c"><svg viewBox="0 0 24 24" width="12" height="12" aria-hidden="true"><path fill="currentColor" d="M2.9 9.6h18.2v9.1a2.3 2.3 0 0 1-2.3 2.3H5.2a2.3 2.3 0 0 1-2.3-2.3V9.6Z"/><path fill="currentColor" d="M3.4 4.6 20.2 2.5l.6 4.3L4 8.9l-.6-4.3Z"/><path fill="#12121a" d="m8.1 3.9 1.6 3.9-1.7.2-1.6-3.9zM13.4 3.2 15 7.1l-1.7.2-1.6-3.9z"/></svg></span> Al chiuso <b data-dato="legenda-chiusi">75</b></li>
+          <li><span class="pin pin-e"><svg viewBox="0 0 24 24" width="13" height="13" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round"><circle cx="12" cy="12" r="4" fill="currentColor" stroke="none"/><path d="M12 2.4v2.2M12 19.4v2.2M2.4 12h2.2M19.4 12h2.2M5.2 5.2l1.6 1.6M17.2 17.2l1.6 1.6M18.8 5.2l-1.6 1.6M6.8 17.2l-1.6 1.6"/></svg></span> Arene estive <b data-dato="legenda-estivi">28</b></li>
+        </ul>
+      </figcaption>
+      <div id="mappa" role="img" aria-label="Mappa della copertura: 75 cinema al chiuso e 28 arene estive fra Toscana e territori vicini, senza indicazione dei nomi."></div>
+      <noscript><p class="map-nojs">La mappa richiede JavaScript. I numeri qui sopra la riassumono.</p></noscript>
+    </figure>
   </section>
 
 <!-- ============================ SERVIZI ============================ -->
@@ -1488,6 +1587,104 @@ footer {
     }, { rootMargin: '-45% 0px -50% 0px' });
     targets.forEach(function (s) { navObs.observe(s); });
   }
+
+  /* ---------- Mappa di copertura ---------- */
+  /* Coordinate arrotondate e senza nomi: rigenerate da strumenti/aggiorna_mappa.py */
+  /* MAPPA:INIZIO */
+  var CHIUSI = [[43.74,11.81],[42.74,11.11],[43.02,11.94],[43.88,10.77],[43.71,10.43],[43.72,10.4],[43.55,10.91],[43.77,11.25],[43.77,11.27],[43.72,10.95],[43.57,12.14],[44.03,10.11],[43.55,10.3],[43.95,11.39],[43.86,11.11],[43.62,11.47],[43.87,10.25],[43.8,11.24],[43.56,11.53],[43.81,10.68],[43.73,11.32],[43.46,11.88],[44.0,11.24],[44.08,10.48],[43.94,10.3],[43.84,10.58],[42.75,10.38],[43.47,11.28],[43.12,12.05],[43.28,11.99],[43.766,11.2736],[43.81,11.22],[43.76,11.29],[43.766,11.2536],[43.74,11.22],[43.78,11.27],[43.77,11.28],[43.78,11.26],[43.766,11.2836],[44.12,11.38],[44.05,10.48],[43.96,10.17],[43.73,10.81],[43.58,11.32],[43.24,10.89],[43.77,11.11],[43.55,10.31],[44.04,10.14],[43.33,11.72],[43.876,10.7736],[43.54,11.56],[43.96,10.23],[42.92,10.53],[43.71,10.39],[43.71,10.4],[43.71,10.42],[43.93,10.91],[43.77,11.44],[43.66,10.64],[42.82,10.33],[43.88,11.1],[43.876,11.1036],[43.49,11.38],[43.69,11.54],[43.67,11.54],[43.1,10.54],[43.71,10.78],[43.75,11.18],[43.99,11.36],[43.99,10.22],[43.32,11.33],[43.31,11.33],[43.866,10.2536],[44.29,9.95],[43.4,10.86]];
+  var ESTIVI = [[43.79,11.25],[43.13,12.06],[43.99,11.35],[43.77,11.23],[43.73,10.4],[43.81,11.22],[43.76,11.11],[43.88,11.09],[42.76,10.88],[43.64,11.07],[43.77,11.25],[43.57,12.14],[43.53,10.3],[43.55,10.31],[43.46,11.88],[43.31,11.32],[43.87,10.81],[43.98,10.14],[43.66,10.63],[43.78,11.25],[43.66,11.18],[43.0,11.96],[43.04,11.81],[43.83,10.58],[43.82,11.06],[43.83,11.02],[43.52,10.32],[43.94,10.91]];
+  /* MAPPA:FINE */
+
+  (function () {
+    var box = document.getElementById('mappa');
+    if (!box || !CHIUSI.length) return;
+
+    var LEAFLET = 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/';
+    var avviata = false;
+
+    function carica(tag, attr, poi, seFallisce) {
+      var el = document.createElement(tag);
+      Object.keys(attr).forEach(function (k) { el[k] = attr[k]; });
+      if (poi) el.onload = poi;
+      if (seFallisce) el.onerror = seFallisce;
+      document.head.appendChild(el);
+    }
+
+    function ripiego() {
+      // Se la libreria della mappa non arriva, meglio una riga di testo di un riquadro vuoto
+      box.innerHTML = '<p class="map-nojs">Mappa non disponibile al momento. '
+        + 'Seguiamo <span>' + (CHIUSI.length + ESTIVI.length) + '</span> strutture '
+        + 'fra Toscana e territori vicini.</p>';
+      box.style.height = 'auto';
+      box.removeAttribute('role');
+    }
+
+    function disegna() {
+      var L = window.L;
+      var mappa = L.map(box, {
+        scrollWheelZoom: false,          // così la rotellina scorre la pagina
+        // Su touch il trascinamento a un dito intrappolerebbe lo scorrimento:
+        // non c'è nulla da esplorare (niente nomi né finestrelle), restano i pulsanti
+        dragging: !L.Browser.mobile,
+        zoomAnimation: !reduced,
+        attributionControl: true
+      });
+
+      L.tileLayer(
+        'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',
+        {
+          maxZoom: 16, minZoom: 6,
+          subdomains: 'abcd',
+          attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions">CARTO</a>'
+        }
+      ).addTo(mappa);
+
+      var CIAK = '<svg viewBox="0 0 24 24" width="12" height="12" aria-hidden="true"><path fill="currentColor" d="M2.9 9.6h18.2v9.1a2.3 2.3 0 0 1-2.3 2.3H5.2a2.3 2.3 0 0 1-2.3-2.3V9.6Z"/><path fill="currentColor" d="M3.4 4.6 20.2 2.5l.6 4.3L4 8.9l-.6-4.3Z"/><path fill="#12121a" d="m8.1 3.9 1.6 3.9-1.7.2-1.6-3.9zM13.4 3.2 15 7.1l-1.7.2-1.6-3.9z"/></svg>';
+      var SOLE = '<svg viewBox="0 0 24 24" width="13" height="13" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round"><circle cx="12" cy="12" r="4" fill="currentColor" stroke="none"/><path d="M12 2.4v2.2M12 19.4v2.2M2.4 12h2.2M19.4 12h2.2M5.2 5.2l1.6 1.6M17.2 17.2l1.6 1.6M18.8 5.2l-1.6 1.6M6.8 17.2l-1.6 1.6"/></svg>';
+
+      function segna(punti, classe, glifo) {
+        punti.forEach(function (p) {
+          L.marker(p, {
+            keyboard: false,
+            interactive: false,           // nessun popup: non c'è nulla da rivelare
+            icon: L.divIcon({
+              className: '',
+              html: '<span class="map-pin ' + classe + '">' + glifo + '</span>',
+              iconSize: [22, 22],
+              iconAnchor: [11, 11]
+            })
+          }).addTo(mappa);
+        });
+      }
+      segna(CHIUSI, 'chiuso', CIAK);
+      segna(ESTIVI, 'estivo', SOLE);
+
+      mappa.fitBounds(L.latLngBounds(CHIUSI.concat(ESTIVI)), { padding: [34, 34] });
+
+      // La rotellina zooma solo dopo un clic sulla mappa
+      mappa.on('click focus', function () { mappa.scrollWheelZoom.enable(); });
+      mappa.on('mouseout', function () { mappa.scrollWheelZoom.disable(); });
+    }
+
+    function avvia() {
+      if (avviata) return;
+      avviata = true;
+      carica('link', { rel: 'stylesheet', href: LEAFLET + 'leaflet.min.css' });
+      carica('script', { src: LEAFLET + 'leaflet.min.js', defer: true }, function () {
+        try { disegna(); } catch (e) { ripiego(); }
+      }, ripiego);
+    }
+
+    // Leaflet (circa 150 kB) si carica solo quando la mappa sta per entrare in vista
+    if ('IntersectionObserver' in window) {
+      var obs = new IntersectionObserver(function (voci) {
+        voci.forEach(function (v) { if (v.isIntersecting) { avvia(); obs.disconnect(); } });
+      }, { rootMargin: '250px' });
+      obs.observe(box);
+    } else {
+      avvia();
+    }
+  })();
 
   /* ---------- Lightbox galleria ---------- */
   var lb = document.getElementById('lightbox');
