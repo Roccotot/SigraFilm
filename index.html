@@ -553,6 +553,12 @@ section[id] { scroll-margin-top: calc(var(--nav-h) + 14px); }
 
 /* Leaflet: adatta i comandi al fondo scuro */
 .leaflet-container { background: #12121a !important; font-family: var(--ff-body) !important; }
+
+/* Le mattonelle OpenStreetMap sono chiare: le porta sul fondo scuro del sito.
+   Il filtro tocca solo il piano delle mattonelle, non i marcatori. */
+.leaflet-tile-pane {
+  filter: invert(1) hue-rotate(180deg) brightness(.82) contrast(.9) saturate(.42);
+}
 .leaflet-control-attribution {
   background: rgba(10,10,11,.82) !important;
   color: var(--text-3) !important;
@@ -1652,11 +1658,10 @@ footer {
       });
 
       L.tileLayer(
-        'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',
+        'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
         {
           maxZoom: 16, minZoom: 6,
-          subdomains: 'abcd',
-          attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions">CARTO</a>'
+          attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
         }
       ).addTo(mappa);
 
