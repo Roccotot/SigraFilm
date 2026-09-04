@@ -1,0 +1,49 @@
+name: Aggiorna galleria
+
+# Parte quando qualcuno aggiunge, sostituisce o toglie una foto in caroselli/.
+# Genera le versioni WebP, riscrive il blocco galleria in index.html e
+# ricommitta il risultato sullo stesso ramo.
+on:
+  push:
+    paths:
+      - 'caroselli/**'
+  workflow_dispatch:        # si può lanciare anche a mano dalla scheda Actions
+
+permissions:
+  contents: write
+
+# Se arrivano più caricamenti ravvicinati, tiene solo l'ultimo
+concurrency:
+  group: galleria-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  aggiorna:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref_name }}
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Installa Pillow
+        run: pip install --quiet pillow
+
+      - name: Rigenera la galleria
+        run: python3 strumenti/aggiorna_galleria.py
+
+      - name: Ricommitta se qualcosa è cambiato
+        run: |
+          if git diff --quiet; then
+            echo "Nessuna modifica da salvare."
+            exit 0
+          fi
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add caroselli index.html
+          # [skip ci] evita che questo commit faccia ripartire il workflow
+          git commit -m "Aggiorna galleria dalle immagini in caroselli/ [skip ci]"
+          git push
