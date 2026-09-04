@@ -85,7 +85,7 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-img, picture, svg { display: block; max-width: 100%; }
+img, picture, svg { display: block; max-width: 100%; height: auto; }
 
 a { color: inherit; }
 
@@ -788,12 +788,32 @@ section[id] { scroll-margin-top: calc(var(--nav-h) + 14px); }
 .brand-chips span:hover { border-color: var(--gold-line); color: var(--gold); }
 
 .brand-wall {
-  background: #fff;
+  position: relative;
   border-radius: var(--r-lg);
   padding: 22px clamp(18px, 4vw, 44px);
   box-shadow: var(--shadow-md);
+  overflow-x: auto;
+  overscroll-behavior-x: contain;   /* non trascina la pagina a fine corsa */
+
+  /* Ombre ai bordi che dicono "c'è dell'altro": le due sfumature bianche
+     scorrono col contenuto e coprono le ombre quando si è a fine corsa. */
+  background-color: #fff;
+  background-image:
+    linear-gradient(to right, #fff 40%, rgba(255,255,255,0)),
+    linear-gradient(to left,  #fff 40%, rgba(255,255,255,0)),
+    linear-gradient(to right, rgba(0,0,0,.16), rgba(0,0,0,0)),
+    linear-gradient(to left,  rgba(0,0,0,.16), rgba(0,0,0,0));
+  background-position: left center, right center, left center, right center;
+  background-repeat: no-repeat;
+  background-size: 44px 100%, 44px 100%, 16px 100%, 16px 100%;
+  background-attachment: local, local, scroll, scroll;
 }
-.brand-wall img { margin-inline: auto; }
+.brand-wall img {
+  width: 100%;
+  max-width: 860px;
+  min-width: 560px;                 /* sotto questa soglia i loghi non si leggono */
+  margin-inline: auto;
+}
 
 /* ============================================================
    CTA BAND
