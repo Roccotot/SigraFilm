@@ -86,9 +86,17 @@ Lo script riscrive da solo, dentro `index.html`, le coordinate della mappa, i
 quattro numeri della sezione «Chi siamo» e i conteggi della legenda. Poi basta
 committare `index.html`.
 
-La mappa usa Leaflet e le mattonelle scure di CARTO, entrambi da CDN, caricati
-solo quando la sezione sta per entrare in vista. Se la CDN non risponde, al
-posto della mappa compare una riga di testo con il totale.
+La mappa usa Leaflet (da CDN) e le mattonelle di OpenStreetMap, caricati solo
+quando la sezione sta per entrare in vista. Le mattonelle OSM sono chiare:
+vengono portate sul fondo scuro del sito con un filtro CSS applicato al solo
+piano delle mattonelle, così i marcatori restano dei colori giusti.
+
+Non serve nessuna chiave: OpenStreetMap chiede solo l'attribuzione, che compare
+in basso a destra sulla mappa. Se un domani il traffico crescesse molto, la
+policy d'uso di OSM chiede di passare a un fornitore di mattonelle proprio.
+
+Se la CDN non risponde, al posto della mappa compare una riga di testo con il
+totale delle strutture.
 
 ## Le altre immagini
 
