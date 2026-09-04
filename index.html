@@ -75,14 +75,23 @@
 html {
   scroll-behavior: smooth;
   -webkit-text-size-adjust: 100%;
+  /* Gli elementi entrano da fuori pagina. "clip" li taglia senza rendere
+     l'elemento scorrevole, così non nasce una barra orizzontale e restano
+     intatti scorrimento morbido e ancoraggio. "hidden" è il ripiego per i
+     browser che non conoscono "clip". */
+  overflow-x: hidden;
+  overflow-x: clip;
 }
 
+/* Gli elementi entrano da fuori pagina: il traboccamento va tagliato qui,
+   altrimenti comparirebbe una barra di scorrimento orizzontale */
 body {
   font-family: var(--ff-body);
   background: var(--bg);
   color: var(--text);
   line-height: 1.6;
   overflow-x: hidden;
+  overflow-x: clip;
   -webkit-font-smoothing: antialiased;
 }
 
@@ -511,71 +520,124 @@ section[id] { scroll-margin-top: calc(var(--nav-h) + 14px); }
    MOVIMENTO
    Il vocabolario è quello della sala: la lampada che si accende,
    i titoli di testa che salgono, il sipario che si apre dal centro.
-   Tutto passa da transform / opacity / clip-path, che il browser
-   compone sulla GPU senza ricalcolare l'impaginazione.
+
+   Gli oggetti entrano dai lati, e la direzione segue la posizione:
+   da sinistra quelli a sinistra, da destra quelli a destra.
+
+   Lo stato di partenza sta tutto dietro :not(.visible). Così quando
+   l'elemento arriva la regola smette semplicemente di valere, invece
+   di essere sovrascritta: niente gare di specificità fra le varianti
+   per telefono e quelle per schermo grande.
+
+   Si muovono solo transform, opacity e clip-path, che il browser
+   compone sulla GPU senza rifare l'impaginazione.
    ============================================================ */
 
-/* Rivelazione allo scroll — solo se il JS è attivo */
-.js .reveal { opacity: 0; transform: translateY(26px); transition: opacity .7s var(--ease), transform .7s var(--ease); }
-.js .reveal.visible { opacity: 1; transform: none; }
+/* Corse: accorciate su schermo stretto, dove un movimento lungo
+   uscirebbe troppo dai bordi */
+.js .reveal { --corsa: 64px; --corsa-scheda: 70px; }
+@media (max-width: 820px) {
+  .js .reveal { --corsa: 40px; --corsa-scheda: 44px; }
+}
+
+.js .reveal { transition: opacity .7s var(--ease), transform .8s var(--mo); }
+.js .reveal:not(.visible) { opacity: 0; transform: translateX(calc(var(--corsa) * -1)); }
+.js .reveal[data-da="dx"]:not(.visible) { transform: translateX(var(--corsa)); }
+.js .reveal[data-da="su"]:not(.visible) { transform: translateY(30px); }
+
 .js .reveal[data-delay="1"] { transition-delay: .07s; }
 .js .reveal[data-delay="2"] { transition-delay: .14s; }
 .js .reveal[data-delay="3"] { transition-delay: .21s; }
 
-/* Le schede entrano anche in profondità, non solo dal basso */
+/* Schede: si alternano, una da sinistra e la successiva da destra.
+   Regge a ogni larghezza, dalle quattro colonne alla colonna singola. */
 .js .service-card.reveal,
-.js .tool-card.reveal {
-  transform: translateY(30px) scale(.975);
-  transition: opacity .75s var(--mo), transform .75s var(--mo);
+.js .tool-card.reveal { transition: opacity .7s var(--ease), transform .85s var(--mo); }
+.js .service-card.reveal:not(.visible):nth-child(odd),
+.js .tool-card.reveal:not(.visible):nth-child(odd) {
+  transform: translateX(calc(var(--corsa-scheda) * -1)) scale(.97);
 }
-.js .service-card.reveal.visible,
-.js .tool-card.reveal.visible { transform: none; }
+.js .service-card.reveal:not(.visible):nth-child(even),
+.js .tool-card.reveal:not(.visible):nth-child(even) {
+  transform: translateX(var(--corsa-scheda)) scale(.97);
+}
 
-/* Testate di sezione: occhiello, titolo e sommario in cascata.
-   Il titolo sale da dietro una mascherina, come un cartello di testa. */
+/* Testate: l'occhiello, poi il titolo che si scopre da sinistra a destra,
+   poi il sommario. */
 .js .section-head.reveal,
 .js .about-body.reveal { opacity: 1; transform: none; transition: none; }
 
 .js .section-head.reveal > *,
 .js .about-body.reveal > * {
-  opacity: 0;
-  transition: opacity .6s var(--ease), transform .7s var(--mo), clip-path .85s var(--mo);
+  transition: opacity .6s var(--ease), transform .8s var(--mo), clip-path .9s var(--mo);
 }
-.js .section-head.reveal .eyebrow,
-.js .about-body.reveal .section-head { transform: translateY(14px); }
-.js .section-head.reveal h2 {
-  transform: translateY(20px);
-  clip-path: inset(0 0 108% 0);
-  transition-delay: .09s;
+.js .section-head.reveal:not(.visible) > *,
+.js .about-body.reveal:not(.visible) > * { opacity: 0; }
+
+.js .section-head.reveal:not(.visible) .eyebrow,
+.js .about-body.reveal:not(.visible) .section-head { transform: translateX(-40px); }
+.js .section-head.reveal:not(.visible) h2 {
+  transform: translateX(calc(var(--corsa) * -.9));
+  clip-path: inset(0 100% 0 0);
 }
-.js .section-head.reveal > p  { transform: translateY(16px); transition-delay: .2s; }
-.js .about-body.reveal > p    { transform: translateY(16px); }
+.js .section-head.reveal h2 { transition-delay: .09s; }
+.js .section-head.reveal:not(.visible) > p,
+.js .about-body.reveal:not(.visible) > p { transform: translateX(-44px); }
+.js .section-head.reveal > p { transition-delay: .2s; }
 .js .about-body.reveal > p:nth-of-type(2) { transition-delay: .08s; }
 .js .about-body.reveal > p:nth-of-type(3) { transition-delay: .15s; }
 
-.js .section-head.reveal.visible > *,
-.js .about-body.reveal.visible > * { opacity: 1; transform: none; }
-.js .section-head.reveal.visible h2 { clip-path: inset(-25% -25% -25% -25%); }
-
-/* Galleria: il sipario si apre dal centro */
+/* Galleria: il sipario si apre dal centro verso i lati */
 .js .gallery-grid.reveal { opacity: 1; transform: none; transition: none; }
-.js .gallery-grid.reveal .g-item {
-  clip-path: inset(0 50% 0 50%);
-  transition: clip-path .9s var(--mo);
-}
-.js .gallery-grid.reveal.visible .g-item { clip-path: inset(0); }
-.js .gallery-grid.reveal.visible .g-item:nth-child(2) { transition-delay: .09s; }
-.js .gallery-grid.reveal.visible .g-item:nth-child(3) { transition-delay: .16s; }
-.js .gallery-grid.reveal.visible .g-item:nth-child(4) { transition-delay: .22s; }
-.js .gallery-grid.reveal.visible .g-item:nth-child(5) { transition-delay: .27s; }
-.js .gallery-grid.reveal.visible .g-item:nth-child(n+6) { transition-delay: .31s; }
+.js .gallery-grid.reveal .g-item { transition: clip-path .9s var(--mo); }
+.js .gallery-grid.reveal:not(.visible) .g-item { clip-path: inset(0 50% 0 50%); }
+.js .gallery-grid.reveal .g-item:nth-child(2) { transition-delay: .09s; }
+.js .gallery-grid.reveal .g-item:nth-child(3) { transition-delay: .16s; }
+.js .gallery-grid.reveal .g-item:nth-child(4) { transition-delay: .22s; }
+.js .gallery-grid.reveal .g-item:nth-child(5) { transition-delay: .27s; }
+.js .gallery-grid.reveal .g-item:nth-child(n+6) { transition-delay: .31s; }
 
-/* I numeri arrivano sfocati e mettono a fuoco */
-.js .stats-band.reveal .stat-number {
-  filter: blur(8px); opacity: 0;
-  transition: filter .85s var(--ease) .15s, opacity .5s ease .15s;
+/* Numeri: arrivano da destra uno dopo l'altro e mettono a fuoco */
+.js .stats-band.reveal { opacity: 1; transform: none; transition: none; }
+.js .stats-band.reveal .stat-box { transition: opacity .6s var(--ease), transform .8s var(--mo); }
+.js .stats-band.reveal:not(.visible) .stat-box { opacity: 0; transform: translateX(var(--corsa)); }
+.js .stats-band.reveal .stat-box:nth-child(2) { transition-delay: .08s; }
+.js .stats-band.reveal .stat-box:nth-child(3) { transition-delay: .16s; }
+.js .stats-band.reveal .stat-box:nth-child(4) { transition-delay: .24s; }
+.js .stats-band.reveal .stat-number { transition: filter .9s var(--ease) .2s; }
+.js .stats-band.reveal:not(.visible) .stat-number { filter: blur(8px); }
+
+/* Fascia di richiamo: il testo da sinistra, i pulsanti da destra */
+.js .cta-band.reveal { opacity: 1; transform: none; transition: none; }
+.js .cta-band.reveal > div:first-child,
+.js .cta-band.reveal > .hero-actions { transition: opacity .6s var(--ease), transform .85s var(--mo); }
+.js .cta-band.reveal > .hero-actions { transition-delay: .12s; }
+.js .cta-band.reveal:not(.visible) > div:first-child { opacity: 0; transform: translateX(-56px); }
+.js .cta-band.reveal:not(.visible) > .hero-actions   { opacity: 0; transform: translateX(56px); }
+
+/* Contatti: le tessere si alternano come le schede */
+.js .contacts-grid.reveal { opacity: 1; transform: none; transition: none; }
+.js .contacts-grid.reveal .contact-card {
+  transition: opacity .6s var(--ease), transform .8s var(--mo), background .3s, border-color .3s;
 }
-.js .stats-band.reveal.visible .stat-number { filter: none; opacity: 1; }
+.js .contacts-grid.reveal:not(.visible) .contact-card:nth-child(odd)  { opacity: 0; transform: translateX(calc(var(--corsa) * -1)); }
+.js .contacts-grid.reveal:not(.visible) .contact-card:nth-child(even) { opacity: 0; transform: translateX(var(--corsa)); }
+.js .contacts-grid.reveal .contact-card:nth-child(2) { transition-delay: .07s; }
+.js .contacts-grid.reveal .contact-card:nth-child(3) { transition-delay: .14s; }
+.js .contacts-grid.reveal .contact-card:nth-child(4) { transition-delay: .21s; }
+
+/* Marchi: i nomi scorrono dentro da sinistra, come una lista di titoli */
+.js .reveal .brand-chips span { transition: opacity .45s var(--ease), transform .6s var(--mo); }
+.js .reveal:not(.visible) .brand-chips span { opacity: 0; transform: translateX(-34px); }
+.js .reveal .brand-chips span:nth-child(1) { transition-delay: .04s; }
+.js .reveal .brand-chips span:nth-child(2) { transition-delay: .08s; }
+.js .reveal .brand-chips span:nth-child(3) { transition-delay: .12s; }
+.js .reveal .brand-chips span:nth-child(4) { transition-delay: .16s; }
+.js .reveal .brand-chips span:nth-child(5) { transition-delay: .20s; }
+.js .reveal .brand-chips span:nth-child(6) { transition-delay: .24s; }
+.js .reveal .brand-chips span:nth-child(7) { transition-delay: .28s; }
+.js .reveal .brand-chips span:nth-child(8) { transition-delay: .32s; }
+.js .reveal .brand-chips span:nth-child(n+9) { transition-delay: .36s; }
 
 /* ============================================================
    CHI SIAMO + NUMERI
@@ -935,9 +997,33 @@ section[id] { scroll-margin-top: calc(var(--nav-h) + 14px); }
 .brand-chips span:hover { border-color: var(--gold-line); color: var(--gold); }
 
 /* Entrano uno dopo l'altro, come una lista di titoli di coda */
+.js .cta-band.reveal { opacity: 1; transform: none; transition: none; }
+.js .cta-band.reveal > div:first-child {
+  opacity: 0; transform: translateX(-56px);
+  transition: opacity .6s var(--ease), transform .85s var(--mo);
+}
+.js .cta-band.reveal > .hero-actions {
+  opacity: 0; transform: translateX(56px);
+  transition: opacity .6s var(--ease) .12s, transform .85s var(--mo) .12s;
+}
+.js .cta-band.reveal.visible > div:first-child,
+.js .cta-band.reveal.visible > .hero-actions { opacity: 1; transform: none; }
+
+.js .contacts-grid.reveal { opacity: 1; transform: none; transition: none; }
+.js .contacts-grid.reveal .contact-card {
+  opacity: 0;
+  transition: opacity .6s var(--ease), transform .8s var(--mo), background .3s, border-color .3s;
+}
+.js .contacts-grid.reveal .contact-card:nth-child(odd)  { transform: translateX(-60px); }
+.js .contacts-grid.reveal .contact-card:nth-child(even) { transform: translateX(60px); }
+.js .contacts-grid.reveal.visible .contact-card { opacity: 1; transform: none; }
+.js .contacts-grid.reveal.visible .contact-card:nth-child(2) { transition-delay: .07s; }
+.js .contacts-grid.reveal.visible .contact-card:nth-child(3) { transition-delay: .14s; }
+.js .contacts-grid.reveal.visible .contact-card:nth-child(4) { transition-delay: .21s; }
+
 .js .reveal .brand-chips span {
-  opacity: 0; transform: translateY(12px) scale(.94);
-  transition: opacity .5s var(--ease), transform .6s var(--mo);
+  opacity: 0; transform: translateX(-34px);
+  transition: opacity .45s var(--ease), transform .6s var(--mo);
 }
 .js .reveal.visible .brand-chips span { opacity: 1; transform: none; }
 .js .reveal.visible .brand-chips span:nth-child(1) { transition-delay: .04s; }
@@ -1193,10 +1279,7 @@ footer {
   .js .nav-drawer.open a:nth-child(6) { transition-delay: .26s; }
   .js .nav-drawer.open a:nth-child(7) { transition-delay: .32s; }
 
-  /* Su schermo stretto un movimento corto non si legge: allunga la corsa */
-  .js .reveal { transform: translateY(38px); }
-  .js .service-card.reveal,
-  .js .tool-card.reveal { transform: translateY(40px) scale(.965); }
+  /* Le corse per schermo stretto stanno nelle variabili in cima */
   .wrap { width: min(100% - 32px, var(--wrap)); }
   .hero { min-height: auto; padding: calc(var(--nav-h) + 64px) 0 96px; }
   .hero-actions .btn { flex: 1 1 auto; justify-content: center; }
@@ -1234,7 +1317,11 @@ footer {
   .js .section-head.reveal > *,
   .js .about-body.reveal > *,
   .js .gallery-grid.reveal .g-item,
+  .js .stats-band.reveal .stat-box,
   .js .stats-band.reveal .stat-number,
+  .js .contacts-grid.reveal .contact-card,
+  .js .cta-band.reveal > *,
+  .js .reveal .brand-chips span,
   .js .hero-content > *,
   .hero h1 .parola > i {
     opacity: 1 !important;
@@ -1372,7 +1459,7 @@ footer {
         </p>
       </div>
 
-      <ul class="about-list reveal" data-delay="1">
+      <ul class="about-list reveal" data-da="dx" data-delay="1">
         <li>Interventi su tutto il territorio nazionale</li>
         <li>Lavori seguiti in ogni fase dal titolare</li>
         <li>Diagnosi e assistenza da remoto sugli impianti installati</li>
@@ -1400,7 +1487,7 @@ footer {
       </div>
     </div>
 
-    <figure class="map-wrap reveal">
+    <figure class="map-wrap reveal" data-da="su">
       <figcaption class="map-head">
         <div>
           <h3>Dove operiamo</h3>
