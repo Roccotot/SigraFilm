@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Sigra Film | Proiezione cinematografica e tecnologie audiovisive</title>
-<meta name="description" content="Sigra Film: installazione e assistenza di impianti di proiezione cinematografica, server DCI, audio Dolby Atmos e arene estive. Oltre 25 anni di esperienza, interventi in tutta Italia.">
+<meta name="description" content="Sigra Film, Firenze: dal 1954 installazione e assistenza di impianti di proiezione cinematografica, server DCI, audio Dolby Atmos, schermi e arene estive. 75 cinema e 28 arene seguite in tutta la Toscana e oltre.">
 <meta name="author" content="Sigra Film">
 <meta name="theme-color" content="#0a0a0b">
 <link rel="canonical" href="https://roccotot.github.io/SigraFilm/">
@@ -14,12 +14,11 @@
 <meta property="og:locale" content="it_IT">
 <meta property="og:site_name" content="Sigra Film">
 <meta property="og:title" content="Sigra Film | Proiezione cinematografica e tecnologie audiovisive">
-<meta property="og:description" content="Installazione e assistenza di impianti cinema: proiettori DCI, server Dolby e Doremi, audio Atmos, arene estive. Oltre 25 anni di esperienza.">
+<meta property="og:description" content="Dal 1954 installazione e assistenza di impianti cinema: proiettori DCI, server Dolby e Doremi, audio Atmos, schermi e arene estive.">
 <meta property="og:url" content="https://roccotot.github.io/SigraFilm/">
 <meta property="og:image" content="https://roccotot.github.io/SigraFilm/img/banner_cinema-1600.jpg">
 <meta name="twitter:card" content="summary_large_image">
 
-<link rel="icon" type="image/svg+xml" href="img/logo_sigra.svg">
 <link rel="icon" type="image/png" href="img/logo_sigra.png">
 <link rel="apple-touch-icon" href="img/logo_sigra.png">
 
@@ -164,9 +163,10 @@ section[id] { scroll-margin-top: calc(var(--nav-h) + 14px); }
   flex-shrink: 0;
 }
 .brand img {
-  width: 38px; height: 38px;
-  border-radius: 9px;
-  box-shadow: 0 2px 10px rgba(0,0,0,.5);
+  width: 58px; height: 34px;   /* proporzioni reali del marchio, 187:109 */
+  border-radius: 6px;
+  box-shadow: 0 2px 10px rgba(0,0,0,.45);
+  image-rendering: -webkit-optimize-contrast;
 }
 .brand-name {
   font-family: var(--ff-display);
@@ -435,14 +435,21 @@ section[id] { scroll-margin-top: calc(var(--nav-h) + 14px); }
    ============================================================ */
 .about-grid {
   display: grid;
-  grid-template-columns: 1.15fr .85fr;
+  grid-template-columns: 1.35fr .65fr;
   gap: clamp(28px, 4vw, 56px);
   align-items: start;
 }
 .about-body p { color: var(--text-2); font-size: 1.05rem; margin-bottom: 18px; }
 .about-body p:last-child { margin-bottom: 0; }
 
-.about-list { list-style: none; margin-top: 26px; display: grid; gap: 12px; }
+.about-list {
+  list-style: none;
+  display: grid; gap: 15px; align-content: start;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  padding: 28px 26px;
+}
 .about-list li {
   display: flex; gap: 12px; align-items: flex-start;
   font-size: .95rem; color: var(--text-2);
@@ -453,13 +460,18 @@ section[id] { scroll-margin-top: calc(var(--nav-h) + 14px); }
   flex-shrink: 0;
 }
 
-.stats { display: grid; gap: 14px; }
+.stats-band {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+  margin-top: clamp(34px, 5vw, 52px);
+}
 .stat-box {
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: var(--r-lg);
-  padding: 24px 28px;
-  display: flex; align-items: baseline; gap: 16px;
+  padding: 26px 24px;
+  display: flex; flex-direction: column; gap: 10px;
   transition: border-color .3s, background .3s, transform .3s var(--ease);
 }
 .stat-box:hover {
@@ -473,7 +485,6 @@ section[id] { scroll-margin-top: calc(var(--nav-h) + 14px); }
   font-weight: 800; color: var(--gold);
   line-height: 1;
   font-variant-numeric: tabular-nums;
-  min-width: 3.4ch;
 }
 .stat-label { color: var(--text-3); font-size: .92rem; line-height: 1.35; }
 
@@ -857,6 +868,7 @@ footer {
    ============================================================ */
 @media (max-width: 980px) {
   .about-grid { grid-template-columns: 1fr; }
+  .stats-band { grid-template-columns: repeat(2, 1fr); }
   .footer-grid { grid-template-columns: 1fr 1fr; }
   .footer-about { grid-column: 1 / -1; }
 }
@@ -914,7 +926,7 @@ footer {
 <header class="nav" id="nav">
   <div class="nav-inner">
     <a class="brand" href="#top" aria-label="Sigra Film — torna in cima">
-      <img src="img/logo_sigra.svg" width="38" height="38" alt="">
+      <img src="img/logo_sigra.png" width="58" height="34" alt="">
       <span>
         <span class="brand-name">Sigra Film</span>
         <span class="brand-tag">Cinema &amp; AV</span>
@@ -958,12 +970,12 @@ footer {
 
   <div class="wrap">
     <div class="hero-content">
-      <span class="eyebrow"><span class="dot"></span> Dal 1999 &middot; Assistenza in tutta Italia</span>
+      <span class="eyebrow"><span class="dot"></span> Dal 1954 &middot; Assistenza in tutta Italia</span>
       <h1>Il cinema che si vede.<br><em>E si sente.</em></h1>
       <p class="hero-lead">
-        Progettiamo, installiamo e manteniamo impianti di proiezione e audio per sale
-        cinematografiche, teatri, arene estive e centri eventi. Con oltre 25 anni di esperienza
-        sul campo, dalla cabina allo schermo.
+        Dal noleggio delle pellicole in 16 mm ai proiettori laser DCI. Progettiamo,
+        installiamo e manteniamo impianti di proiezione e audio per sale cinematografiche,
+        teatri, arene estive e centri eventi.
       </p>
 
       <div class="hero-actions">
@@ -972,9 +984,9 @@ footer {
       </div>
 
       <div class="hero-trust">
-        <span><span class="check">✓</span> <b>25+</b>&nbsp;anni di esperienza</span>
-        <span><span class="check">✓</span> <b>500+</b>&nbsp;progetti realizzati</span>
-        <span><span class="check">✓</span> Barco &middot; Christie &middot; Dolby</span>
+        <span><span class="check">✓</span> <b>70+</b>&nbsp;anni di attività</span>
+        <span><span class="check">✓</span> <b>153</b>&nbsp;sale seguite</span>
+        <span><span class="check">✓</span> Barco &middot; Cinemeccanica &middot; Dolby</span>
       </div>
     </div>
   </div>
@@ -994,42 +1006,54 @@ footer {
       <div class="about-body reveal">
         <div class="section-head" style="margin-bottom:24px">
           <span class="eyebrow">Chi siamo</span>
-          <h2>Un partner tecnico, non solo un fornitore</h2>
+          <h2>Settant'anni dentro la sala cinematografica</h2>
         </div>
         <p>
-          Sigra Film opera nel settore cinema e audiovisivo con installazioni professionali e
-          assistenza tecnica specializzata in tutta Italia. Siamo il partner di fiducia per cinema,
-          sale polivalenti e centri eventi che richiedono il massimo dalla tecnologia di proiezione.
+          Sigra Film è un'impresa fiorentina che si occupa di installazione e manutenzione di
+          impianti cinematografici, nel settore pubblico e privato. Nasce a Firenze nel 1954 per
+          iniziativa di Paolo, che per oltre quarant'anni ha operato nel settore cinematografico,
+          lasciando poi al figlio Andrea le redini della società.
         </p>
         <p>
-          Seguiamo l'impianto in ogni fase: sopralluogo, progettazione, installazione, taratura e
-          manutenzione programmata, con monitoraggio remoto per intervenire prima che il problema
-          arrivi in sala.
+          Negli anni l'azienda ha diversificato i servizi offerti e, grazie a investimenti mirati,
+          si è dotata di attrezzature all'avanguardia che le permettono di collocarsi nella fascia
+          alta del settore. I lavori sono eseguiti in ogni fase sotto la supervisione del titolare,
+          con un team formato internamente e una rete di consulenti e partner accreditati.
         </p>
-        <ul class="about-list">
-          <li>Interventi su tutto il territorio nazionale</li>
-          <li>Monitoraggio remoto degli impianti tramite portale NOC</li>
-          <li>Assistenza su proiettori, server, audio e schermi</li>
-        </ul>
+        <p>
+          Collaboriamo da sempre con Cinemeccanica S.p.A., azienda leader italiana nelle
+          installazioni di impianti cinematografici.
+        </p>
       </div>
 
-      <div class="stats reveal" data-delay="1">
-        <div class="stat-box">
-          <div class="stat-number" data-target="25" data-suffix="+">25+</div>
-          <div class="stat-label">Anni di esperienza<br>nel settore cinema</div>
-        </div>
-        <div class="stat-box">
-          <div class="stat-number" data-target="500" data-suffix="+">500+</div>
-          <div class="stat-label">Progetti completati<br>in tutta Italia</div>
-        </div>
-        <div class="stat-box">
-          <div class="stat-number" data-target="150" data-suffix="+">150+</div>
-          <div class="stat-label">Clienti attivi<br>seguiti nel tempo</div>
-        </div>
+      <ul class="about-list reveal" data-delay="1">
+        <li>Interventi su tutto il territorio nazionale</li>
+        <li>Lavori seguiti in ogni fase dal titolare</li>
+        <li>Diagnosi e assistenza da remoto sugli impianti installati</li>
+        <li>Formazione continua di tecnici e collaboratori</li>
+        <li>Cinema al chiuso, teatri e arene estive all'aperto</li>
+      </ul>
+    </div>
+
+    <div class="stats-band reveal" data-delay="2">
+      <div class="stat-box">
+        <div class="stat-number" data-target="70" data-suffix="+">70+</div>
+        <div class="stat-label">Anni di attività,<br>dal 1954</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-number" data-target="75">75</div>
+        <div class="stat-label">Cinema al chiuso<br>seguiti</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-number" data-target="28">28</div>
+        <div class="stat-label">Arene estive<br>all'aperto</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-number" data-target="153">153</div>
+        <div class="stat-label">Sale sotto<br>assistenza</div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
 <!-- ============================ SERVIZI ============================ -->
 <section class="section section-alt" id="servizi">
@@ -1037,29 +1061,50 @@ footer {
     <div class="section-head reveal">
       <span class="eyebrow">Servizi</span>
       <h2>Dalla cabina allo schermo, tutto sotto controllo</h2>
-      <p>Progettazione, fornitura, installazione e assistenza su impianti di proiezione e audio professionali.</p>
+      <p>Un servizio a 360°: seguiamo tutte le attività pre e post installazione, dalla
+        progettazione alla consegna delle attrezzature audio e video presenti in sala.</p>
     </div>
 
     <div class="services-grid">
       <article class="service-card reveal">
         <div class="service-icon" aria-hidden="true">📽️</div>
         <h3>Videoproiettori DCI</h3>
-        <p>Installazione, allineamento e manutenzione di proiettori DCI-compliant di ultima generazione, laser e lampada.</p>
+        <p>Installazione, allineamento e manutenzione di proiettori DCI-compliant, laser e lampada, con le automazioni per la gestione dei servizi di sala.</p>
       </article>
       <article class="service-card reveal" data-delay="1">
         <div class="service-icon" aria-hidden="true">🖥️</div>
-        <h3>Server Dolby &amp; Doremi</h3>
-        <p>Configurazione, aggiornamenti, gestione chiavi KDM e supporto tecnico su server cinema Dolby e Doremi.</p>
+        <h3>Server e media player</h3>
+        <p>Configurazione e supporto su server cinema Dolby e Doremi e su media player per la proiezione di contenuti in DCP, gestione delle chiavi KDM.</p>
       </article>
       <article class="service-card reveal" data-delay="2">
         <div class="service-icon" aria-hidden="true">🔊</div>
         <h3>Audio cinema &amp; Atmos</h3>
-        <p>Sistemi audio professionali e taratura in sala, incluso Dolby Atmos per esperienze davvero immersive.</p>
+        <p>Installazione e taratura degli impianti audio in sala, incluso Dolby Atmos per esperienze davvero immersive.</p>
       </article>
       <article class="service-card reveal" data-delay="3">
-        <div class="service-icon" aria-hidden="true">🏗️</div>
-        <h3>Installazioni chiavi in mano</h3>
-        <p>Progettazione e realizzazione completa di sale cinematografiche, teatri e arene estive all'aperto.</p>
+        <div class="service-icon" aria-hidden="true">🎞️</div>
+        <h3>Schermi e installazioni</h3>
+        <p>Schermi di proiezione di qualsiasi metratura e realizzazione completa di sale, teatri e arene estive all'aperto, chiavi in mano.</p>
+      </article>
+      <article class="service-card reveal">
+        <div class="service-icon" aria-hidden="true">🪑</div>
+        <h3>Arredamento di sala</h3>
+        <p>Installazione di poltrone, tendaggi ed effetti scenici su palchi teatrali, per completare l'allestimento della sala.</p>
+      </article>
+      <article class="service-card reveal" data-delay="1">
+        <div class="service-icon" aria-hidden="true">📡</div>
+        <h3>Assistenza da remoto</h3>
+        <p>Punto cardine dell'azienda: diagnosi a distanza delle apparecchiature installate tramite software e hardware di gestione dedicati, per un intervento rapido e risolutivo.</p>
+      </article>
+      <article class="service-card reveal" data-delay="2">
+        <div class="service-icon" aria-hidden="true">🎪</div>
+        <h3>Eventi e noleggio</h3>
+        <p>Organizziamo festival e rassegne in qualsiasi location, con maxischermi LCD, LED, OLED e laser, videowall e videoproiettori da 7.000 a 32.000 lumen.</p>
+      </article>
+      <article class="service-card reveal" data-delay="3">
+        <div class="service-icon" aria-hidden="true">🎓</div>
+        <h3>Tecnici formati</h3>
+        <p>Partecipiamo ai corsi di formazione sulle attrezzature cinematografiche e sulle innovazioni che il mercato propone, per mantenere lo standard del team.</p>
       </article>
     </div>
   </div>
@@ -1075,53 +1120,50 @@ footer {
     </div>
 
     <div class="gallery-grid reveal">
+      <!-- GALLERIA:INIZIO -->
       <button class="g-item" type="button" data-full="caroselli/C1-1400.webp" data-full-fallback="caroselli/C1.jpg" data-caption="Sala cinema · impianto di proiezione">
         <picture>
           <source type="image/webp" srcset="caroselli/C1-720.webp">
-          <img src="caroselli/C1.jpg" alt="Sala cinema con impianto di proiezione" width="1919" height="1080" loading="lazy" decoding="async">
+          <img src="caroselli/C1.jpg" alt="Sala cinema · impianto di proiezione" width="720" height="405" loading="eager" decoding="async">
         </picture>
         <span class="g-caption">Sala cinema · impianto di proiezione <span class="zoom" aria-hidden="true">⤢</span></span>
       </button>
-
       <button class="g-item" type="button" data-full="caroselli/C2-1400.webp" data-full-fallback="caroselli/C2.jpg" data-caption="Sala digitale · schermo e audio">
         <picture>
           <source type="image/webp" srcset="caroselli/C2-720.webp">
-          <img src="caroselli/C2.jpg" alt="Sala di proiezione digitale con schermo illuminato" width="1920" height="1080" loading="lazy" decoding="async">
+          <img src="caroselli/C2.jpg" alt="Sala digitale · schermo e audio" width="720" height="405" loading="lazy" decoding="async">
         </picture>
         <span class="g-caption">Sala digitale · schermo e audio <span class="zoom" aria-hidden="true">⤢</span></span>
       </button>
-
       <button class="g-item" type="button" data-full="caroselli/C3-1400.webp" data-full-fallback="caroselli/C3.jpg" data-caption="Teatro storico · grande schermo">
         <picture>
           <source type="image/webp" srcset="caroselli/C3-720.webp">
-          <img src="caroselli/C3.jpg" alt="Teatro storico con grande schermo di proiezione" width="1920" height="1080" loading="lazy" decoding="async">
+          <img src="caroselli/C3.jpg" alt="Teatro storico · grande schermo" width="720" height="405" loading="lazy" decoding="async">
         </picture>
         <span class="g-caption">Teatro storico · grande schermo <span class="zoom" aria-hidden="true">⤢</span></span>
       </button>
-
-      <button class="g-item" type="button" data-full="caroselli/C4-1400.webp" data-full-fallback="caroselli/C4.jpg" data-caption="Arena estiva · proiezione all'aperto">
+      <button class="g-item" type="button" data-full="caroselli/C4-1400.webp" data-full-fallback="caroselli/C4.jpg" data-caption="Arena estiva · proiezione all&#x27;aperto">
         <picture>
           <source type="image/webp" srcset="caroselli/C4-720.webp">
-          <img src="caroselli/C4.jpg" alt="Arena estiva con proiezione all'aperto in notturna" width="768" height="512" loading="lazy" decoding="async">
+          <img src="caroselli/C4.jpg" alt="Arena estiva · proiezione all&#x27;aperto" width="720" height="480" loading="lazy" decoding="async">
         </picture>
-        <span class="g-caption">Arena estiva · proiezione all'aperto <span class="zoom" aria-hidden="true">⤢</span></span>
+        <span class="g-caption">Arena estiva · proiezione all&#x27;aperto <span class="zoom" aria-hidden="true">⤢</span></span>
       </button>
-
       <button class="g-item" type="button" data-full="caroselli/C5-1400.webp" data-full-fallback="caroselli/C5.jpg" data-caption="Struttura mobile · schermo per eventi">
         <picture>
           <source type="image/webp" srcset="caroselli/C5-720.webp">
-          <img src="caroselli/C5.jpg" alt="Struttura mobile con schermo per eventi all'aperto" width="531" height="398" loading="lazy" decoding="async">
+          <img src="caroselli/C5.jpg" alt="Struttura mobile · schermo per eventi" width="531" height="398" loading="lazy" decoding="async">
         </picture>
         <span class="g-caption">Struttura mobile · schermo per eventi <span class="zoom" aria-hidden="true">⤢</span></span>
       </button>
-
-      <button class="g-item" type="button" data-full="caroselli/C6-1400.webp" data-full-fallback="caroselli/C6.jpg" data-caption="Arena all'aperto · allestimento completo">
+      <button class="g-item" type="button" data-full="caroselli/C6-1400.webp" data-full-fallback="caroselli/C6.jpg" data-caption="Arena all&#x27;aperto · allestimento completo">
         <picture>
           <source type="image/webp" srcset="caroselli/C6-720.webp">
-          <img src="caroselli/C6.jpg" alt="Arena all'aperto con schermo e platea allestita" width="768" height="576" loading="lazy" decoding="async">
+          <img src="caroselli/C6.jpg" alt="Arena all&#x27;aperto · allestimento completo" width="720" height="540" loading="lazy" decoding="async">
         </picture>
-        <span class="g-caption">Arena all'aperto · allestimento completo <span class="zoom" aria-hidden="true">⤢</span></span>
+        <span class="g-caption">Arena all&#x27;aperto · allestimento completo <span class="zoom" aria-hidden="true">⤢</span></span>
       </button>
+      <!-- GALLERIA:FINE -->
     </div>
   </div>
 </section>
@@ -1170,12 +1212,13 @@ footer {
     <div class="section-head reveal">
       <span class="eyebrow">Marchi trattati</span>
       <h2>Lavoriamo con i principali produttori del settore</h2>
+      <p>Collaboriamo con Cinemeccanica Milano dal 1954 e trattiamo da sempre i migliori marchi professionali audio e video.</p>
     </div>
 
     <div class="reveal">
       <div class="brand-chips">
-        <span>Barco</span><span>Cinemeccanica</span><span>Christie</span>
-        <span>Dolby</span><span>JBL</span><span>Harman</span><span>Q-SYS</span>
+        <span>Cinemeccanica</span><span>Barco</span><span>Christie</span><span>Dolby</span>
+        <span>JBL</span><span>Harman</span><span>Q-SYS</span><span>Harkness</span><span>Ushio</span>
       </div>
       <div class="brand-wall">
         <picture>
@@ -1249,7 +1292,7 @@ footer {
     <div class="footer-grid">
       <div class="footer-about">
         <a class="brand" href="#top">
-          <img src="img/logo_sigra.svg" width="38" height="38" alt="">
+          <img src="img/logo_sigra.png" width="58" height="34" alt="">
           <span>
             <span class="brand-name">Sigra Film</span>
             <span class="brand-tag">Cinema &amp; AV</span>
@@ -1314,7 +1357,8 @@ footer {
   "@context": "https://schema.org",
   "@type": "LocalBusiness",
   "name": "Sigra Film",
-  "description": "Installazione e assistenza di impianti di proiezione cinematografica, server DCI, audio Dolby Atmos e arene estive.",
+  "description": "Dal 1954 installazione e assistenza di impianti di proiezione cinematografica, server DCI, audio Dolby Atmos, schermi e arene estive.",
+  "foundingDate": "1954",
   "url": "https://roccotot.github.io/SigraFilm/",
   "image": "https://roccotot.github.io/SigraFilm/img/logo_sigra.png",
   "telephone": "+39 338 1025100",

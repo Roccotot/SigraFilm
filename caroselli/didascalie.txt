@@ -1,0 +1,14 @@
+# Didascalie della galleria.
+# Una riga per foto:   nomefile.jpg = testo mostrato sotto l'immagine
+# Le righe che iniziano con # sono ignorate.
+# Una foto senza riga qui prende una didascalia ricavata dal nome del file.
+#
+# L'ordine in pagina è quello alfabetico dei nomi file:
+# la prima immagine occupa il riquadro grande della griglia.
+
+C1.jpg = Sala cinema · impianto di proiezione
+C2.jpg = Sala digitale · schermo e audio
+C3.jpg = Teatro storico · grande schermo
+C4.jpg = Arena estiva · proiezione all'aperto
+C5.jpg = Struttura mobile · schermo per eventi
+C6.jpg = Arena all'aperto · allestimento completo
