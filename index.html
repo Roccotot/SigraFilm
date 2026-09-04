@@ -67,6 +67,7 @@
   --ff-display: 'Sora', 'Inter', system-ui, -apple-system, 'Segoe UI', Arial, sans-serif;
 
   --ease: cubic-bezier(.22,.61,.36,1);
+  --mo:   cubic-bezier(.16,1,.3,1);   /* parte decisa, si posa piano */
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -214,6 +215,14 @@ section[id] { scroll-margin-top: calc(var(--nav-h) + 14px); }
 }
 .nav-cta:hover { background: var(--gold-soft); transform: translateY(-2px); box-shadow: 0 10px 26px rgba(249,194,0,.32); }
 
+/* Compare solo dopo la testata, dove la richiesta di contatto ha senso */
+.js .nav-cta {
+  opacity: 0; transform: translateY(-6px) scale(.94);
+  pointer-events: none;
+  transition: opacity .35s var(--mo), transform .45s var(--mo), background .2s;
+}
+.js .nav.mostra-cta .nav-cta { opacity: 1; transform: none; pointer-events: auto; }
+
 /* Hamburger */
 .nav-toggle {
   display: none;
@@ -294,6 +303,42 @@ section[id] { scroll-margin-top: calc(var(--nav-h) + 14px); }
     radial-gradient(90ch 60ch at 18% 45%, rgba(0,0,0,.86), rgba(0,0,0,.35) 60%, transparent 78%),
     linear-gradient(180deg, rgba(10,10,11,.78) 0%, rgba(10,10,11,.55) 35%, rgba(10,10,11,.9) 82%, var(--bg) 100%);
 }
+/* La luce della sala: la veletta sfarfalla come una lampada che innesca,
+   il fascio attraversa lentamente la scena. Sta sopra lo sfondo e sotto il
+   testo, e non intercetta il puntatore. */
+.hero-luce { position: absolute; inset: 0; z-index: -1; pointer-events: none; overflow: hidden; }
+
+.hero-luce::before {
+  content: ''; position: absolute; inset: 0;
+  background: var(--bg);
+  animation: innesco 1.5s steps(1, end) both;
+}
+@keyframes innesco {
+  0%   { opacity: 1; }
+  14%  { opacity: .35; }
+  22%  { opacity: .85; }
+  32%  { opacity: .12; }
+  40%  { opacity: .6; }
+  52%  { opacity: .04; }
+  62%  { opacity: .25; }
+  100% { opacity: 0; }
+}
+
+.hero-luce::after {
+  content: ''; position: absolute;
+  top: -60%; bottom: -60%; left: -35%;
+  width: 42%;
+  background: linear-gradient(100deg, transparent, rgba(255,255,255,.055) 42%, rgba(255,247,214,.09) 50%, rgba(255,255,255,.045) 58%, transparent);
+  transform: rotate(9deg);
+  animation: fascio 13s 1.6s ease-in-out infinite;
+}
+@keyframes fascio {
+  0%, 100% { transform: translateX(0) rotate(9deg); opacity: 0; }
+  12%      { opacity: 1; }
+  78%      { opacity: 1; }
+  95%, 100%{ transform: translateX(320%) rotate(9deg); opacity: 0; }
+}
+
 /* Grana leggera: toglie la piattezza al gradiente */
 .hero::after {
   content: ''; position: absolute; inset: 0; z-index: -1;
@@ -301,7 +346,16 @@ section[id] { scroll-margin-top: calc(var(--nav-h) + 14px); }
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='.35'/%3E%3C/svg%3E");
 }
 
-.hero-content { max-width: 720px; }
+.hero-content { max-width: 720px; will-change: transform, opacity; }
+.hero-bg { will-change: transform; }
+
+/* Entrata scaglionata degli elementi della testata */
+.js .hero-content > *:not(h1) { animation: salita .8s var(--mo) both; }
+.js .hero-content > .eyebrow    { animation-delay: .18s; }
+.js .hero-content > .hero-lead  { animation-delay: .72s; }
+.js .hero-content > .hero-actions { animation-delay: .84s; }
+.js .hero-content > .hero-trust { animation-delay: .95s; }
+@keyframes salita { from { opacity: 0; transform: translateY(22px); } }
 
 .eyebrow {
   display: inline-flex; align-items: center; gap: 9px;
@@ -335,6 +389,18 @@ section[id] { scroll-margin-top: calc(var(--nav-h) + 14px); }
   margin-bottom: 22px;
   text-wrap: balance;
 }
+.hero h1 .parola {
+  display: inline-block; overflow: hidden; vertical-align: bottom;
+  padding-bottom: .14em; margin-bottom: -.14em;   /* lascia respirare le lettere discendenti */
+}
+.hero h1 .parola > * {
+  display: inline-block; font-style: inherit;
+  transform: translateY(105%);
+  animation: parolaSu .85s var(--mo) both;
+  animation-delay: calc(.42s + var(--i) * .075s);
+}
+@keyframes parolaSu { to { transform: none; } }
+
 .hero h1 em {
   font-style: normal;
   background: linear-gradient(100deg, var(--gold), var(--gold-soft) 55%, #fff);
@@ -361,7 +427,19 @@ section[id] { scroll-margin-top: calc(var(--nav-h) + 14px); }
   cursor: pointer;
   transition: transform .2s var(--ease), box-shadow .2s var(--ease), background .2s, border-color .2s;
 }
-.btn-primary { background: var(--gold); color: #000; box-shadow: 0 12px 34px rgba(249,194,0,.24); }
+.btn-primary {
+  background: var(--gold); color: #000;
+  box-shadow: 0 12px 34px rgba(249,194,0,.24);
+  position: relative; overflow: hidden;
+}
+/* Un riflesso attraversa il pulsante al passaggio del puntatore */
+.btn-primary::after {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(100deg, transparent 35%, rgba(255,255,255,.55) 50%, transparent 65%);
+  transform: translateX(-120%);
+  transition: transform .7s var(--mo);
+}
+.btn-primary:hover::after { transform: translateX(120%); }
 .btn-primary:hover { background: var(--gold-soft); transform: translateY(-3px); box-shadow: 0 18px 46px rgba(249,194,0,.38); }
 .btn-ghost {
   background: rgba(255,255,255,.06);
@@ -390,7 +468,9 @@ section[id] { scroll-margin-top: calc(var(--nav-h) + 14px); }
   font-size: .68rem; letter-spacing: .22em; text-transform: uppercase;
   color: var(--text-3);
   text-decoration: none;
+  transition: opacity .4s var(--ease);
 }
+.nav.scrolled ~ .hero .scroll-hint, .js .hero.via .scroll-hint { opacity: 0; pointer-events: none; }
 .scroll-hint .arrow {
   width: 15px; height: 15px;
   border-right: 2px solid var(--gold);
@@ -423,12 +503,75 @@ section[id] { scroll-margin-top: calc(var(--nav-h) + 14px); }
 }
 .section-head p { color: var(--text-2); font-size: 1.02rem; }
 
+/* ============================================================
+   MOVIMENTO
+   Il vocabolario è quello della sala: la lampada che si accende,
+   i titoli di testa che salgono, il sipario che si apre dal centro.
+   Tutto passa da transform / opacity / clip-path, che il browser
+   compone sulla GPU senza ricalcolare l'impaginazione.
+   ============================================================ */
+
 /* Rivelazione allo scroll — solo se il JS è attivo */
 .js .reveal { opacity: 0; transform: translateY(26px); transition: opacity .7s var(--ease), transform .7s var(--ease); }
 .js .reveal.visible { opacity: 1; transform: none; }
 .js .reveal[data-delay="1"] { transition-delay: .07s; }
 .js .reveal[data-delay="2"] { transition-delay: .14s; }
 .js .reveal[data-delay="3"] { transition-delay: .21s; }
+
+/* Le schede entrano anche in profondità, non solo dal basso */
+.js .service-card.reveal,
+.js .tool-card.reveal {
+  transform: translateY(30px) scale(.975);
+  transition: opacity .75s var(--mo), transform .75s var(--mo);
+}
+.js .service-card.reveal.visible,
+.js .tool-card.reveal.visible { transform: none; }
+
+/* Testate di sezione: occhiello, titolo e sommario in cascata.
+   Il titolo sale da dietro una mascherina, come un cartello di testa. */
+.js .section-head.reveal,
+.js .about-body.reveal { opacity: 1; transform: none; transition: none; }
+
+.js .section-head.reveal > *,
+.js .about-body.reveal > * {
+  opacity: 0;
+  transition: opacity .6s var(--ease), transform .7s var(--mo), clip-path .85s var(--mo);
+}
+.js .section-head.reveal .eyebrow,
+.js .about-body.reveal .section-head { transform: translateY(14px); }
+.js .section-head.reveal h2 {
+  transform: translateY(20px);
+  clip-path: inset(0 0 108% 0);
+  transition-delay: .09s;
+}
+.js .section-head.reveal > p  { transform: translateY(16px); transition-delay: .2s; }
+.js .about-body.reveal > p    { transform: translateY(16px); }
+.js .about-body.reveal > p:nth-of-type(2) { transition-delay: .08s; }
+.js .about-body.reveal > p:nth-of-type(3) { transition-delay: .15s; }
+
+.js .section-head.reveal.visible > *,
+.js .about-body.reveal.visible > * { opacity: 1; transform: none; }
+.js .section-head.reveal.visible h2 { clip-path: inset(-25% -25% -25% -25%); }
+
+/* Galleria: il sipario si apre dal centro */
+.js .gallery-grid.reveal { opacity: 1; transform: none; transition: none; }
+.js .gallery-grid.reveal .g-item {
+  clip-path: inset(0 50% 0 50%);
+  transition: clip-path .9s var(--mo);
+}
+.js .gallery-grid.reveal.visible .g-item { clip-path: inset(0); }
+.js .gallery-grid.reveal.visible .g-item:nth-child(2) { transition-delay: .09s; }
+.js .gallery-grid.reveal.visible .g-item:nth-child(3) { transition-delay: .16s; }
+.js .gallery-grid.reveal.visible .g-item:nth-child(4) { transition-delay: .22s; }
+.js .gallery-grid.reveal.visible .g-item:nth-child(5) { transition-delay: .27s; }
+.js .gallery-grid.reveal.visible .g-item:nth-child(n+6) { transition-delay: .31s; }
+
+/* I numeri arrivano sfocati e mettono a fuoco */
+.js .stats-band.reveal .stat-number {
+  filter: blur(8px); opacity: 0;
+  transition: filter .85s var(--ease) .15s, opacity .5s ease .15s;
+}
+.js .stats-band.reveal.visible .stat-number { filter: none; opacity: 1; }
 
 /* ============================================================
    CHI SIAMO + NUMERI
@@ -787,6 +930,22 @@ section[id] { scroll-margin-top: calc(var(--nav-h) + 14px); }
 }
 .brand-chips span:hover { border-color: var(--gold-line); color: var(--gold); }
 
+/* Entrano uno dopo l'altro, come una lista di titoli di coda */
+.js .reveal .brand-chips span {
+  opacity: 0; transform: translateY(12px) scale(.94);
+  transition: opacity .5s var(--ease), transform .6s var(--mo);
+}
+.js .reveal.visible .brand-chips span { opacity: 1; transform: none; }
+.js .reveal.visible .brand-chips span:nth-child(1) { transition-delay: .04s; }
+.js .reveal.visible .brand-chips span:nth-child(2) { transition-delay: .08s; }
+.js .reveal.visible .brand-chips span:nth-child(3) { transition-delay: .12s; }
+.js .reveal.visible .brand-chips span:nth-child(4) { transition-delay: .16s; }
+.js .reveal.visible .brand-chips span:nth-child(5) { transition-delay: .20s; }
+.js .reveal.visible .brand-chips span:nth-child(6) { transition-delay: .24s; }
+.js .reveal.visible .brand-chips span:nth-child(7) { transition-delay: .28s; }
+.js .reveal.visible .brand-chips span:nth-child(8) { transition-delay: .32s; }
+.js .reveal.visible .brand-chips span:nth-child(n+9) { transition-delay: .36s; }
+
 .brand-wall {
   position: relative;
   border-radius: var(--r-lg);
@@ -829,6 +988,18 @@ section[id] { scroll-margin-top: calc(var(--nav-h) + 14px); }
   display: flex; flex-wrap: wrap; gap: 26px;
   align-items: center; justify-content: space-between;
   overflow: hidden;
+  isolation: isolate;
+}
+/* Un alone lento attraversa la fascia: il richiamo resta vivo senza lampeggiare */
+.cta-band::before {
+  content: ''; position: absolute; z-index: -1;
+  top: -60%; bottom: -60%; left: -40%; width: 55%;
+  background: radial-gradient(closest-side, rgba(249,194,0,.16), transparent);
+  animation: alone 11s ease-in-out infinite;
+}
+@keyframes alone {
+  0%, 100% { transform: translateX(0); }
+  50%      { transform: translateX(210%); }
 }
 .cta-band h2 {
   font-family: var(--ff-display);
@@ -1013,7 +1184,22 @@ footer {
     animation-iteration-count: 1 !important;
     transition-duration: .01ms !important;
   }
-  .js .reveal { opacity: 1 !important; transform: none !important; }
+  /* Ogni stato di partenza viene annullato: la pagina appare già composta */
+  .js .reveal,
+  .js .section-head.reveal > *,
+  .js .about-body.reveal > *,
+  .js .gallery-grid.reveal .g-item,
+  .js .stats-band.reveal .stat-number,
+  .js .hero-content > *,
+  .hero h1 .parola > i {
+    opacity: 1 !important;
+    transform: none !important;
+    clip-path: none !important;
+    filter: none !important;
+  }
+  .hero-luce { display: none; }        /* niente sfarfallio né fascio di luce */
+  .cta-band::before { display: none; }
+  .btn-primary::after { display: none; }
 }
 
 @media print {
@@ -1073,6 +1259,8 @@ footer {
             sizes="100vw">
     <img class="hero-bg" src="img/banner_cinema-1600.jpg" alt="" width="1600" height="1067" fetchpriority="high">
   </picture>
+
+  <div class="hero-luce" aria-hidden="true"></div>
 
   <div class="wrap">
     <div class="hero-content">
@@ -1527,6 +1715,48 @@ footer {
 
   var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+  /* ---------- Titoli di testa: il titolo sale parola per parola ---------- */
+  (function () {
+    var h1 = document.querySelector('.hero h1');
+    if (!h1 || reduced) return;
+    var i = 0;
+
+    // Percorre l'albero e avvolge ogni parola, lasciando intatti <em> e <br>:
+    // così il gradiente sul testo evidenziato continua a funzionare.
+    function avvolgi(elemento) {
+      var fuori = document.createElement('span');
+      fuori.className = 'parola';
+      fuori.style.setProperty('--i', i++);
+      elemento.parentNode.insertBefore(fuori, elemento);
+      fuori.appendChild(elemento);
+    }
+
+    (function dividi(nodo) {
+      Array.prototype.slice.call(nodo.childNodes).forEach(function (n) {
+        if (n.nodeType === 1) {
+          // Il testo evidenziato porta un gradiente ritagliato sulle lettere:
+          // dividerlo lo cancellerebbe, quindi sale tutto insieme.
+          if (n.tagName === 'EM') avvolgi(n);
+          else dividi(n);
+          return;
+        }
+        if (n.nodeType !== 3 || !n.textContent.trim()) return;
+        var frammento = document.createDocumentFragment();
+        n.textContent.split(/(\s+)/).forEach(function (pezzo) {
+          if (!pezzo.trim()) { frammento.appendChild(document.createTextNode(pezzo)); return; }
+          var fuori = document.createElement('span');
+          fuori.className = 'parola';
+          fuori.style.setProperty('--i', i++);
+          var dentro = document.createElement('i');
+          dentro.textContent = pezzo;
+          fuori.appendChild(dentro);
+          frammento.appendChild(fuori);
+        });
+        n.parentNode.replaceChild(frammento, n);
+      });
+    })(h1);
+  })();
+
   /* ---------- Anno nel footer ---------- */
   document.getElementById('year').textContent = new Date().getFullYear();
 
@@ -1535,14 +1765,39 @@ footer {
   var progress = document.getElementById('progress');
   var toTop = document.getElementById('to-top');
 
+  var sfondoHero = document.querySelector('.hero-bg');
+  var testoHero  = document.querySelector('.hero-content');
+  var hero       = document.querySelector('.hero');
+  var inCoda     = false;
+
   function onScroll() {
     var y = window.scrollY;
     nav.classList.toggle('scrolled', y > 40);
     toTop.classList.toggle('show', y > 700);
+
     var max = document.documentElement.scrollHeight - window.innerHeight;
     progress.style.width = (max > 0 ? (y / max) * 100 : 0) + '%';
+
+    // Il pulsante di contatto entra nella barra una volta superata la testata
+    nav.classList.toggle('mostra-cta', y > (hero ? hero.offsetHeight * .6 : 500));
+    if (hero) hero.classList.toggle('via', y > 60);   // ritira l'invito a scorrere
+
+    // Parallasse: lo sfondo scorre più lento del testo, che si allontana.
+    // Si scrivono solo transform e opacity, mai proprietà che impaginano.
+    if (!reduced && sfondoHero && y < window.innerHeight * 1.2) {
+      var q = y / window.innerHeight;
+      sfondoHero.style.transform = 'translate3d(0,' + (y * .34) + 'px,0)';
+      testoHero.style.transform  = 'translate3d(0,' + (y * .16) + 'px,0)';
+      testoHero.style.opacity    = String(Math.max(0, 1 - q * 1.35));
+    }
   }
-  window.addEventListener('scroll', onScroll, { passive: true });
+
+  // Un solo ascoltatore, allineato al ritmo di disegno del browser
+  window.addEventListener('scroll', function () {
+    if (inCoda) return;
+    inCoda = true;
+    requestAnimationFrame(function () { onScroll(); inCoda = false; });
+  }, { passive: true });
   onScroll();
 
   toTop.addEventListener('click', function () {
@@ -1583,7 +1838,9 @@ footer {
   } else {
     var revealObs = new IntersectionObserver(function (entries) {
       entries.forEach(function (e) {
-        if (e.isIntersecting) {
+        // Anche gli elementi già superati vanno mostrati: con un salto d'ancora
+        // possono ricevere la notifica quando sono ormai sopra lo schermo
+        if (e.isIntersecting || e.boundingClientRect.bottom < 0) {
           e.target.classList.add('visible');
           revealObs.unobserve(e.target);
         }
