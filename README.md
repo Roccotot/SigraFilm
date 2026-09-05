@@ -12,6 +12,8 @@ caroselli/                      le foto della galleria
   didascalie.txt                i testi sotto le foto
 strumenti/aggiorna_galleria.py  rigenera la galleria
 strumenti/aggiorna_mappa.py     riallinea mappa e numeri all'inventario
+strumenti/aggiorna_versione.py  marca la pagina con data e ora
+strumenti/verifica_css.py       controlla che il foglio di stile sia integro
 .github/workflows/galleria.yml  fa rigenerare la galleria da sola su GitHub
 ```
 
