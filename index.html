@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<!-- versione 2026-09-05 09:49 UTC -->
-<html lang="it" data-versione="2026-09-05 09:49">
+<!-- versione 2026-09-05 09:59 UTC -->
+<html lang="it" data-versione="2026-09-05 09:59">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
@@ -1237,6 +1237,54 @@ footer {
 }
 
 /* ============================================================
+   AZIONI FLUTTUANTI
+   ============================================================ */
+#to-top {
+  position: fixed; right: 20px; bottom: 22px;
+  width: 46px; height: 46px;
+  border-radius: 50%;
+  background: rgba(255,255,255,.08);
+  border: 1px solid var(--border-2);
+  color: var(--text);
+  backdrop-filter: blur(10px);
+  cursor: pointer;
+  display: grid; place-items: center;
+  font-size: 1.1rem;
+  opacity: 0; visibility: hidden; transform: translateY(12px);
+  transition: opacity .3s, transform .3s var(--ease), visibility .3s, background .2s;
+  z-index: 1050;
+}
+#to-top.show { opacity: 1; visibility: visible; transform: none; }
+#to-top:hover { background: var(--gold); color: #000; border-color: var(--gold); }
+
+/* Barra azioni rapide su mobile */
+.quickbar {
+  display: none;
+  position: fixed; inset: auto 0 0 0;
+  z-index: 1080;
+  background: rgba(10,10,11,.94);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-top: 1px solid var(--border);
+  padding: 9px 10px calc(9px + env(safe-area-inset-bottom));
+  gap: 8px;
+}
+.quickbar a {
+  flex: 1;
+  display: flex; flex-direction: column; align-items: center; gap: 3px;
+  padding: 8px 4px;
+  border-radius: var(--r-sm);
+  text-decoration: none;
+  font-size: .68rem; font-weight: 700;
+  letter-spacing: .04em;
+  color: var(--text-2);
+  background: rgba(255,255,255,.05);
+  border: 1px solid var(--border);
+}
+.quickbar a .qi { font-size: 1.18rem; }
+.quickbar a.primary { background: var(--gold); color: #000; border-color: var(--gold); }
+
+/* ============================================================
    RESPONSIVE
    ============================================================ */
 @media (max-width: 980px) {
@@ -1400,6 +1448,10 @@ footer {
   .cta-band::before { display: none; }       /* alone che attraversa la fascia */
   .btn-primary::after { display: none; }     /* riflesso sul pulsante */
   .js .quickbar { transform: none !important; }   /* resta in vista, non sale */
+
+  /* Il pannello di diagnosi deve poter dire che l'impostazione è attiva */
+  .diag .rm-no { display: none; }
+  .diag .rm-si { display: inline; color: var(--gold); }
 }
 
 @media print {
@@ -1878,7 +1930,7 @@ footer {
 
     <div class="footer-credit">
       <span>Developed by <b>Rocco Totaro</b></span>
-      <span class="footer-ver" id="versione">v. 2026-09-05 09:49 UTC</span>
+      <span class="footer-ver" id="versione">v. 2026-09-05 09:59 UTC</span>
     </div>
   </div>
 </footer>
