@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<!-- versione 2026-09-05 09:41 UTC -->
-<html lang="it" data-versione="2026-09-05 09:41">
+<!-- versione 2026-09-05 09:49 UTC -->
+<html lang="it" data-versione="2026-09-05 09:49">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
@@ -299,7 +299,6 @@ section[id] { scroll-margin-top: calc(var(--nav-h) + 14px); }
   display: flex; align-items: center;
   padding: calc(var(--nav-h) + 40px) 0 120px;
   overflow: hidden;
-  isolation: isolate;
 }
 
 .hero-bg {
@@ -353,17 +352,22 @@ section[id] { scroll-margin-top: calc(var(--nav-h) + 14px); }
   95%, 100%{ transform: translateX(320%) rotate(9deg); opacity: 0; }
 }
 
-/* Il pulviscolo che galleggia nel fascio: in sala lo si vede sempre, quando
-   la luce taglia l'aria. Disegnato su canvas perché sono decine di elementi
-   in movimento continuo, che come nodi del documento costerebbero troppo. */
-.hero-pulviscolo {
-  position: absolute; inset: 0;
+/* Il pulviscolo che galleggia nella luce: in sala lo si vede sempre, quando
+   il fascio taglia l'aria. Un solo strato fisso alla finestra, dietro tutti i
+   contenuti e davanti agli sfondi, così accompagna la pagina intera.
+   Disegnato su canvas perché sono decine di elementi in movimento continuo,
+   che come nodi del documento costerebbero troppo. */
+.pulviscolo {
+  position: fixed; inset: 0;
   /* Il canvas è un elemento sostituito: senza misure esplicite resterebbe
      ai suoi 300x150 predefiniti, perché inset da solo non lo stira */
   width: 100%; height: 100%;
-  z-index: -1;
+  z-index: 0;
   pointer-events: none;
 }
+
+/* I contenuti stanno sopra al pulviscolo; gli sfondi della testata sotto */
+.hero-content, main, footer { position: relative; z-index: 1; }
 
 /* Grana leggera: toglie la piattezza al gradiente */
 .hero::after {
@@ -516,7 +520,8 @@ section[id] { scroll-margin-top: calc(var(--nav-h) + 14px); }
    SEZIONI
    ============================================================ */
 .section { padding: clamp(64px, 9vw, 110px) 0; position: relative; }
-.section-alt { background: var(--bg-2); border-block: 1px solid var(--border); }
+/* Traslucidi di poco: quanto basta perché il pulviscolo si intraveda dietro */
+.section-alt { background: rgba(14,14,16,.86); border-block: 1px solid var(--border); }
 
 .section-head { max-width: 700px; margin-bottom: clamp(34px, 5vw, 52px); }
 .section-head .eyebrow { margin-bottom: 16px; }
@@ -1165,7 +1170,7 @@ section[id] { scroll-margin-top: calc(var(--nav-h) + 14px); }
    FOOTER
    ============================================================ */
 footer {
-  background: #060607;
+  background: rgba(6,6,7,.9);
   border-top: 1px solid var(--border);
   /* Spazio in fondo perché "torna in cima", che galleggia fisso sulla
      finestra, non finisca sopra l'ultima riga a fine pagina */
@@ -1191,6 +1196,23 @@ footer {
 .footer-grid a:hover { color: var(--gold); }
 .footer-about { max-width: 40ch; }
 .footer-about .brand { margin-bottom: 14px; }
+
+/* Dati d'impresa: obbligatori, quindi leggibili, ma non chiedono attenzione */
+.footer-legal {
+  display: flex; flex-wrap: wrap;
+  gap: 4px 0;
+  margin-top: 24px;
+  font-size: .78rem;
+  line-height: 1.7;
+  color: rgba(244,244,245,.42);
+}
+.footer-legal span:not(:last-child)::after {
+  content: '\00b7';
+  margin: 0 10px;
+  color: rgba(244,244,245,.22);
+}
+.footer-legal a { text-decoration: none; }
+.footer-legal a:hover { color: var(--gold); }
 
 .footer-bottom {
   display: flex; flex-wrap: wrap; gap: 12px;
@@ -1389,6 +1411,8 @@ footer {
 
 <body>
 
+<canvas class="pulviscolo" aria-hidden="true"></canvas>
+
 <a class="skip-link" href="#main">Vai al contenuto</a>
 <div id="progress" aria-hidden="true"></div>
 
@@ -1443,7 +1467,6 @@ footer {
   </picture>
 
   <div class="hero-luce" aria-hidden="true"></div>
-  <canvas class="hero-pulviscolo" aria-hidden="true"></canvas>
 
   <div class="wrap">
     <div class="hero-content">
@@ -1840,14 +1863,22 @@ footer {
       </div>
     </div>
 
+    <div class="footer-legal">
+      <span>Sigrafilm S.a.s. di Braschi Andrea e Paola &amp; C.</span>
+      <span>Via S. Antonino 7/R &mdash; 50123 Firenze (FI)</span>
+      <span>P.IVA / C.F. IT 06890600486</span>
+      <span>Codice SDI M5UXCR1</span>
+      <span>PEC <a href="mailto:sigrafilm@pec.it">sigrafilm@pec.it</a></span>
+    </div>
+
     <div class="footer-bottom">
-      <span>&copy; <span id="year">2026</span> Sigra Film &mdash; Firenze</span>
+      <span>&copy; <span id="year">2026</span> Sigrafilm S.a.s. &mdash; Firenze</span>
       <span>Proiezione cinematografica &amp; tecnologie audiovisive</span>
     </div>
 
     <div class="footer-credit">
       <span>Developed by <b>Rocco Totaro</b></span>
-      <span class="footer-ver" id="versione">v. 2026-09-05 09:41 UTC</span>
+      <span class="footer-ver" id="versione">v. 2026-09-05 09:49 UTC</span>
     </div>
   </div>
 </footer>
@@ -1890,6 +1921,9 @@ footer {
   "@context": "https://schema.org",
   "@type": "LocalBusiness",
   "name": "Sigra Film",
+  "legalName": "Sigrafilm S.a.s. di Braschi Andrea e Paola & C.",
+  "vatID": "IT06890600486",
+  "taxID": "06890600486",
   "description": "Dal 1954 installazione e assistenza di impianti di proiezione cinematografica, server DCI, audio Dolby Atmos, schermi e arene estive.",
   "foundingDate": "1954",
   "url": "https://roccotot.github.io/SigraFilm/",
@@ -1916,13 +1950,12 @@ footer {
 
   /* ---------- Pulviscolo nel fascio ---------- */
   (function () {
-    var tela = document.querySelector('.hero-pulviscolo');
-    var scena = document.querySelector('.hero');
-    if (!tela || !scena || reduced || !tela.getContext) return;
+    var tela = document.querySelector('.pulviscolo');
+    if (!tela || reduced || !tela.getContext) return;
 
     var ctx = tela.getContext('2d');
     var granelli = [], larg = 0, alt = 0, densita = 1;
-    var animazione = null, inVista = true;
+    var animazione = null;
 
     // Un solo alone disegnato una volta e poi ricopiato: creare un gradiente
     // per ogni granello a ogni fotogramma sarebbe sprecato
@@ -1940,9 +1973,10 @@ footer {
     })();
 
     function semina() {
-      // Densità proporzionale all'area, con un tetto: su schermi grandi
-      // servono più granelli, ma non tanti da pesare
-      var quanti = Math.max(22, Math.min(95, Math.round(larg * alt / 12000)));
+      // Densità proporzionale all'area, con un tetto. Ora lo strato accompagna
+      // tutta la pagina e non si ferma più a testata superata, quindi si tiene
+      // più rado di prima: deve accompagnare la lettura, non disturbarla.
+      var quanti = Math.max(20, Math.min(80, Math.round(larg * alt / 14000)));
       granelli = [];
       for (var i = 0; i < quanti; i++) {
         granelli.push({
@@ -1969,7 +2003,13 @@ footer {
       semina();
     }
 
+    var ultimo = 0;
     function disegna(tempo) {
+      // La polvere si muove piano: ridisegnare 60 volte al secondo non
+      // aggiungerebbe nulla di percepibile e costerebbe il doppio
+      if (tempo - ultimo < 32) { animazione = requestAnimationFrame(disegna); return; }
+      ultimo = tempo;
+
       ctx.clearRect(0, 0, larg, alt);
       ctx.globalCompositeOperation = 'lighter';
       for (var i = 0; i < granelli.length; i++) {
@@ -1989,7 +2029,7 @@ footer {
     }
 
     function avvia() {
-      if (animazione === null && inVista && !document.hidden) animazione = requestAnimationFrame(disegna);
+      if (animazione === null && !document.hidden) animazione = requestAnimationFrame(disegna);
     }
     function ferma() {
       if (animazione !== null) { cancelAnimationFrame(animazione); animazione = null; }
@@ -1998,13 +2038,7 @@ footer {
     dimensiona();
     avvia();
 
-    // Non si disegna quando non si vede: né fuori schermo, né a scheda nascosta
-    if ('IntersectionObserver' in window) {
-      new IntersectionObserver(function (voci) {
-        inVista = voci[0].isIntersecting;
-        inVista ? avvia() : ferma();
-      }, { threshold: 0 }).observe(scena);
-    }
+    // Non si disegna a scheda nascosta
     document.addEventListener('visibilitychange', function () {
       document.hidden ? ferma() : avvia();
     });
