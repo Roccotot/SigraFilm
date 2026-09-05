@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<!-- versione 2026-09-05 08:45 UTC -->
-<html lang="it" data-versione="2026-09-05 08:45">
+<!-- versione 2026-09-05 09:15 UTC -->
+<html lang="it" data-versione="2026-09-05 09:15">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
@@ -384,6 +384,7 @@ section[id] { scroll-margin-top: calc(var(--nav-h) + 14px); }
 .hero-content > .hero-actions { animation-delay: .84s; }
 .hero-content > .hero-trust   { animation-delay: .95s; }
 @keyframes salita { from { opacity: 0; transform: translateY(22px); } }
+@keyframes dissolvenza { from { opacity: 0; } }
 
 .eyebrow {
   display: inline-flex; align-items: center; gap: 9px;
@@ -1238,142 +1239,19 @@ footer {
 .diag .chiudi { display: block; margin-top: 10px; color: var(--text-3); }
 .diag .rm-si { display: none; }
 @media (prefers-reduced-motion: reduce) {
-  .diag .rm-no { display: none; }
-  .diag .rm-si { display: inline; color: var(--gold); }
-}
-
-/* ============================================================
-   AZIONI FLUTTUANTI
-   ============================================================ */
-#to-top {
-  position: fixed; right: 20px; bottom: 22px;
-  width: 46px; height: 46px;
-  border-radius: 50%;
-  background: rgba(255,255,255,.08);
-  border: 1px solid var(--border-2);
-  color: var(--text);
-  backdrop-filter: blur(10px);
-  cursor: pointer;
-  display: grid; place-items: center;
-  font-size: 1.1rem;
-  opacity: 0; visibility: hidden; transform: translateY(12px);
-  transition: opacity .3s, transform .3s var(--ease), visibility .3s, background .2s;
-  z-index: 1050;
-}
-#to-top.show { opacity: 1; visibility: visible; transform: none; }
-#to-top:hover { background: var(--gold); color: #000; border-color: var(--gold); }
-
-/* Barra azioni rapide su mobile */
-.quickbar {
-  display: none;
-  position: fixed; inset: auto 0 0 0;
-  z-index: 1080;
-  background: rgba(10,10,11,.94);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border-top: 1px solid var(--border);
-  padding: 9px 10px calc(9px + env(safe-area-inset-bottom));
-  gap: 8px;
-}
-.quickbar a {
-  flex: 1;
-  display: flex; flex-direction: column; align-items: center; gap: 3px;
-  padding: 8px 4px;
-  border-radius: var(--r-sm);
-  text-decoration: none;
-  font-size: .68rem; font-weight: 700;
-  letter-spacing: .04em;
-  color: var(--text-2);
-  background: rgba(255,255,255,.05);
-  border: 1px solid var(--border);
-}
-.quickbar a .qi { font-size: 1.18rem; }
-.quickbar a.primary { background: var(--gold); color: #000; border-color: var(--gold); }
-
-/* ============================================================
-   RESPONSIVE
-   ============================================================ */
-@media (max-width: 980px) {
-  .about-grid { grid-template-columns: 1fr; }
-  .stats-band { grid-template-columns: repeat(2, 1fr); }
-  .footer-grid { grid-template-columns: 1fr 1fr; }
-  .footer-about { grid-column: 1 / -1; }
-}
-
-@media (max-width: 820px) {
-  .nav-links, .nav-cta { display: none; }
-  .nav-toggle { display: flex; }
-
-  .nav-tel {
-    display: grid; place-items: center;
-    width: 44px; height: 44px; flex-shrink: 0;
-    border-radius: 11px;
-    background: var(--gold); color: #000;
-    font-size: 1.05rem; text-decoration: none;
-  }
-  .js .nav-tel {
-    opacity: 0; transform: scale(.72);
-    pointer-events: none;
-    transition: opacity .3s var(--mo), transform .45s var(--mo);
-  }
-  .js .nav.mostra-cta .nav-tel { opacity: 1; transform: none; pointer-events: auto; }
-
-  /* La barra delle azioni sale dal basso una volta lasciata la testata:
-     in cima il richiamo grande nella testata basta e avanza */
-  .js .quickbar {
-    transform: translateY(120%);
-    transition: transform .5s var(--mo);
-  }
-  .js .nav.mostra-cta ~ .quickbar { transform: none; }
-
-  /* Le voci del menu entrano una dopo l'altra */
-  .js .nav-drawer a {
-    opacity: 0; transform: translateY(18px);
-    transition: opacity .3s var(--ease), transform .45s var(--mo);
-  }
-  .js .nav-drawer.open a { opacity: 1; transform: none; }
-  .js .nav-drawer.open a:nth-child(1) { transition-delay: .06s; }
-  .js .nav-drawer.open a:nth-child(2) { transition-delay: .10s; }
-  .js .nav-drawer.open a:nth-child(3) { transition-delay: .14s; }
-  .js .nav-drawer.open a:nth-child(4) { transition-delay: .18s; }
-  .js .nav-drawer.open a:nth-child(5) { transition-delay: .22s; }
-  .js .nav-drawer.open a:nth-child(6) { transition-delay: .26s; }
-  .js .nav-drawer.open a:nth-child(7) { transition-delay: .32s; }
-
-  /* Le corse per schermo stretto stanno nelle variabili in cima */
-  .wrap { width: min(100% - 32px, var(--wrap)); }
-  .hero { min-height: auto; padding: calc(var(--nav-h) + 64px) 0 96px; }
-  .hero-actions .btn { flex: 1 1 auto; justify-content: center; }
-  .scroll-hint { display: none; }
-  .quickbar { display: flex; }
-  body { padding-bottom: 74px; }
-  #to-top { bottom: 88px; right: 14px; }
-  .cta-band { flex-direction: column; align-items: flex-start; }
-  .lb-arrow { width: 44px; height: 44px; }
-  #lb-prev { left: 8px; } #lb-next { right: 8px; }
-  #lightbox { padding: 66px 12px 84px; }
-}
-
-@media (max-width: 520px) {
-  .map-head { padding: 20px 18px 18px; }
-  .eyebrow { font-size: .68rem; letter-spacing: .07em; padding: 6px 13px 6px 10px; }
-  .footer-grid { grid-template-columns: 1fr; }
-  .gallery-grid { grid-template-columns: 1fr; }
-  .stat-box { padding: 20px 22px; }
-  .hero-trust { gap: 8px 18px; font-size: .8rem; }
-}
-
-/* ============================================================
-   MOVIMENTO RIDOTTO
-   ============================================================ */
-@media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
+
+  /* Chi chiede meno movimento non chiede una pagina morta: spariscono
+     spostamenti, ingrandimenti, mascherine e sfocature — cioè quello che può
+     dare disturbo — mentre le dissolvenze restano, perché una variazione di
+     opacità non provoca la sensazione di movimento che l'impostazione evita. */
   *, *::before, *::after {
     animation-duration: .01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: .01ms !important;
   }
-  /* Ogni stato di partenza viene annullato: la pagina appare già composta */
+
+  /* Niente spostamenti, ritagli o sfocature */
   .js .reveal,
   .js .section-head.reveal > *,
   .js .about-body.reveal > *,
@@ -1384,18 +1262,49 @@ footer {
   .js .cta-band.reveal > *,
   .js .reveal .brand-chips span,
   .js .hero-content > *,
-  .hero h1 .parola > i {
-    opacity: 1 !important;
+  .js .nav-cta,
+  .js .nav-tel,
+  .js .nav-drawer a,
+  .js .g-item img {
     transform: none !important;
     clip-path: none !important;
     filter: none !important;
   }
+
+  /* ...ma i contenuti continuano a comparire, in dissolvenza */
+  .js .reveal,
+  .js .section-head.reveal > *,
+  .js .about-body.reveal > *,
+  .js .gallery-grid.reveal .g-item,
+  .js .stats-band.reveal .stat-box,
+  .js .contacts-grid.reveal .contact-card,
+  .js .cta-band.reveal > *,
+  .js .reveal .brand-chips span,
+  .js .nav-cta,
   .js .nav-tel,
-  .js .nav-drawer a { opacity: 1 !important; transform: none !important; }
-  .js .quickbar { transform: none !important; }
-  .hero-luce { display: none; }        /* niente sfarfallio né fascio di luce */
-  .cta-band::before { display: none; }
-  .btn-primary::after { display: none; }
+  .js .nav-drawer a {
+    transition: opacity .5s ease !important;
+  }
+  /* Il sipario diventa una semplice comparsa */
+  .js .gallery-grid.reveal:not(.visible) .g-item { opacity: 0 !important; }
+
+  /* La testata compare scaglionata senza salire: restano i ritardi già
+     impostati, cambia solo il gesto */
+  .hero-content > * {
+    animation-name: dissolvenza !important;
+    animation-duration: .7s !important;
+    animation-fill-mode: both !important;
+    animation-timing-function: ease !important;
+  }
+
+  /* Quello che è soltanto movimento sparisce del tutto */
+  .hero-luce { display: none; }              /* sfarfallio della lampada e fascio */
+  .hero-bg { animation: none !important; }   /* niente ingrandimento lento */
+  .eyebrow .dot { animation: none !important; }
+  .scroll-hint .arrow { animation: none !important; }
+  .cta-band::before { display: none; }       /* alone che attraversa la fascia */
+  .btn-primary::after { display: none; }     /* riflesso sul pulsante */
+  .js .quickbar { transform: none !important; }   /* resta in vista, non sale */
 }
 
 @media print {
@@ -1865,7 +1774,7 @@ footer {
 
     <div class="footer-credit">
       <span>Developed by <b>Rocco Totaro</b></span>
-      <span class="footer-ver" id="versione">v. 2026-09-05 08:45 UTC</span>
+      <span class="footer-ver" id="versione">v. 2026-09-05 09:15 UTC</span>
     </div>
   </div>
 </footer>
@@ -2170,7 +2079,10 @@ footer {
 
   /* ---------- Rivelazione degli elementi allo scroll ---------- */
   var revealables = document.querySelectorAll('.reveal');
-  if (reduced || !('IntersectionObserver' in window)) {
+  // L'osservatore serve anche con "riduci movimento": lì i contenuti non si
+  // spostano più, ma compaiono comunque in dissolvenza mentre si scorre.
+  // Solo senza osservatore si mostra tutto subito, per non nascondere nulla.
+  if (!('IntersectionObserver' in window)) {
     revealables.forEach(function (el) { el.classList.add('visible'); });
   } else {
     var revealObs = new IntersectionObserver(function (entries) {
