@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<!-- versione 2026-09-04 20:00 UTC -->
-<html lang="it" data-versione="2026-09-04 20:00">
+<!-- versione 2026-09-05 08:16 UTC -->
+<html lang="it" data-versione="2026-09-05 08:16">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
@@ -1154,7 +1154,9 @@ section[id] { scroll-margin-top: calc(var(--nav-h) + 14px); }
 footer {
   background: #060607;
   border-top: 1px solid var(--border);
-  padding: 54px 0 30px;
+  /* Spazio in fondo perché "torna in cima", che galleggia fisso sulla
+     finestra, non finisca sopra l'ultima riga a fine pagina */
+  padding: 54px 0 96px;
   color: var(--text-3);
   font-size: .9rem;
 }
@@ -1182,6 +1184,21 @@ footer {
   justify-content: space-between; align-items: center;
   padding-top: 22px;
   font-size: .84rem;
+}
+
+/* Credito e versione: la data serve a capire quale copia della pagina sta
+   mostrando un browser, quindi resta leggibile ma non chiede attenzione */
+.footer-credit {
+  display: flex; flex-wrap: wrap; gap: 8px 16px;
+  justify-content: space-between; align-items: baseline;
+  margin-top: 16px; padding-top: 14px;
+  border-top: 1px solid rgba(255,255,255,.05);
+  font-size: .78rem;
+  color: rgba(244,244,245,.34);
+}
+.footer-credit b { color: rgba(244,244,245,.6); font-weight: 600; }
+.footer-ver {
+  font-variant-numeric: tabular-nums; letter-spacing: .02em;
 }
 
 /* ============================================================
@@ -1832,6 +1849,11 @@ footer {
       <span>&copy; <span id="year">2026</span> Sigra Film &mdash; Firenze</span>
       <span>Proiezione cinematografica &amp; tecnologie audiovisive</span>
     </div>
+
+    <div class="footer-credit">
+      <span>Developed by <b>Rocco Totaro</b></span>
+      <span class="footer-ver" id="versione">v. 2026-09-05 08:16 UTC</span>
+    </div>
   </div>
 </footer>
 
@@ -1850,7 +1872,7 @@ footer {
 <!-- Diagnostica: si apre con #diag in coda all'indirizzo -->
 <div class="diag" id="diag">
   <h3>Diagnostica pagina</h3>
-  <div>Versione: <b>2026-09-04 20:00 UTC</b></div>
+  <div>Versione: <b id="diag-ver">vedi in fondo alla pagina</b></div>
   <div>JavaScript: <b id="diag-js">NON attivo</b></div>
   <div>Riduci movimento: <span class="rm-no"><b>no</b></span><span class="rm-si"><b>SÌ — le animazioni sono disattivate dal sistema</b></span></div>
   <div>Movimento pronto: <b id="diag-mov">no</b></div>
@@ -1902,6 +1924,8 @@ footer {
     var box = document.getElementById('diag');
     if (!box) return;
     document.getElementById('diag-js').textContent = 'attivo';
+    var ver = document.getElementById('versione');
+    if (ver) document.getElementById('diag-ver').textContent = ver.textContent;
     var cta = document.querySelector('.nav-cta');
     var pronto = document.documentElement.classList.contains('js');
     document.getElementById('diag-mov').textContent =
