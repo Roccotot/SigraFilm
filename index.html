@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<!-- versione 2026-09-05 09:30 UTC -->
-<html lang="it" data-versione="2026-09-05 09:30">
+<!-- versione 2026-09-05 09:41 UTC -->
+<html lang="it" data-versione="2026-09-05 09:41">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
@@ -1847,7 +1847,7 @@ footer {
 
     <div class="footer-credit">
       <span>Developed by <b>Rocco Totaro</b></span>
-      <span class="footer-ver" id="versione">v. 2026-09-05 09:30 UTC</span>
+      <span class="footer-ver" id="versione">v. 2026-09-05 09:41 UTC</span>
     </div>
   </div>
 </footer>
@@ -2176,8 +2176,11 @@ footer {
   function runCounter(el) {
     var target = +el.dataset.target;
     var suffix = el.dataset.suffix || '';
-    if (reduced) { el.textContent = target + suffix; return; }
-    var start = null, dur = 1400;
+    // Il conteggio resta anche con "riduci movimento", solo più breve: sono
+    // cifre che cambiano dentro una riga, non qualcosa che si muove sullo
+    // schermo, quindi non provoca il disturbo che l'impostazione evita.
+    // Spostamenti, parallasse e pulviscolo restano invece esclusi.
+    var start = null, dur = reduced ? 900 : 1400;
     function step(ts) {
       if (start === null) start = ts;
       var p = Math.min((ts - start) / dur, 1);
