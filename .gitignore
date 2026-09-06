@@ -1,0 +1,6 @@
+# File temporanei di Python, generati eseguendo gli script in strumenti/
+__pycache__/
+*.py[cod]
+
+# Fogli di calcolo generati, non vanno versionati
+*.xlsx
