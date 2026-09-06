@@ -68,12 +68,31 @@ def leggi_didascalie():
     return testo
 
 
+# Parole che un nome di file generato da telefono o macchina fotografica porta
+# con sé e che non dicono nulla di quello che si vede
+RUMORE = {"whatsapp", "image", "images", "img", "dsc", "dscn", "pxl", "photo",
+          "foto", "immagine", "screenshot", "schermata", "at", "copia", "copy"}
+
+RIPIEGO = "Installazione Sigra Film"
+
+
 def didascalia_di(foto, tabella):
+    """Il testo sotto la foto, che è anche quello letto da chi non vede."""
     if foto.name in tabella:
         return tabella[foto.name]
-    # Ripiego: dal nome del file, "sala_grande-2.jpg" -> "Sala grande 2"
-    grezzo = re.sub(r"[_-]+", " ", foto.stem).strip()
-    return grezzo[:1].upper() + grezzo[1:] if grezzo else foto.stem
+
+    # Dal nome del file: "sala_grande-2.jpg" -> "Sala grande 2"
+    parole = [x for x in re.split(r"[\s_\-.]+", foto.stem) if x]
+    utili = [x for x in parole if not x.isdigit() and x.lower() not in RUMORE]
+
+    # "WhatsApp Image 2026-08-27 at 20.28.37" non descrive niente: meglio una
+    # riga neutra che un nome di file esposto sul sito e letto ad alta voce
+    # dagli screen reader. Resta il segnale per scriverne una vera.
+    if not utili:
+        return RIPIEGO
+
+    grezzo = " ".join(parole)
+    return grezzo[:1].upper() + grezzo[1:]
 
 
 def genera(foto, larghezza, qualita, suffisso):

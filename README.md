@@ -55,8 +55,14 @@ C1.jpg = Sala cinema · impianto di proiezione
 ```
 
 Una foto senza riga qui riceve una didascalia ricavata dal nome del file
-(`arena_estiva-2.jpg` → «Arena estiva 2»), quindi conviene comunque
-scriverla: è anche il testo che leggono i non vedenti e i motori di ricerca.
+(`arena_estiva-2.jpg` → «Arena estiva 2»). Se il nome non dice nulla — come
+quelli che escono da telefono e macchina fotografica, `WhatsApp Image 2026-08-27
+at 20.28.37` o `IMG_4821` — al suo posto compare «Installazione Sigra Film»:
+meglio una riga neutra che un nome di file esposto sul sito e letto ad alta
+voce da chi usa uno screen reader.
+
+Conviene comunque scriverla: è anche il testo che leggono i non vedenti e i
+motori di ricerca.
 
 ### Formati e dimensioni
 
