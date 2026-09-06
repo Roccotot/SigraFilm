@@ -32,7 +32,8 @@ ATTESE = [
     "@media (max-width: 980px)",              # griglie che passano a due colonne
     "@media (max-width: 820px)",              # telefono: menu, barra azioni, tasto chiamata
     "@media (max-width: 520px)",              # schermi molto stretti
-    "@media (min-width: 900px)",              # griglia asimmetrica della galleria
+    "@media (min-width: 700px)",              # carosello: due lastre per volta
+    "@media (min-width: 1080px)",             # carosello: tre lastre per volta
     "@media (prefers-reduced-motion: reduce)",
     "@media print",
 ]
@@ -47,7 +48,10 @@ REGOLE = [
     ".nav-tel",         # tasto chiamata su telefono
     ".pulviscolo",      # strato dei granelli luminosi
     ".lb-btn",          # comandi dell'ingranditore foto
-    ".g-item",          # riquadri della galleria
+    ".carosello",       # carosello della galleria
+    ".carosello-pista",
+    ".car-btn",         # comandi del carosello
+    ".g-item",          # lastre della galleria
     ".footer-legal",    # dati d'impresa
     ".diag",            # pannello di diagnosi
 ]
