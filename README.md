@@ -17,6 +17,17 @@ strumenti/verifica_css.py       controlla che il foglio di stile sia integro
 .github/workflows/galleria.yml  fa rigenerare la galleria da sola su GitHub
 ```
 
+## La galleria è un carosello
+
+Le foto scorrono una accanto all'altra: una per volta sul telefono, due sul
+tablet, tre sullo schermo grande. Avanza da sola ogni cinque secondi e si
+ferma appena qualcuno la tocca, ci passa sopra o la raggiunge da tastiera.
+C'è anche un pulsante di pausa, perché una cosa che si muove da sola deve
+sempre poter essere fermata.
+
+Sotto, la pista è un normale contenitore che scorre: sul telefono il dito
+funziona da solo, e continua a funzionare anche se il JavaScript non parte.
+
 ## Aggiungere foto alla galleria
 
 **Dal browser, senza installare niente:**

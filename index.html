@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<!-- versione 2026-09-06 07:53 UTC -->
-<html lang="it" data-versione="2026-09-06 07:53">
+<!-- versione 2026-09-06 20:20 UTC -->
+<html lang="it" data-versione="2026-09-06 20:20">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
@@ -613,14 +613,14 @@ section[id] { scroll-margin-top: calc(var(--nav-h) + 14px); }
 .js .about-body.reveal > p:nth-of-type(3) { transition-delay: .15s; }
 
 /* Galleria: il sipario si apre dal centro verso i lati */
-.js .gallery-grid.reveal { opacity: 1; transform: none; transition: none; }
-.js .gallery-grid.reveal .g-item { transition: clip-path .9s var(--mo); }
-.js .gallery-grid.reveal:not(.visible) .g-item { clip-path: inset(0 50% 0 50%); }
-.js .gallery-grid.reveal .g-item:nth-child(2) { transition-delay: .09s; }
-.js .gallery-grid.reveal .g-item:nth-child(3) { transition-delay: .16s; }
-.js .gallery-grid.reveal .g-item:nth-child(4) { transition-delay: .22s; }
-.js .gallery-grid.reveal .g-item:nth-child(5) { transition-delay: .27s; }
-.js .gallery-grid.reveal .g-item:nth-child(n+6) { transition-delay: .31s; }
+.js .carosello.reveal { opacity: 1; transform: none; transition: none; }
+.js .carosello.reveal .g-item { transition: clip-path .9s var(--mo); }
+.js .carosello.reveal:not(.visible) .g-item { clip-path: inset(0 50% 0 50%); }
+.js .carosello.reveal .g-item:nth-child(2) { transition-delay: .09s; }
+.js .carosello.reveal .g-item:nth-child(3) { transition-delay: .16s; }
+.js .carosello.reveal .g-item:nth-child(4) { transition-delay: .22s; }
+.js .carosello.reveal .g-item:nth-child(5) { transition-delay: .27s; }
+.js .carosello.reveal .g-item:nth-child(n+6) { transition-delay: .31s; }
 
 /* Numeri: arrivano da destra uno dopo l'altro e mettono a fuoco */
 .js .stats-band.reveal { opacity: 1; transform: none; transition: none; }
@@ -852,11 +852,62 @@ section[id] { scroll-margin-top: calc(var(--nav-h) + 14px); }
 /* ============================================================
    GALLERIA
    ============================================================ */
-.gallery-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
-@media (min-width: 900px) {
-  .gallery-grid { grid-template-columns: repeat(3, 1fr); }
-  .gallery-grid .g-item:first-child { grid-column: span 2; grid-row: span 2; aspect-ratio: auto; }
+/* Il carosello scorre come una pellicola che avanza. La pista è un normale
+   contenitore scorrevole con aggancio: sul telefono il dito funziona da solo,
+   e continua a funzionare anche se il JavaScript non parte. */
+.carosello { position: relative; }
+
+.carosello-pista {
+  display: flex;
+  gap: 14px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  overscroll-behavior-x: contain;
+  scrollbar-width: none;            /* la barra la sostituiscono i comandi */
+  padding-bottom: 2px;
 }
+.carosello-pista::-webkit-scrollbar { display: none; }
+.carosello-pista:focus-visible { outline: 2px solid var(--gold); outline-offset: 4px; border-radius: var(--r-md); }
+
+/* Una lastra per volta sul telefono, due sul tablet, tre sullo schermo grande.
+   La parte di lastra che sporge dice che ce n'è dell'altra. */
+.carosello .g-item {
+  flex: 0 0 calc(100% - 46px);
+  scroll-snap-align: center;
+}
+@media (min-width: 700px)  { .carosello .g-item { flex-basis: calc(50% - 7px);  scroll-snap-align: start; } }
+@media (min-width: 1080px) { .carosello .g-item { flex-basis: calc(33.333% - 10px); } }
+
+.carosello-comandi {
+  display: flex; align-items: center; gap: 10px;
+  margin-top: 18px;
+}
+.car-btn {
+  width: 42px; height: 42px; flex-shrink: 0;
+  display: grid; place-items: center;
+  border-radius: 50%;
+  border: 1px solid var(--border-2);
+  background: var(--surface);
+  color: var(--text);
+  font-size: 1.35rem; line-height: 1;
+  cursor: pointer;
+  transition: background .25s, border-color .25s, color .25s;
+}
+.car-btn:hover { background: var(--gold); border-color: var(--gold); color: #000; }
+.car-btn[disabled] { opacity: .35; cursor: default; }
+.car-btn[disabled]:hover { background: var(--surface); border-color: var(--border-2); color: var(--text); }
+.car-pausa { margin-left: auto; font-size: .8rem; letter-spacing: -.12em; }
+
+.car-punti { display: flex; gap: 8px; flex-wrap: wrap; }
+.car-punti button {
+  width: 9px; height: 9px; padding: 0;
+  border: 0; border-radius: 50%;
+  background: rgba(255,255,255,.22);
+  cursor: pointer;
+  transition: background .25s, transform .25s var(--mo);
+}
+.car-punti button[aria-selected="true"] { background: var(--gold); transform: scale(1.35); }
 
 .g-item {
   position: relative;
@@ -1402,7 +1453,7 @@ footer {
   .js .reveal,
   .js .section-head.reveal > *,
   .js .about-body.reveal > *,
-  .js .gallery-grid.reveal .g-item,
+  .js .carosello.reveal .g-item,
   .js .stats-band.reveal .stat-box,
   .js .stats-band.reveal .stat-number,
   .js .contacts-grid.reveal .contact-card,
@@ -1422,7 +1473,7 @@ footer {
   .js .reveal,
   .js .section-head.reveal > *,
   .js .about-body.reveal > *,
-  .js .gallery-grid.reveal .g-item,
+  .js .carosello.reveal .g-item,
   .js .stats-band.reveal .stat-box,
   .js .contacts-grid.reveal .contact-card,
   .js .cta-band.reveal > *,
@@ -1433,7 +1484,7 @@ footer {
     transition: opacity .5s ease !important;
   }
   /* Il sipario diventa una semplice comparsa */
-  .js .gallery-grid.reveal:not(.visible) .g-item { opacity: 0 !important; }
+  .js .carosello.reveal:not(.visible) .g-item { opacity: 0 !important; }
 
   /* La testata compare scaglionata senza salire: restano i ritardi già
      impostati, cambia solo il gesto */
@@ -1694,7 +1745,10 @@ footer {
       <p>Sale cinematografiche, teatri e arene estive. Clicca su un'immagine per ingrandirla.</p>
     </div>
 
-    <div class="gallery-grid reveal">
+    <div class="carosello reveal">
+      <div class="carosello-pista" id="carosello-pista"
+           role="group" aria-roledescription="carosello" aria-label="Installazioni realizzate"
+           tabindex="0">
       <!-- GALLERIA:INIZIO -->
       <button class="g-item" type="button" data-full="caroselli/C1-1400.webp" data-full-fallback="caroselli/C1.jpg" data-caption="Sala cinema · impianto di proiezione">
         <picture>
@@ -1738,28 +1792,37 @@ footer {
         </picture>
         <span class="g-caption">Arena all&#x27;aperto · allestimento completo <span class="zoom" aria-hidden="true">⤢</span></span>
       </button>
-      <button class="g-item" type="button" data-full="caroselli/WhatsApp Image 2026-08-27 at 20.28.37-1400.webp" data-full-fallback="caroselli/WhatsApp Image 2026-08-27 at 20.28.37.jpeg" data-caption="WhatsApp Image 2026 08 27 at 20.28.37">
+      <button class="g-item" type="button" data-full="caroselli/WhatsApp Image 2026-08-27 at 20.28.37-1400.webp" data-full-fallback="caroselli/WhatsApp Image 2026-08-27 at 20.28.37.jpeg" data-caption="Arena estiva in cortile storico · schermo e platea">
         <picture>
           <source type="image/webp" srcset="caroselli/WhatsApp Image 2026-08-27 at 20.28.37-720.webp">
-          <img src="caroselli/WhatsApp Image 2026-08-27 at 20.28.37.jpeg" alt="WhatsApp Image 2026 08 27 at 20.28.37" width="720" height="540" loading="lazy" decoding="async">
+          <img src="caroselli/WhatsApp Image 2026-08-27 at 20.28.37.jpeg" alt="Arena estiva in cortile storico · schermo e platea" width="720" height="540" loading="lazy" decoding="async">
         </picture>
-        <span class="g-caption">WhatsApp Image 2026 08 27 at 20.28.37 <span class="zoom" aria-hidden="true">⤢</span></span>
+        <span class="g-caption">Arena estiva in cortile storico · schermo e platea <span class="zoom" aria-hidden="true">⤢</span></span>
       </button>
-      <button class="g-item" type="button" data-full="caroselli/WhatsApp Image 2026-08-27 at 20.30.33-1400.webp" data-full-fallback="caroselli/WhatsApp Image 2026-08-27 at 20.30.33.jpeg" data-caption="WhatsApp Image 2026 08 27 at 20.30.33">
+      <button class="g-item" type="button" data-full="caroselli/WhatsApp Image 2026-08-27 at 20.30.33-1400.webp" data-full-fallback="caroselli/WhatsApp Image 2026-08-27 at 20.30.33.jpeg" data-caption="Proiezione serale sotto le mura · allestimento completo">
         <picture>
           <source type="image/webp" srcset="caroselli/WhatsApp Image 2026-08-27 at 20.30.33-720.webp">
-          <img src="caroselli/WhatsApp Image 2026-08-27 at 20.30.33.jpeg" alt="WhatsApp Image 2026 08 27 at 20.30.33" width="720" height="540" loading="lazy" decoding="async">
+          <img src="caroselli/WhatsApp Image 2026-08-27 at 20.30.33.jpeg" alt="Proiezione serale sotto le mura · allestimento completo" width="720" height="540" loading="lazy" decoding="async">
         </picture>
-        <span class="g-caption">WhatsApp Image 2026 08 27 at 20.30.33 <span class="zoom" aria-hidden="true">⤢</span></span>
+        <span class="g-caption">Proiezione serale sotto le mura · allestimento completo <span class="zoom" aria-hidden="true">⤢</span></span>
       </button>
-      <button class="g-item" type="button" data-full="caroselli/WhatsApp Image 2026-09-03 at 11.37.41-1400.webp" data-full-fallback="caroselli/WhatsApp Image 2026-09-03 at 11.37.41.jpeg" data-caption="WhatsApp Image 2026 09 03 at 11.37.41">
+      <button class="g-item" type="button" data-full="caroselli/WhatsApp Image 2026-09-03 at 11.37.41-1400.webp" data-full-fallback="caroselli/WhatsApp Image 2026-09-03 at 11.37.41.jpeg" data-caption="Proiezione a pellicola · proiettore e sala">
         <picture>
           <source type="image/webp" srcset="caroselli/WhatsApp Image 2026-09-03 at 11.37.41-720.webp">
-          <img src="caroselli/WhatsApp Image 2026-09-03 at 11.37.41.jpeg" alt="WhatsApp Image 2026 09 03 at 11.37.41" width="720" height="540" loading="lazy" decoding="async">
+          <img src="caroselli/WhatsApp Image 2026-09-03 at 11.37.41.jpeg" alt="Proiezione a pellicola · proiettore e sala" width="720" height="540" loading="lazy" decoding="async">
         </picture>
-        <span class="g-caption">WhatsApp Image 2026 09 03 at 11.37.41 <span class="zoom" aria-hidden="true">⤢</span></span>
+        <span class="g-caption">Proiezione a pellicola · proiettore e sala <span class="zoom" aria-hidden="true">⤢</span></span>
       </button>
       <!-- GALLERIA:FINE -->
+      </div>
+
+      <div class="carosello-comandi">
+        <button class="car-btn" type="button" id="car-prec" aria-label="Immagine precedente">&#8249;</button>
+        <div class="car-punti" id="car-punti" role="tablist" aria-label="Scegli l'immagine"></div>
+        <button class="car-btn" type="button" id="car-succ" aria-label="Immagine successiva">&#8250;</button>
+        <button class="car-btn car-pausa" type="button" id="car-pausa"
+                aria-label="Metti in pausa lo scorrimento automatico" aria-pressed="false">&#10073;&#10073;</button>
+      </div>
     </div>
   </div>
 </section>
@@ -1934,7 +1997,7 @@ footer {
 
     <div class="footer-credit">
       <span>Developed by <b>Rocco Totaro</b></span>
-      <span class="footer-ver" id="versione">v. 2026-09-06 07:53 UTC</span>
+      <span class="footer-ver" id="versione">v. 2026-09-06 20:20 UTC</span>
     </div>
   </div>
 </footer>
@@ -2402,6 +2465,107 @@ footer {
     } else {
       avvia();
     }
+  })();
+
+  /* ---------- Carosello della galleria ---------- */
+  (function () {
+    var pista = document.getElementById('carosello-pista');
+    if (!pista) return;
+    var lastre = Array.prototype.slice.call(pista.querySelectorAll('.g-item'));
+    if (lastre.length < 2) return;
+
+    var prec  = document.getElementById('car-prec');
+    var succ  = document.getElementById('car-succ');
+    var pausa = document.getElementById('car-pausa');
+    var punti = document.getElementById('car-punti');
+    var PASSO = 5200;
+    var timer = null, fermo = reduced, attuale = 0;
+
+    // Un punto per lastra: dice a che punto si è e ci porta con un clic
+    lastre.forEach(function (l, i) {
+      var b = document.createElement('button');
+      b.type = 'button';
+      b.setAttribute('role', 'tab');
+      b.setAttribute('aria-label', 'Immagine ' + (i + 1) + ' di ' + lastre.length);
+      b.addEventListener('click', function () { vaiA(i); sospendi(); });
+      punti.appendChild(b);
+    });
+    var pallini = Array.prototype.slice.call(punti.children);
+
+    function vaiA(i) {
+      attuale = Math.max(0, Math.min(i, lastre.length - 1));
+      // scrollIntoView sposterebbe anche la pagina: si agisce sulla sola pista
+      pista.scrollTo({ left: lastre[attuale].offsetLeft - lastre[0].offsetLeft,
+                       behavior: reduced ? 'auto' : 'smooth' });
+    }
+
+    function aggiorna() {
+      // Quale lastra è più vicina al bordo sinistro della pista
+      var x = pista.scrollLeft, migliore = 0, minimo = Infinity;
+      lastre.forEach(function (l, i) {
+        var d = Math.abs((l.offsetLeft - lastre[0].offsetLeft) - x);
+        if (d < minimo) { minimo = d; migliore = i; }
+      });
+      attuale = migliore;
+      pallini.forEach(function (b, i) { b.setAttribute('aria-selected', String(i === attuale)); });
+      var fine = Math.ceil(pista.scrollWidth - pista.clientWidth - 1);
+      prec.disabled = x <= 1;
+      succ.disabled = x >= fine;
+    }
+
+    function avanti() {
+      var fine = pista.scrollWidth - pista.clientWidth - 1;
+      if (pista.scrollLeft >= fine) vaiA(0);        // finita la pellicola, si ricomincia
+      else vaiA(attuale + 1);
+    }
+
+    function parti() {
+      if (fermo || timer) return;
+      timer = setInterval(avanti, PASSO);
+      pausa.setAttribute('aria-pressed', 'false');
+      pausa.setAttribute('aria-label', 'Metti in pausa lo scorrimento automatico');
+      pausa.innerHTML = '&#10073;&#10073;';
+    }
+    function sospendi() {
+      clearInterval(timer); timer = null;
+      pausa.setAttribute('aria-pressed', 'true');
+      pausa.setAttribute('aria-label', 'Riprendi lo scorrimento automatico');
+      pausa.innerHTML = '&#9654;';
+    }
+
+    prec.addEventListener('click', function () { vaiA(attuale - 1); sospendi(); });
+    succ.addEventListener('click', function () { vaiA(attuale + 1); sospendi(); });
+    pausa.addEventListener('click', function () {
+      fermo = timer !== null;
+      if (fermo) sospendi(); else { fermo = false; parti(); }
+    });
+
+    var attesa;
+    pista.addEventListener('scroll', function () {
+      clearTimeout(attesa);
+      attesa = setTimeout(aggiorna, 90);
+    }, { passive: true });
+
+    // Chi sta guardando o usando il carosello non va interrotto
+    ['mouseenter', 'focusin', 'touchstart'].forEach(function (e) {
+      pista.addEventListener(e, sospendi, { passive: true });
+    });
+    pista.addEventListener('mouseleave', function () { if (!fermo) parti(); });
+
+    // Frecce da tastiera quando la pista ha il fuoco
+    pista.addEventListener('keydown', function (e) {
+      if (e.key === 'ArrowRight') { e.preventDefault(); vaiA(attuale + 1); sospendi(); }
+      if (e.key === 'ArrowLeft')  { e.preventDefault(); vaiA(attuale - 1); sospendi(); }
+    });
+
+    document.addEventListener('visibilitychange', function () {
+      document.hidden ? clearInterval(timer) : (timer = null, fermo || parti());
+    });
+    window.addEventListener('resize', function () { clearTimeout(attesa); attesa = setTimeout(aggiorna, 150); }, { passive: true });
+
+    aggiorna();
+    // Con "riduci movimento" non parte da solo: lo scorrimento resta a comando
+    if (reduced) sospendi(); else parti();
   })();
 
   /* ---------- Lightbox galleria ---------- */
