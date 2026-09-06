@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" role="img" aria-label="Sigra Film">
+  <title>Sigra Film</title>
+  <rect width="100" height="100" rx="17" fill="#fff"/>
+  <clipPath id="s"><path d="M18 11 H82 V31 H39 V41 H82 V89 H18 V69 H61 V59 H18 Z"/></clipPath>
+  <g clip-path="url(#s)">
+    <rect y="0"  width="100" height="35" fill="#5cc133"/>
+    <rect y="35" width="100" height="30" fill="#ee242c"/>
+    <rect y="65" width="100" height="35" fill="#314fa9"/>
+  </g>
+  <rect x="2.5" y="2.5" width="95" height="95" rx="14.5" fill="none" stroke="#314fa9" stroke-width="5"/>
+</svg>
