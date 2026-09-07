@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<!-- versione 2026-09-07 14:33 UTC -->
-<html lang="it" data-versione="2026-09-07 14:33">
+<!-- versione 2026-09-07 14:39 UTC -->
+<html lang="it" data-versione="2026-09-07 14:39">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
@@ -33,28 +33,6 @@
 <link rel="preload" as="image" href="img/banner_cinema-1600.webp" type="image/webp" imagesrcset="img/banner_cinema-960.webp 960w, img/banner_cinema-1600.webp 1600w" imagesizes="100vw" fetchpriority="high">
 
 <script>document.documentElement.classList.add('js');</script>
-
-<!-- Quanto movimento mostrare. Di norma si ripete l'impostazione del sistema,
-     ma la scelta fatta con l'interruttore in fondo alla pagina ha la
-     precedenza e resta memorizzata: l'impostazione di sistema si attiva anche
-     senza saperlo (risparmio energia sui portatili, "effetti di animazione"
-     spenti su Windows, "riduci movimento" su Android e iPhone) e il sito
-     sembrava semplicemente rotto. Deve girare prima che la pagina si dipinga,
-     quindi sta qui e non in fondo insieme al resto. -->
-<script>
-(function () {
-  var d = document.documentElement, scelta = null;
-  try { scelta = localStorage.getItem('moto'); } catch (e) {}
-  if (scelta === 'pieno' || scelta === 'ridotto') {
-    d.setAttribute('data-moto-origine', 'scelta');
-  } else {
-    scelta = window.matchMedia &&
-             window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'ridotto' : 'pieno';
-    d.setAttribute('data-moto-origine', 'sistema');
-  }
-  d.setAttribute('data-moto', scelta);
-})();
-</script>
 
 <style>
 /* ============================================================
@@ -1536,30 +1514,6 @@ footer {
   font-variant-numeric: tabular-nums; letter-spacing: .02em;
 }
 
-/* Interruttore del movimento: sta nel piè di pagina perché è una preferenza,
-   non un comando da usare spesso, ma deve restare trovabile — è la via
-   d'uscita per chi ha il sistema con le animazioni spente e non lo sa. */
-.moto-int {
-  display: inline-flex; align-items: center; gap: 7px;
-  border: 1px solid rgba(255,255,255,.14);
-  border-radius: 999px;
-  padding: 4px 12px 4px 9px;
-  background: transparent;
-  color: inherit; font: inherit; font-size: .76rem;
-  cursor: pointer;
-  transition: border-color .25s, color .25s;
-}
-.moto-int:hover, .moto-int:focus-visible { border-color: var(--gold-line); color: rgba(244,244,245,.7); }
-.moto-int .spia {
-  width: 7px; height: 7px; border-radius: 50%;
-  background: var(--gold);
-  box-shadow: 0 0 7px var(--gold);
-}
-[data-moto="ridotto"] .moto-int .spia { background: rgba(244,244,245,.3); box-shadow: none; }
-/* Senza JavaScript non c'è niente da commutare: il tasto sparisce invece di
-   restare lì a non fare nulla */
-html:not(.js) .moto-int { display: none; }
-
 /* ============================================================
    AZIONI FLUTTUANTI
    ============================================================ */
@@ -1704,117 +1658,12 @@ html:not(.js) .moto-int { display: none; }
 .diag h3 { font-family: inherit; font-size: .82rem; color: var(--gold); margin-bottom: 8px; }
 .diag b { color: var(--gold); font-weight: 700; }
 .diag .chiudi { display: block; margin-top: 10px; color: var(--text-3); }
-.diag .rm-si { display: none; }
-/* ============================================================
-   MOVIMENTO RIDOTTO
-   Queste regole non dipendono più direttamente da prefers-reduced-motion ma
-   dall'attributo data-moto che lo script in testa mette su <html>: di norma
-   ripete l'impostazione del sistema, ma l'interruttore in fondo alla pagina
-   può forzarla. Senza JavaScript l'attributo non c'è e al suo posto vale il
-   blocco <noscript> in testa al documento.
-   Nota sui selettori: .js e data-moto stanno tutti e due su <html>, quindi
-   vanno scritti attaccati.
-   ============================================================ */
-html[data-moto="ridotto"] { scroll-behavior: auto; }
-
-/* Chi chiede meno movimento non chiede una pagina morta: spariscono
-   spostamenti, ingrandimenti, mascherine e sfocature — cioè quello che può
-   dare disturbo — mentre le dissolvenze restano, perché una variazione di
-   opacità non provoca la sensazione di movimento che l'impostazione evita. */
-[data-moto="ridotto"] *,
-[data-moto="ridotto"] *::before,
-[data-moto="ridotto"] *::after {
-  animation-duration: .01ms !important;
-  animation-iteration-count: 1 !important;
-  transition-duration: .01ms !important;
-}
-
-/* Niente spostamenti, ritagli o sfocature */
-[data-moto="ridotto"].js .reveal,
-[data-moto="ridotto"].js .section-head.reveal > *,
-[data-moto="ridotto"].js .about-body.reveal > *,
-[data-moto="ridotto"].js .carosello.reveal .g-item,
-[data-moto="ridotto"].js .stats-band.reveal .stat-box,
-[data-moto="ridotto"].js .stats-band.reveal .stat-number,
-[data-moto="ridotto"].js .contacts-grid.reveal .contact-card,
-[data-moto="ridotto"].js .cta-band.reveal > *,
-[data-moto="ridotto"].js .reveal .brand-chips span,
-[data-moto="ridotto"].js .hero-content > *,
-[data-moto="ridotto"].js .nav-cta,
-[data-moto="ridotto"].js .nav-tel,
-[data-moto="ridotto"].js .nav-drawer a,
-[data-moto="ridotto"].js .g-item img {
-  transform: none !important;
-  clip-path: none !important;
-  filter: none !important;
-}
-
-/* ...ma i contenuti continuano a comparire, in dissolvenza */
-[data-moto="ridotto"].js .reveal,
-[data-moto="ridotto"].js .section-head.reveal > *,
-[data-moto="ridotto"].js .about-body.reveal > *,
-[data-moto="ridotto"].js .carosello.reveal .g-item,
-[data-moto="ridotto"].js .stats-band.reveal .stat-box,
-[data-moto="ridotto"].js .contacts-grid.reveal .contact-card,
-[data-moto="ridotto"].js .cta-band.reveal > *,
-[data-moto="ridotto"].js .reveal .brand-chips span,
-[data-moto="ridotto"].js .nav-cta,
-[data-moto="ridotto"].js .nav-tel,
-[data-moto="ridotto"].js .nav-drawer a {
-  transition: opacity .5s ease !important;
-}
-/* Il sipario diventa una semplice comparsa */
-[data-moto="ridotto"].js .carosello.reveal:not(.visible) .g-item { opacity: 0 !important; }
-
-/* La testata compare scaglionata senza salire: restano i ritardi già
-   impostati, cambia solo il gesto */
-[data-moto="ridotto"] .hero-content > * {
-  animation-name: dissolvenza !important;
-  animation-duration: .7s !important;
-  animation-fill-mode: both !important;
-  animation-timing-function: ease !important;
-}
-
-/* Quello che è soltanto movimento sparisce del tutto */
-[data-moto="ridotto"] .hero-luce { display: none; }              /* sfarfallio della lampada e fascio */
-[data-moto="ridotto"] .hero-bg { animation: none !important; }   /* niente ingrandimento lento */
-[data-moto="ridotto"] .eyebrow .dot { animation: none !important; }
-[data-moto="ridotto"] .scroll-hint .arrow { animation: none !important; }
-[data-moto="ridotto"] .cta-band::before { display: none; }       /* alone che attraversa la fascia */
-[data-moto="ridotto"] .btn-primary::after { display: none; }     /* riflesso sul pulsante */
-[data-moto="ridotto"].js .quickbar { transform: none !important; }   /* resta in vista, non sale */
-
-/* Il pannello di diagnosi deve poter dire com'è messa la pagina */
-[data-moto="ridotto"] .diag .rm-no { display: none; }
-[data-moto="ridotto"] .diag .rm-si { display: inline; color: var(--gold); }
 
 @media print {
   .nav, .quickbar, #to-top, #progress, .scroll-hint, #lightbox { display: none !important; }
   body { background: #fff; color: #000; }
 }
 </style>
-
-<!-- Senza JavaScript non c'è nessun data-moto e nessun interruttore: qui
-     l'impostazione di sistema torna a comandare da sola. Restano solo le
-     regole che hanno senso a JS spento, cioè le animazioni della testata. -->
-<noscript><style>
-@media (prefers-reduced-motion: reduce) {
-  html { scroll-behavior: auto; }
-  *, *::before, *::after {
-    animation-duration: .01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: .01ms !important;
-  }
-  .hero-luce { display: none; }
-  .hero-bg { animation: none !important; }
-  .eyebrow .dot { animation: none !important; }
-  .scroll-hint .arrow { animation: none !important; }
-  .cta-band::before { display: none; }
-  .btn-primary::after { display: none; }
-  .diag .rm-no { display: none; }
-  .diag .rm-si { display: inline; color: var(--gold); }
-}
-</style></noscript>
 </head>
 
 <body>
@@ -2502,11 +2351,7 @@ html[data-moto="ridotto"] { scroll-behavior: auto; }
 
     <div class="footer-credit">
       <span>Developed by <b>Rocco Totaro</b></span>
-      <button class="moto-int" id="moto-int" type="button" aria-pressed="false">
-        <span class="spia" aria-hidden="true"></span>
-        <span id="moto-testo">Animazioni attive</span>
-      </button>
-      <span class="footer-ver" id="versione">v. 2026-09-07 14:33 UTC</span>
+      <span class="footer-ver" id="versione">v. 2026-09-07 14:39 UTC</span>
     </div>
   </div>
 </footer>
@@ -2528,8 +2373,7 @@ html[data-moto="ridotto"] { scroll-behavior: auto; }
   <h3>Diagnostica pagina</h3>
   <div>Versione: <b id="diag-ver">vedi in fondo alla pagina</b></div>
   <div>JavaScript: <b id="diag-js">NON attivo</b></div>
-  <div>Riduci movimento: <span class="rm-no"><b>no</b></span><span class="rm-si"><b>SÌ — animazioni ridotte</b></span></div>
-  <div>Deciso da: <b id="diag-moto">impostazione del sistema</b></div>
+  <div>Riduci movimento di sistema: <b id="diag-rm">-</b> <i>(il sito anima comunque)</i></div>
   <div>Movimento pronto: <b id="diag-mov">no</b></div>
   <div id="diag-extra"></div>
   <a class="chiudi" href="#top">chiudi ×</a>
@@ -2575,37 +2419,10 @@ html[data-moto="ridotto"] { scroll-behavior: auto; }
 (function () {
   'use strict';
 
-  // La preferenza l'ha già risolta lo script in testa, tenendo conto sia
-  // dell'impostazione di sistema sia della scelta fatta con l'interruttore.
-  var reduced = document.documentElement.getAttribute('data-moto') === 'ridotto';
-
-  /* ---------- Interruttore del movimento ---------- */
-  (function () {
-    var tasto = document.getElementById('moto-int');
-    var testo = document.getElementById('moto-testo');
-    if (!tasto || !testo) return;
-
-    testo.textContent = reduced ? 'Animazioni ridotte' : 'Animazioni attive';
-    tasto.setAttribute('aria-pressed', reduced ? 'true' : 'false');
-    tasto.title = reduced
-      ? 'Le animazioni sono ridotte' +
-        (document.documentElement.getAttribute('data-moto-origine') === 'sistema'
-          ? ' per via di un\u2019impostazione del sistema. Premi per attivarle lo stesso.'
-          : '. Premi per riattivarle.')
-      : 'Premi per ridurre le animazioni.';
-
-    tasto.addEventListener('click', function () {
-      try { localStorage.setItem('moto', reduced ? 'pieno' : 'ridotto'); } catch (e) {}
-      // Ricaricare è più onesto che accendere a metà: il pulviscolo, gli
-      // osservatori e i contatori si preparano una volta sola all'avvio.
-      location.reload();
-    });
-  })();
-
   /* ---------- Pulviscolo nel fascio ---------- */
   (function () {
     var tela = document.querySelector('.pulviscolo');
-    if (!tela || reduced || !tela.getContext) return;
+    if (!tela || !tela.getContext) return;
 
     var ctx = tela.getContext('2d');
     var granelli = [], larg = 0, alt = 0, densita = 1;
@@ -2717,10 +2534,9 @@ html[data-moto="ridotto"] { scroll-behavior: auto; }
     var pronto = document.documentElement.classList.contains('js');
     document.getElementById('diag-mov').textContent =
       pronto ? 'sì (classe .js applicata)' : 'NO — la classe .js manca';
-    document.getElementById('diag-moto').textContent =
-      document.documentElement.getAttribute('data-moto-origine') === 'scelta'
-        ? 'scelta fatta su questo sito (interruttore in fondo alla pagina)'
-        : 'impostazione del sistema — l\u2019interruttore in fondo alla pagina la scavalca';
+    document.getElementById('diag-rm').textContent =
+      window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches
+        ? 'attivo' : 'non attivo';
     document.getElementById('diag-extra').innerHTML =
       'Schermo: <b>' + window.innerWidth + '×' + window.innerHeight + '</b><br>' +
       'Opacità pulsante in cima: <b>' + (cta ? getComputedStyle(cta).opacity : '-') + '</b><br>' +
@@ -2731,7 +2547,7 @@ html[data-moto="ridotto"] { scroll-behavior: auto; }
   /* ---------- Titoli di testa: il titolo sale parola per parola ---------- */
   (function () {
     var h1 = document.querySelector('.hero h1');
-    if (!h1 || reduced) return;
+    if (!h1) return;
     var i = 0;
 
     // Percorre l'albero e avvolge ogni parola, lasciando intatti <em> e <br>:
@@ -2797,7 +2613,7 @@ html[data-moto="ridotto"] { scroll-behavior: auto; }
 
     // Parallasse: lo sfondo scorre più lento del testo, che si allontana.
     // Si scrivono solo transform e opacity, mai proprietà che impaginano.
-    if (!reduced && sfondoHero && y < window.innerHeight * 1.2) {
+    if (sfondoHero && y < window.innerHeight * 1.2) {
       var q = y / window.innerHeight;
       sfondoHero.style.transform = 'translate3d(0,' + (y * .34) + 'px,0)';
       testoHero.style.transform  = 'translate3d(0,' + (y * .16) + 'px,0)';
@@ -2814,7 +2630,7 @@ html[data-moto="ridotto"] { scroll-behavior: auto; }
   onScroll();
 
   toTop.addEventListener('click', function () {
-    window.scrollTo({ top: 0, behavior: reduced ? 'auto' : 'smooth' });
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   });
 
   /* ---------- Menu mobile ---------- */
@@ -2874,7 +2690,7 @@ html[data-moto="ridotto"] { scroll-behavior: auto; }
     // cifre che cambiano dentro una riga, non qualcosa che si muove sullo
     // schermo, quindi non provoca il disturbo che l'impostazione evita.
     // Spostamenti, parallasse e pulviscolo restano invece esclusi.
-    var start = null, dur = reduced ? 900 : 1400;
+    var start = null, dur = 1400;
     function step(ts) {
       if (start === null) start = ts;
       var p = Math.min((ts - start) / dur, 1);
@@ -2949,7 +2765,7 @@ html[data-moto="ridotto"] { scroll-behavior: auto; }
         // Su touch il trascinamento a un dito intrappolerebbe lo scorrimento:
         // non c'è nulla da esplorare (niente nomi né finestrelle), restano i pulsanti
         dragging: !L.Browser.mobile,
-        zoomAnimation: !reduced,
+        zoomAnimation: true,
         attributionControl: true
       });
 
@@ -3020,7 +2836,7 @@ html[data-moto="ridotto"] { scroll-behavior: auto; }
     var pausa = document.getElementById('car-pausa');
     var punti = document.getElementById('car-punti');
     var PASSO = 5200;
-    var timer = null, fermo = reduced, attuale = 0;
+    var timer = null, fermo = false, attuale = 0;
 
     // Un punto per lastra: dice a che punto si è e ci porta con un clic
     lastre.forEach(function (l, i) {
@@ -3037,7 +2853,7 @@ html[data-moto="ridotto"] { scroll-behavior: auto; }
       attuale = Math.max(0, Math.min(i, lastre.length - 1));
       // scrollIntoView sposterebbe anche la pagina: si agisce sulla sola pista
       pista.scrollTo({ left: lastre[attuale].offsetLeft - lastre[0].offsetLeft,
-                       behavior: reduced ? 'auto' : 'smooth' });
+                       behavior: 'smooth' });
     }
 
     function aggiorna() {
@@ -3106,7 +2922,7 @@ html[data-moto="ridotto"] { scroll-behavior: auto; }
 
     aggiorna();
     // Con "riduci movimento" non parte da solo: lo scorrimento resta a comando
-    if (reduced) sospendi(); else parti();
+    parti();
   })();
 
   /* ---------- Lightbox galleria ---------- */
