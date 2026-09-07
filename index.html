@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<!-- versione 2026-09-07 05:45 UTC -->
-<html lang="it" data-versione="2026-09-07 05:45">
+<!-- versione 2026-09-07 10:27 UTC -->
+<html lang="it" data-versione="2026-09-07 10:27">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
@@ -1256,6 +1256,65 @@ section[id] { scroll-margin-top: calc(var(--nav-h) + 14px); }
 }
 .laser-invito a { color: var(--gold); text-decoration: underline; text-underline-offset: 3px; }
 
+/* Il modulo ICMP-X: immagine da un lato, spiegazione dall'altro */
+.icmp {
+  margin-top: clamp(34px, 5vw, 54px);
+  display: grid;
+  grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr);
+  gap: clamp(20px, 3vw, 38px);
+  align-items: center;
+}
+@media (max-width: 860px) { .icmp { grid-template-columns: 1fr; } }
+
+.icmp-foto {
+  background: #000;
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  overflow: hidden;
+}
+.icmp-foto img { width: 100%; }
+
+.icmp-testo h3 {
+  font-family: var(--ff-display);
+  font-size: 1.24rem; font-weight: 700;
+  margin-bottom: 10px;
+}
+.icmp-sommario { color: var(--text-2); font-size: .95rem; margin-bottom: 20px; }
+
+.icmp-punti { list-style: none; display: grid; gap: 11px; margin-bottom: 22px; }
+/* Il segno di elenco è posizionato, non un elemento flex: altrimenti il
+   grassetto iniziale e il resto della frase finirebbero in due colonne */
+.icmp-punti li {
+  position: relative;
+  padding-left: 20px;
+  font-size: .89rem; color: var(--text-3); line-height: 1.6;
+}
+.icmp-punti li::before {
+  content: '\203A';
+  position: absolute; left: 0; top: 0;
+  color: var(--gold); font-weight: 700;
+}
+.icmp-punti b { color: var(--text-2); font-weight: 600; }
+
+.icmp-dati {
+  display: grid; gap: 0;
+  border-top: 1px solid var(--border);
+  margin-bottom: 18px;
+}
+.icmp-dati > div {
+  display: grid;
+  grid-template-columns: minmax(120px, 34%) 1fr;
+  gap: 4px 16px;
+  padding: 10px 0;
+  border-bottom: 1px solid var(--border);
+  font-size: .84rem;
+}
+@media (max-width: 520px) { .icmp-dati > div { grid-template-columns: 1fr; } }
+.icmp-dati dt { color: var(--text-3); }
+.icmp-dati dd { color: var(--text-2); }
+
+.icmp-tms { font-size: .8rem; color: var(--text-3); line-height: 1.65; }
+
 /* ============================================================
    CTA BAND
    ============================================================ */
@@ -2120,6 +2179,48 @@ footer {
         <a href="#contatti">Scrivici</a> e lo valutiamo insieme.
       </p>
     </div>
+
+    <div class="icmp reveal">
+      <div class="icmp-foto">
+        <picture>
+          <source type="image/avif" srcset="img/cinema-solution-portfolio-icmp_x_dark.avif">
+          <img src="img/icmp-x.webp"
+               alt="Il modulo Barco Alchemy ICMP-X: scheda con ingressi di rete, audio AES/EBU, SDI, HDMI, porte USB e alloggiamenti per i tre dischi estraibili."
+               width="1000" height="767" loading="lazy" decoding="async">
+        </picture>
+      </div>
+
+      <div class="icmp-testo">
+        <h3>Barco Alchemy ICMP-X</h3>
+        <p class="icmp-sommario">
+          Una sola scheda al posto di due apparati: riunisce il processore cinematografico
+          e il server dei contenuti nel proiettore. Meno scatole in cabina significa meno
+          collegamenti, meno cose che si guastano e una diagnosi più rapida quando qualcosa
+          non va. Compatibile con i proiettori Barco Serie 2 e Serie 4.
+        </p>
+
+        <ul class="icmp-punti">
+          <li><b>Si comanda dal browser.</b> Controllo del proiettore, composizione e programmazione degli spettacoli via Web Commander, anche da tablet.</li>
+          <li><b>Archiviazione a bordo.</b> Tre dischi sostituibili a caldo in RAID&#8209;5: 2, 4 o 8&nbsp;TB utili.</li>
+          <li><b>Anche contenuti non cinematografici.</b> Due HDMI&nbsp;2.0a, due 3G&#8209;SDI e streaming Live&nbsp;IP a licenza, mescolabili al DCI nello stesso spettacolo.</li>
+          <li><b>Conforme DCI</b>, Compliance Test Plan 1.2.</li>
+        </ul>
+
+        <dl class="icmp-dati">
+          <div><dt>Immagine</dt><dd>DCI 4K 2D fino a 60&nbsp;fps · 4K 3D · 2K 3D fino a 120&nbsp;fps</dd></div>
+          <div><dt>Flusso JPEG&nbsp;2000</dt><dd>fino a 625&nbsp;Mbps</dd></div>
+          <div><dt>Audio</dt><dd>16 canali AES/EBU</dd></div>
+          <div><dt>Automazioni</dt><dd>8 ingressi e 8 uscite GPI/GPO</dd></div>
+          <div><dt>Rete e supporti</dt><dd>2 GbE · 2 USB&nbsp;3.0 e 2 USB&nbsp;2.0 sul fronte</dd></div>
+        </dl>
+
+        <p class="icmp-tms">
+          Funziona con i principali sistemi di gestione sala: AAM Screenwriter, CinemaNext TMS,
+          CFG&#8209;Barco, Unique RosettaBridge, ADDE, CinéDigital Manager, GDC, Proyecson,
+          Real Image, Sony, Comscore TCC e Kinoton. Supportato anche da 4DX.
+        </p>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -2231,7 +2332,7 @@ footer {
 
     <div class="footer-credit">
       <span>Developed by <b>Rocco Totaro</b></span>
-      <span class="footer-ver" id="versione">v. 2026-09-07 05:45 UTC</span>
+      <span class="footer-ver" id="versione">v. 2026-09-07 10:27 UTC</span>
     </div>
   </div>
 </footer>
