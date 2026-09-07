@@ -52,6 +52,7 @@ REGOLE = [
     ".carosello-pista",
     ".car-btn",         # comandi del carosello
     ".g-item",          # lastre della galleria
+    ".gamma-quadro",    # gamma Barco su fondo nero
     ".footer-legal",    # dati d'impresa
     ".diag",            # pannello di diagnosi
 ]
