@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<!-- versione 2026-09-06 20:20 UTC -->
-<html lang="it" data-versione="2026-09-06 20:20">
+<!-- versione 2026-09-07 05:30 UTC -->
+<html lang="it" data-versione="2026-09-07 05:30">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
@@ -1140,6 +1140,44 @@ section[id] { scroll-margin-top: calc(var(--nav-h) + 14px); }
   margin-inline: auto;
 }
 
+/* La gamma Barco: le etichette dell'immagine sono bianche, quindi il fondo
+   deve essere nero pieno, non il grigio delle sezioni. */
+.gamma { margin-top: clamp(30px, 4vw, 46px); }
+
+.gamma-testa { margin-bottom: 16px; }
+.gamma-testa h3 {
+  font-family: var(--ff-display);
+  font-size: 1.12rem; font-weight: 600;
+  margin-bottom: 6px;
+}
+.gamma-testa p { color: var(--text-3); font-size: .89rem; max-width: 62ch; }
+
+.gamma-quadro {
+  background: #000;
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  padding: 18px clamp(14px, 3vw, 30px);
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+
+  /* Ombre ai bordi che dicono "c'è dell'altro" e spariscono a fine corsa */
+  background-image:
+    linear-gradient(to right, #000 40%, rgba(0,0,0,0)),
+    linear-gradient(to left,  #000 40%, rgba(0,0,0,0)),
+    linear-gradient(to right, rgba(255,255,255,.16), rgba(255,255,255,0)),
+    linear-gradient(to left,  rgba(255,255,255,.16), rgba(255,255,255,0));
+  background-position: left center, right center, left center, right center;
+  background-repeat: no-repeat;
+  background-size: 44px 100%, 44px 100%, 14px 100%, 14px 100%;
+  background-attachment: local, local, scroll, scroll;
+}
+.gamma-quadro img {
+  width: 100%;
+  max-width: 1224px;
+  min-width: 720px;   /* sotto questa soglia le sigle dei modelli non si leggono */
+  margin-inline: auto;
+}
+
 /* ============================================================
    CTA BAND
    ============================================================ */
@@ -1886,6 +1924,21 @@ footer {
         </picture>
       </div>
     </div>
+
+    <figure class="gamma reveal" data-da="dx">
+      <figcaption class="gamma-testa">
+        <h3>La gamma Barco che installiamo</h3>
+        <p>Cinema Series 4, dai 7.000 ai 60.000 lumen: dalla sala piccola al grande schermo.</p>
+      </figcaption>
+      <div class="gamma-quadro">
+        <picture>
+          <source type="image/webp" srcset="img/barco-gamma.webp">
+          <img src="img/barco-gamma.jpg"
+               alt="La gamma Barco Cinema Series 4 disposta per luminosità, da 7.000 a 60.000 lumen: i modelli SP2K-7S, 9S, 11S, 15S, 20C e 25C, i modelli SP4K-12C, 13CHC, 15C, 20C, 25C e 27BHC, e i modelli SP4K-35B, 40B e 55B."
+               width="1224" height="451" loading="lazy" decoding="async">
+        </picture>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -1997,7 +2050,7 @@ footer {
 
     <div class="footer-credit">
       <span>Developed by <b>Rocco Totaro</b></span>
-      <span class="footer-ver" id="versione">v. 2026-09-06 20:20 UTC</span>
+      <span class="footer-ver" id="versione">v. 2026-09-07 05:30 UTC</span>
     </div>
   </div>
 </footer>
