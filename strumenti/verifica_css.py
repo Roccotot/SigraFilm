@@ -39,7 +39,7 @@ ATTESE = [
     "@media (max-width: 520px)",              # schermi molto stretti
     "@media (min-width: 700px)",              # carosello: due lastre per volta
     "@media (min-width: 1080px)",             # carosello: tre lastre per volta
-    "@media (prefers-reduced-motion: reduce)",
+    "@media (prefers-reduced-motion: reduce)",  # solo nel ripiego <noscript>
     "@media print",
 ]
 
@@ -64,6 +64,8 @@ REGOLE = [
     ".prod-foto",
     ".prod--rovescio",  # scheda a colonne invertite
     ".footer-legal",    # dati d'impresa
+    ".moto-int",        # interruttore delle animazioni
+    'html[data-moto="ridotto"]',   # regole del movimento ridotto
     ".diag",            # pannello di diagnosi
 ]
 
@@ -85,11 +87,13 @@ def tag_sbilanciati(html: str) -> list:
 
 def main():
     s = PAGINA.read_text(encoding="utf-8")
-    m = re.search(r"<style>(.*?)</style>", s, re.S)
-    if not m:
+    # Due blocchi di stile: quello principale e il ripiego dentro <noscript>,
+    # che è l'unico posto dove è rimasta la media query del movimento ridotto.
+    blocchi = re.findall(r"<style>(.*?)</style>", s, re.S)
+    if not blocchi:
         sys.exit("Nessun blocco <style> in index.html")
 
-    css = re.sub(r"/\*.*?\*/", "", m.group(1), flags=re.S)   # via i commenti
+    css = re.sub(r"/\*.*?\*/", "", "\n".join(blocchi), flags=re.S)   # via i commenti
     guasti = []
 
     aperte, chiuse = css.count("{"), css.count("}")
