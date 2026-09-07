@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<!-- versione 2026-09-07 05:30 UTC -->
-<html lang="it" data-versione="2026-09-07 05:30">
+<!-- versione 2026-09-07 05:45 UTC -->
+<html lang="it" data-versione="2026-09-07 05:45">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
@@ -1178,6 +1178,84 @@ section[id] { scroll-margin-top: calc(var(--nav-h) + 14px); }
   margin-inline: auto;
 }
 
+/* Aggiornamento a luce laser: una scheda per serie, con l'unità e i modelli
+   disponibili. Le foto sono scure su trasparente, quindi il fondo va scuro. */
+.laser { margin-top: clamp(34px, 5vw, 54px); }
+
+.laser-testa { margin-bottom: 22px; }
+.laser-testa h3 {
+  font-family: var(--ff-display);
+  font-size: 1.12rem; font-weight: 600;
+  margin-bottom: 6px;
+}
+.laser-testa p { color: var(--text-3); font-size: .89rem; max-width: 68ch; }
+
+.laser-griglia {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 16px;
+  align-items: start;
+}
+
+.laser-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
+  padding: 18px 20px 22px;
+  transition: border-color .3s, background .3s;
+}
+.laser-card:hover { border-color: var(--gold-line); background: var(--surface-2); }
+
+.laser-foto {
+  background: #000;
+  border-radius: var(--r-md);
+  padding: 10px 12px;
+  margin-bottom: 16px;
+}
+.laser-foto img { width: 100%; }
+
+.laser-card h4 {
+  font-family: var(--ff-display);
+  font-size: .78rem; font-weight: 700;
+  letter-spacing: .14em; text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 12px;
+}
+
+.laser-elenco { display: grid; gap: 12px; }
+.laser-elenco .agg {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 2px 12px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border);
+}
+.laser-elenco .agg:last-child { border-bottom: 0; padding-bottom: 0; }
+.laser-elenco dt {
+  font-weight: 700; font-size: .94rem;
+  overflow-wrap: anywhere;
+}
+.agg-lm {
+  color: var(--gold);
+  font-size: .88rem; font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+  text-align: right;
+}
+.agg-per {
+  grid-column: 1 / -1;
+  color: var(--text-3);
+  font-size: .8rem;
+  overflow-wrap: anywhere;
+}
+
+.laser-invito {
+  margin-top: 20px;
+  font-size: .9rem;
+  color: var(--text-3);
+}
+.laser-invito a { color: var(--gold); text-decoration: underline; text-underline-offset: 3px; }
+
 /* ============================================================
    CTA BAND
    ============================================================ */
@@ -1938,6 +2016,109 @@ footer {
                width="1224" height="451" loading="lazy" decoding="async">
         </picture>
       </div>
+    </figure>
+
+    <div class="laser reveal">
+      <div class="laser-testa">
+        <h3>Aggiornamento a luce laser</h3>
+        <p>
+          Su un proiettore Barco Serie 2 la lampada può essere sostituita da un modulo laser:
+          resta la stessa macchina in cabina, spariscono le lampade da cambiare e la luminosità
+          non cala nel tempo. Qui sotto le soluzioni disponibili, con i valori dichiarati da Barco.
+        </p>
+      </div>
+
+      <div class="laser-griglia">
+        <article class="laser-card">
+          <div class="laser-foto">
+            <picture>
+              <source type="image/avif" srcset="img/cinema-products-llu_LLU-S.avif">
+              <img src="img/laser-s.webp"
+                   alt="Modulo di aggiornamento a luce laser Barco per proiettori Serie S"
+                   width="900" height="339" loading="lazy" decoding="async">
+            </picture>
+          </div>
+          <h4>Serie S</h4>
+          <dl class="laser-elenco">
+            <div class="agg">
+              <dt>DP2K-10S+</dt>
+              <dd class="agg-lm">10.000&nbsp;lumen</dd>
+              <dd class="agg-per">sostituisce DP2K-8/10S</dd>
+            </div>
+          </dl>
+        </article>
+        <article class="laser-card">
+          <div class="laser-foto">
+            <picture>
+              <source type="image/avif" srcset="img/cinema-products-llu_LLU-C.avif">
+              <img src="img/laser-c.webp"
+                   alt="Modulo di aggiornamento a luce laser Barco per proiettori Serie C"
+                   width="900" height="482" loading="lazy" decoding="async">
+            </picture>
+          </div>
+          <h4>Serie C</h4>
+          <dl class="laser-elenco">
+            <div class="agg">
+              <dt>DP2K-12C+</dt>
+              <dd class="agg-lm">12.000&nbsp;lumen</dd>
+              <dd class="agg-per">sostituisce DP2K-12C</dd>
+            </div>
+            <div class="agg">
+              <dt>DP2K-15C+</dt>
+              <dd class="agg-lm">15.000&nbsp;lumen</dd>
+              <dd class="agg-per">sostituisce DP2K-15/20C</dd>
+            </div>
+            <div class="agg">
+              <dt>DP2K-20C+</dt>
+              <dd class="agg-lm">18.500&nbsp;lumen</dd>
+              <dd class="agg-per">sostituisce DP2K-15/20C</dd>
+            </div>
+          </dl>
+        </article>
+        <article class="laser-card">
+          <div class="laser-foto">
+            <picture>
+              <source type="image/avif" srcset="img/cinema-products-llu_LLU-B.avif">
+              <img src="img/laser-b.webp"
+                   alt="Modulo di aggiornamento a luce laser Barco per proiettori Serie B"
+                   width="900" height="505" loading="lazy" decoding="async">
+            </picture>
+          </div>
+          <h4>Serie B</h4>
+          <dl class="laser-elenco">
+            <div class="agg">
+              <dt>DP2/4K-14B+</dt>
+              <dd class="agg-lm">13.500&nbsp;lumen</dd>
+              <dd class="agg-per">sostituisce DP2/4K-19/23/32B</dd>
+            </div>
+            <div class="agg">
+              <dt>DP2/4K-17B+</dt>
+              <dd class="agg-lm">17.000&nbsp;lumen</dd>
+              <dd class="agg-per">sostituisce DP2/4K-19/23/32B</dd>
+            </div>
+            <div class="agg">
+              <dt>DP2/4K-23B+</dt>
+              <dd class="agg-lm">23.000&nbsp;lumen</dd>
+              <dd class="agg-per">sostituisce DP2/4K-19/23/32B</dd>
+            </div>
+            <div class="agg">
+              <dt>DP2/4K-32B+</dt>
+              <dd class="agg-lm">31.500&nbsp;lumen</dd>
+              <dd class="agg-per">sostituisce DP2/4K-32B</dd>
+            </div>
+            <div class="agg">
+              <dt>DP2/4K-37B+</dt>
+              <dd class="agg-lm">37.000&nbsp;lumen</dd>
+              <dd class="agg-per">sostituisce DP2/4K-32B</dd>
+            </div>
+          </dl>
+        </article>
+      </div>
+
+      <p class="laser-invito">
+        Non sai qual è il tuo modello, o se convenga?
+        <a href="#contatti">Scrivici</a> e lo valutiamo insieme.
+      </p>
     </div>
   </div>
 </section>
@@ -2050,7 +2231,7 @@ footer {
 
     <div class="footer-credit">
       <span>Developed by <b>Rocco Totaro</b></span>
-      <span class="footer-ver" id="versione">v. 2026-09-07 05:30 UTC</span>
+      <span class="footer-ver" id="versione">v. 2026-09-07 05:45 UTC</span>
     </div>
   </div>
 </footer>
