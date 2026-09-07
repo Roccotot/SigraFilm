@@ -60,8 +60,9 @@ REGOLE = [
     ".gamma-quadro",    # gamma Barco su fondo nero
     ".laser-card",      # schede degli aggiornamenti laser
     ".laser-foto",
-    ".icmp",           # modulo ICMP-X
-    ".icmp-foto",
+    ".prod",            # schede dei server integrati (ICMP-X, IMS3000)
+    ".prod-foto",
+    ".prod--rovescio",  # scheda a colonne invertite
     ".footer-legal",    # dati d'impresa
     ".diag",            # pannello di diagnosi
 ]

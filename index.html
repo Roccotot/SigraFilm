@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<!-- versione 2026-09-07 10:27 UTC -->
-<html lang="it" data-versione="2026-09-07 10:27">
+<!-- versione 2026-09-07 10:41 UTC -->
+<html lang="it" data-versione="2026-09-07 10:41">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
@@ -1256,52 +1256,77 @@ section[id] { scroll-margin-top: calc(var(--nav-h) + 14px); }
 }
 .laser-invito a { color: var(--gold); text-decoration: underline; text-underline-offset: 3px; }
 
-/* Il modulo ICMP-X: immagine da un lato, spiegazione dall'altro */
-.icmp {
+/* Schede dei server integrati: immagine da un lato, spiegazione dall'altro.
+   Le schede si alternano, ma sotto gli 860px tornano tutte in colonna con la
+   foto per prima, quindi l'ordine invertito va annullato. */
+.prod {
   margin-top: clamp(34px, 5vw, 54px);
   display: grid;
   grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr);
   gap: clamp(20px, 3vw, 38px);
   align-items: center;
 }
-@media (max-width: 860px) { .icmp { grid-template-columns: 1fr; } }
+.prod--rovescio { grid-template-columns: minmax(0, 1.1fr) minmax(0, .9fr); }
+.prod--rovescio .prod-foto { order: 2; }
+@media (max-width: 860px) {
+  .prod, .prod--rovescio { grid-template-columns: 1fr; }
+  .prod--rovescio .prod-foto { order: 0; }
+}
 
-.icmp-foto {
+.prod-foto {
   background: #000;
   border: 1px solid var(--border);
   border-radius: var(--r-lg);
   overflow: hidden;
 }
-.icmp-foto img { width: 100%; }
+.prod-foto img { width: 100%; }
+/* L'IMS3000 e' largo quattro volte la sua altezza: nella colonna stretta del
+   telefono le sigle delle prese sparirebbero, quindi lo si lascia scorrere di
+   lato con le stesse ombre di richiamo usate per la gamma Barco. */
+.prod-foto--largo {
+  padding: clamp(10px, 2.4vw, 26px) 0;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  background-image:
+    linear-gradient(to right, #000 40%, rgba(0,0,0,0)),
+    linear-gradient(to left,  #000 40%, rgba(0,0,0,0)),
+    linear-gradient(to right, rgba(255,255,255,.16), rgba(255,255,255,0)),
+    linear-gradient(to left,  rgba(255,255,255,.16), rgba(255,255,255,0));
+  background-position: left center, right center, left center, right center;
+  background-repeat: no-repeat;
+  background-size: 38px 100%, 38px 100%, 12px 100%, 12px 100%;
+  background-attachment: local, local, scroll, scroll;
+}
+.prod-foto--largo img { min-width: 480px; }   /* sopra questa soglia la colonna basta da sola */
 
-.icmp-testo h3 {
+.prod-testo h3 {
   font-family: var(--ff-display);
   font-size: 1.24rem; font-weight: 700;
   margin-bottom: 10px;
 }
-.icmp-sommario { color: var(--text-2); font-size: .95rem; margin-bottom: 20px; }
+.prod-sommario { color: var(--text-2); font-size: .95rem; margin-bottom: 20px; }
 
-.icmp-punti { list-style: none; display: grid; gap: 11px; margin-bottom: 22px; }
+.prod-punti { list-style: none; display: grid; gap: 11px; margin-bottom: 22px; }
 /* Il segno di elenco è posizionato, non un elemento flex: altrimenti il
    grassetto iniziale e il resto della frase finirebbero in due colonne */
-.icmp-punti li {
+.prod-punti li {
   position: relative;
   padding-left: 20px;
   font-size: .89rem; color: var(--text-3); line-height: 1.6;
 }
-.icmp-punti li::before {
+.prod-punti li::before {
   content: '\203A';
   position: absolute; left: 0; top: 0;
   color: var(--gold); font-weight: 700;
 }
-.icmp-punti b { color: var(--text-2); font-weight: 600; }
+.prod-punti b { color: var(--text-2); font-weight: 600; }
 
-.icmp-dati {
+.prod-dati {
   display: grid; gap: 0;
   border-top: 1px solid var(--border);
   margin-bottom: 18px;
 }
-.icmp-dati > div {
+.prod-dati > div {
   display: grid;
   grid-template-columns: minmax(120px, 34%) 1fr;
   gap: 4px 16px;
@@ -1309,11 +1334,12 @@ section[id] { scroll-margin-top: calc(var(--nav-h) + 14px); }
   border-bottom: 1px solid var(--border);
   font-size: .84rem;
 }
-@media (max-width: 520px) { .icmp-dati > div { grid-template-columns: 1fr; } }
-.icmp-dati dt { color: var(--text-3); }
-.icmp-dati dd { color: var(--text-2); }
+@media (max-width: 520px) { .prod-dati > div { grid-template-columns: 1fr; } }
+.prod-dati dt { color: var(--text-3); }
+.prod-dati dd { color: var(--text-2); }
 
-.icmp-tms { font-size: .8rem; color: var(--text-3); line-height: 1.65; }
+.prod-nota { font-size: .8rem; color: var(--text-3); line-height: 1.65; }
+.prod-nota a { color: var(--gold); text-decoration: underline; text-underline-offset: 3px; }
 
 /* ============================================================
    CTA BAND
@@ -2180,8 +2206,8 @@ footer {
       </p>
     </div>
 
-    <div class="icmp reveal">
-      <div class="icmp-foto">
+    <div class="prod reveal">
+      <div class="prod-foto">
         <picture>
           <source type="image/avif" srcset="img/cinema-solution-portfolio-icmp_x_dark.avif">
           <img src="img/icmp-x.webp"
@@ -2190,23 +2216,23 @@ footer {
         </picture>
       </div>
 
-      <div class="icmp-testo">
+      <div class="prod-testo">
         <h3>Barco Alchemy ICMP-X</h3>
-        <p class="icmp-sommario">
+        <p class="prod-sommario">
           Una sola scheda al posto di due apparati: riunisce il processore cinematografico
           e il server dei contenuti nel proiettore. Meno scatole in cabina significa meno
           collegamenti, meno cose che si guastano e una diagnosi più rapida quando qualcosa
           non va. Compatibile con i proiettori Barco Serie 2 e Serie 4.
         </p>
 
-        <ul class="icmp-punti">
+        <ul class="prod-punti">
           <li><b>Si comanda dal browser.</b> Controllo del proiettore, composizione e programmazione degli spettacoli via Web Commander, anche da tablet.</li>
           <li><b>Archiviazione a bordo.</b> Tre dischi sostituibili a caldo in RAID&#8209;5: 2, 4 o 8&nbsp;TB utili.</li>
           <li><b>Anche contenuti non cinematografici.</b> Due HDMI&nbsp;2.0a, due 3G&#8209;SDI e streaming Live&nbsp;IP a licenza, mescolabili al DCI nello stesso spettacolo.</li>
           <li><b>Conforme DCI</b>, Compliance Test Plan 1.2.</li>
         </ul>
 
-        <dl class="icmp-dati">
+        <dl class="prod-dati">
           <div><dt>Immagine</dt><dd>DCI 4K 2D fino a 60&nbsp;fps · 4K 3D · 2K 3D fino a 120&nbsp;fps</dd></div>
           <div><dt>Flusso JPEG&nbsp;2000</dt><dd>fino a 625&nbsp;Mbps</dd></div>
           <div><dt>Audio</dt><dd>16 canali AES/EBU</dd></div>
@@ -2214,10 +2240,52 @@ footer {
           <div><dt>Rete e supporti</dt><dd>2 GbE · 2 USB&nbsp;3.0 e 2 USB&nbsp;2.0 sul fronte</dd></div>
         </dl>
 
-        <p class="icmp-tms">
+        <p class="prod-nota">
           Funziona con i principali sistemi di gestione sala: AAM Screenwriter, CinemaNext TMS,
           CFG&#8209;Barco, Unique RosettaBridge, ADDE, CinéDigital Manager, GDC, Proyecson,
           Real Image, Sony, Comscore TCC e Kinoton. Supportato anche da 4DX.
+        </p>
+      </div>
+    </div>
+
+    <div class="prod prod--rovescio reveal" data-da="dx">
+      <div class="prod-foto prod-foto--largo">
+        <picture>
+          <source type="image/avif" srcset="img/ims3000.avif">
+          <img src="img/ims3000.webp"
+               alt="Il server integrato Dolby IMS3000 con Dolby Atmos: pannello frontale con tre alloggiamenti per dischi, prese di rete, USB, eSATA, SDI-A e SDI-B, HDMI in ingresso, Dolby Atmos Connect, uscite AES e connettori GPI/GPO."
+               width="1400" height="335" loading="lazy" decoding="async">
+        </picture>
+      </div>
+
+      <div class="prod-testo">
+        <h3>Dolby IMS3000</h3>
+        <p class="prod-sommario">
+          Il server integrato di Dolby: anche questo si monta dentro il proiettore e riunisce
+          la riproduzione dei contenuti e, se serve, l'elaborazione audio. È la scelta di chi
+          vuole restare su una piattaforma collaudata e tenersi aperta la strada verso il
+          Dolby&nbsp;Atmos senza rifare la cabina.
+        </p>
+
+        <ul class="prod-punti">
+          <li><b>L'audio cresce con la sala.</b> Si abbina a un processore esterno, come il Dolby&nbsp;CP950 o CP950A, oppure si abilita sul campo l'elaborazione interna 5.1/7.1 fino al Dolby&nbsp;Atmos: nessun apparato da sostituire, solo la licenza.</li>
+          <li><b>Due versioni.</b> L'IMS3000&#8209;NB ha gli ingressi SDI e regge il funzionamento in coppia su due proiettori; l'IMS3000&#8209;DS, senza SDI, è per gli impianti a proiettore singolo.</li>
+          <li><b>Anche per gli schermi LED.</b> Il modello IMS3&#8209;L&#8209;NB è dedicato alle sale con parete LED.</li>
+          <li><b>Si comanda dal browser</b> da qualunque punto della rete della sala, e da tablet via Bluetooth con l'app Cinema Server Control.</li>
+        </ul>
+
+        <dl class="prod-dati">
+          <div><dt>Riproduzione</dt><dd>pacchetti DCP SMPTE e INTEROP</dd></div>
+          <div><dt>Flusso</dt><dd>fino a 500&nbsp;Mbps</dd></div>
+          <div><dt>Audio</dt><dd>5.1/7.1 o Dolby&nbsp;Atmos interni, oppure processore esterno CP950 / CP950A</dd></div>
+          <div><dt>Archiviazione</dt><dd>a bordo o su NAS, secondo la configurazione scelta</dd></div>
+          <div><dt>Gestione</dt><dd>interfaccia web sulla rete di sala · Bluetooth con adattatore USB</dd></div>
+        </dl>
+
+        <p class="prod-nota">
+          Alcune funzioni, fra cui l'elaborazione audio interna, richiedono l'acquisto della
+          licenza; l'accesso da tablet richiede l'adattatore Bluetooth USB.
+          <a href="#contatti">Scrivici</a> e vediamo quale configurazione ha senso per la tua sala.
         </p>
       </div>
     </div>
@@ -2332,7 +2400,7 @@ footer {
 
     <div class="footer-credit">
       <span>Developed by <b>Rocco Totaro</b></span>
-      <span class="footer-ver" id="versione">v. 2026-09-07 10:27 UTC</span>
+      <span class="footer-ver" id="versione">v. 2026-09-07 10:41 UTC</span>
     </div>
   </div>
 </footer>
