@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<!-- versione 2026-09-07 14:12 UTC -->
-<html lang="it" data-versione="2026-09-07 14:12">
+<!-- versione 2026-09-07 14:33 UTC -->
+<html lang="it" data-versione="2026-09-07 14:33">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
@@ -1305,6 +1305,25 @@ section[id] { scroll-margin-top: calc(var(--nav-h) + 14px); }
   overflow: hidden;
 }
 .prod-foto img { width: 100%; }
+/* Una scheda a tutta larghezza, per i prodotti larghi e bassi: in mezza
+   colonna l'IMS3000 diventava una miniatura accanto alla foto quasi quadrata
+   dell'ICMP-X. Qui la foto prende tutta la riga e il testo si divide sotto. */
+.prod--largo { display: block; }
+.prod--largo .prod-foto { margin-bottom: clamp(20px, 3vw, 32px); }
+.prod--largo .prod-sommario { max-width: 82ch; }
+/* A tutta larghezza la riga della nota arriverebbe a centocinquanta battute */
+.prod--largo .prod-nota { max-width: 96ch; margin-top: 22px; }
+.prod-corpo {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 4px clamp(24px, 4vw, 48px);
+  align-items: start;
+}
+@media (max-width: 860px) { .prod-corpo { grid-template-columns: 1fr; } }
+/* Nelle due colonne il margine di coda serve solo quando tornano in fila */
+.prod-corpo .prod-dati { margin-bottom: 0; }
+@media (max-width: 860px) { .prod-corpo .prod-dati { margin-bottom: 18px; } }
+
 /* L'IMS3000 e' largo quattro volte la sua altezza: nella colonna stretta del
    telefono le sigle delle prese sparirebbero, quindi lo si lascia scorrere di
    lato con le stesse ombre di richiamo usate per la gamma Barco. */
@@ -2329,13 +2348,13 @@ html[data-moto="ridotto"] { scroll-behavior: auto; }
       </div>
     </div>
 
-    <div class="prod prod--rovescio reveal" data-da="dx">
+    <div class="prod prod--largo reveal" data-da="dx">
       <div class="prod-foto prod-foto--largo">
         <picture>
           <source type="image/avif" srcset="img/ims3000.avif">
           <img src="img/ims3000.webp"
                alt="Il server integrato Dolby IMS3000 con Dolby Atmos: pannello frontale con tre alloggiamenti per dischi, prese di rete, USB, eSATA, SDI-A e SDI-B, HDMI in ingresso, Dolby Atmos Connect, uscite AES e connettori GPI/GPO."
-               width="1400" height="335" loading="lazy" decoding="async">
+               width="1949" height="467" loading="lazy" decoding="async">
         </picture>
       </div>
 
@@ -2348,6 +2367,7 @@ html[data-moto="ridotto"] { scroll-behavior: auto; }
           Dolby&nbsp;Atmos senza rifare la cabina.
         </p>
 
+        <div class="prod-corpo">
         <ul class="prod-punti">
           <li><b>L'audio cresce con la sala.</b> Si abbina a un processore esterno, come il Dolby&nbsp;CP950 o CP950A, oppure si abilita sul campo l'elaborazione interna 5.1/7.1 fino al Dolby&nbsp;Atmos: nessun apparato da sostituire, solo la licenza.</li>
           <li><b>Due versioni.</b> L'IMS3000&#8209;NB ha gli ingressi SDI e regge il funzionamento in coppia su due proiettori; l'IMS3000&#8209;DS, senza SDI, è per gli impianti a proiettore singolo.</li>
@@ -2362,6 +2382,7 @@ html[data-moto="ridotto"] { scroll-behavior: auto; }
           <div><dt>Archiviazione</dt><dd>a bordo o su NAS, secondo la configurazione scelta</dd></div>
           <div><dt>Gestione</dt><dd>interfaccia web sulla rete di sala · Bluetooth con adattatore USB</dd></div>
         </dl>
+        </div>
 
         <p class="prod-nota">
           Alcune funzioni, fra cui l'elaborazione audio interna, richiedono l'acquisto della
@@ -2485,7 +2506,7 @@ html[data-moto="ridotto"] { scroll-behavior: auto; }
         <span class="spia" aria-hidden="true"></span>
         <span id="moto-testo">Animazioni attive</span>
       </button>
-      <span class="footer-ver" id="versione">v. 2026-09-07 14:12 UTC</span>
+      <span class="footer-ver" id="versione">v. 2026-09-07 14:33 UTC</span>
     </div>
   </div>
 </footer>
