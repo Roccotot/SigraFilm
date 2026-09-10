@@ -1,22 +1,19 @@
 #!/usr/bin/env python3
 """
-Aggiorna la mappa di copertura e i numeri del sito a partire dall'inventario
-del Support-Tool.
+Aggiorna i numeri del sito a partire dall'inventario del Support-Tool.
 
-    python3 strumenti/aggiorna_mappa.py [percorso/del/Support-Tool/index.html]
+    python3 strumenti/aggiorna_numeri.py [percorso/del/Support-Tool/index.html]
 
 Senza argomenti cerca una copia del Support-Tool accanto a questa cartella.
 
 Dal file legge le righe "Coord" dei tre elenchi (cinema in VPN, cinema su
-rete locale, arene estive) e riscrive dentro index.html:
+rete locale, arene estive), che valgono una per struttura, e riscrive dentro
+index.html i quattro numeri della sezione "Chi siamo" e le sale contate
+nell'occhiello della testata.
 
-  - le coordinate della mappa, fra i segnaposti MAPPA:INIZIO / MAPPA:FINE
-  - i quattro numeri della sezione "Chi siamo"
-  - i conteggi nella legenda della mappa e nell'occhiello della testata
-
-Sul sito NON finiscono né i nomi né le città: solo un punto per struttura,
-arrotondato a due decimali (circa un chilometro), così la mappa racconta il
-territorio coperto senza indicare quale sala è cliente.
+Si chiamava aggiorna_mappa.py e riscriveva anche le coordinate della mappa di
+copertura: la mappa non c'è più. Dal Support-Tool non esce nulla che dica
+quali sale sono clienti, solo dei conteggi.
 """
 
 from pathlib import Path
@@ -32,10 +29,6 @@ CANDIDATI = [
     RADICE.parent / "support-tool" / "index.html",
 ]
 
-INIZIO, FINE = "/* MAPPA:INIZIO */", "/* MAPPA:FINE */"
-PASSO = 0.004          # scarto fra punti che cadrebbero esattamente sovrapposti
-
-
 def sorgente() -> Path:
     if len(sys.argv) > 1:
         p = Path(sys.argv[1]).expanduser()
@@ -47,7 +40,7 @@ def sorgente() -> Path:
             return p
     sys.exit(
         "Non trovo l'index.html del Support-Tool. Passalo come argomento:\n"
-        "  python3 strumenti/aggiorna_mappa.py ../Support-Tool/index.html\n"
+        "  python3 strumenti/aggiorna_numeri.py ../Support-Tool/index.html\n"
         "Oppure clonalo accanto a questa cartella:\n"
         "  git clone https://github.com/Roccotot/Support-Tool ../Support-Tool"
     )
@@ -84,24 +77,6 @@ def sale(blocco: str) -> set:
             if len(r.split("\t")[0].split(" - ")) == 4}
 
 
-def sparpaglia(punti):
-    """Arrotonda e separa i punti che finirebbero esattamente uno sull'altro."""
-    visti, fuori = {}, []
-    for lat, lng in punti:
-        chiave = (round(lat, 2), round(lng, 2))
-        n = visti.get(chiave, 0)
-        visti[chiave] = n + 1
-        if n == 0:
-            fuori.append(chiave)
-        else:                                  # spirale corta attorno al punto
-            import math
-            ang = n * 2.399963                 # angolo aureo: distribuisce bene
-            r = PASSO * (1 + n * 0.35)
-            fuori.append((round(chiave[0] + r * math.cos(ang), 4),
-                          round(chiave[1] + r * math.sin(ang), 4)))
-    return fuori
-
-
 def sostituisci(testo, vecchio_re, nuovo, cosa):
     nuovo_testo, n = re.subn(vecchio_re, nuovo, testo, count=1)
     if n != 1:
@@ -118,30 +93,16 @@ def main():
     estivi = coordinate(b["RAW_ESTIVI"])
     n_sale = len(sale(b["RAW"]) | sale(b["RAW_NOVPN"]))
 
-    pc = sparpaglia(chiusi.values())
-    pe = sparpaglia(estivi.values())
-    print(f"  cinema al chiuso : {len(pc)}")
-    print(f"  arene estive     : {len(pe)}")
+    n_chiusi, n_estivi = len(chiusi), len(estivi)
+    print(f"  cinema al chiuso : {n_chiusi}")
+    print(f"  arene estive     : {n_estivi}")
     print(f"  sale             : {n_sale}")
 
-    def lista(punti):
-        return "[" + ",".join(f"[{la},{ln}]" for la, ln in punti) + "]"
-
-    dati = (f"{INIZIO}\n"
-            f"  var CHIUSI = {lista(pc)};\n"
-            f"  var ESTIVI = {lista(pe)};\n"
-            f"  {FINE}")
-
     pagina = PAGINA.read_text(encoding="utf-8")
-    if INIZIO not in pagina or FINE not in pagina:
-        sys.exit(f"Segnaposti {INIZIO} / {FINE} non trovati in index.html")
-    prima = pagina[:pagina.index(INIZIO)]
-    dopo = pagina[pagina.index(FINE) + len(FINE):]
-    pagina = prima + dati + dopo
 
     anni = 2026 - 1954
-    for valore, etichetta in ((anni, "anni"), (len(pc), "chiusi"),
-                              (len(pe), "estivi"), (n_sale, "sale")):
+    for valore, etichetta in ((anni, "anni"), (n_chiusi, "chiusi"),
+                              (n_estivi, "estivi"), (n_sale, "sale")):
         pagina = sostituisci(
             pagina,
             r'(<div class="stat-number" data-dato="' + etichetta +
@@ -150,21 +111,10 @@ def main():
             f'il numero "{etichetta}"')
 
     pagina = sostituisci(
-        pagina, r'(<b data-dato="legenda-chiusi">)\d+(</b>)',
-        lambda m: m.group(1) + str(len(pc)) + m.group(2), "la legenda al chiuso")
-    pagina = sostituisci(
-        pagina, r'(<b data-dato="legenda-estivi">)\d+(</b>)',
-        lambda m: m.group(1) + str(len(pe)) + m.group(2), "la legenda estivi")
-    pagina = sostituisci(
         pagina, r'(<b data-dato="hero-sale">)\d+(</b>)',
         lambda m: m.group(1) + str(n_sale) + m.group(2), "le sale nella testata")
-    pagina = sostituisci(
-        pagina, r'(<span data-dato="totale-strutture">)\d+(</span>)',
-        lambda m: m.group(1) + str(len(pc) + len(pe)) + m.group(2),
-        "il totale delle strutture")
-
     PAGINA.write_text(pagina, encoding="utf-8")
-    print("\nindex.html aggiornato: mappa, numeri e legenda.")
+    print("\nindex.html aggiornato: i quattro numeri e le sale in testata.")
 
 
 if __name__ == "__main__":

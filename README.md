@@ -11,7 +11,7 @@ img/                            logo e immagini fisse
 caroselli/                      le foto della galleria
   didascalie.txt                i testi sotto le foto
 strumenti/aggiorna_galleria.py  rigenera la galleria
-strumenti/aggiorna_mappa.py     riallinea mappa e numeri all'inventario
+strumenti/aggiorna_numeri.py    riallinea i numeri all'inventario
 strumenti/aggiorna_versione.py  marca la pagina con data e ora
 strumenti/verifica_css.py       controlla che il foglio di stile sia integro
 .github/workflows/galleria.yml  fa rigenerare la galleria da sola su GitHub
@@ -85,37 +85,25 @@ python3 strumenti/aggiorna_galleria.py
 Poi committa `caroselli/` e `index.html`. Lo script è ripetibile: rilanciarlo
 non rifà il lavoro già fatto.
 
-## La mappa di copertura
+## I numeri del sito
 
-La sezione «Dove operiamo» mostra un punto per ogni struttura seguita —
-🎬 al chiuso, ☀️ arene estive — **senza nomi, senza città e con le coordinate
-arrotondate a circa un chilometro**. Racconta il territorio coperto, non quali
-sale sono clienti.
-
-I dati arrivano dall'inventario del
+I quattro numeri della sezione «Chi siamo» e le sale contate nell'occhiello
+della testata arrivano dall'inventario del
 [Support-Tool](https://github.com/Roccotot/Support-Tool). Quando l'inventario
-cambia, per riallineare mappa e numeri del sito:
+cambia, per riallinearli:
 
 ```bash
 git clone https://github.com/Roccotot/Support-Tool ../Support-Tool   # una volta sola
-python3 strumenti/aggiorna_mappa.py ../Support-Tool/index.html
+python3 strumenti/aggiorna_numeri.py ../Support-Tool/index.html
 ```
 
-Lo script riscrive da solo, dentro `index.html`, le coordinate della mappa, i
-quattro numeri della sezione «Chi siamo» e i conteggi della legenda. Poi basta
-committare `index.html`.
+Lo script riscrive da solo i numeri dentro `index.html`; poi basta committare.
+Dal Support-Tool non esce nulla che dica quali sale sono clienti: solo dei
+conteggi.
 
-La mappa usa Leaflet (da CDN) e le mattonelle di OpenStreetMap, caricati solo
-quando la sezione sta per entrare in vista. Le mattonelle OSM sono chiare:
-vengono portate sul fondo scuro del sito con un filtro CSS applicato al solo
-piano delle mattonelle, così i marcatori restano dei colori giusti.
-
-Non serve nessuna chiave: OpenStreetMap chiede solo l'attribuzione, che compare
-in basso a destra sulla mappa. Se un domani il traffico crescesse molto, la
-policy d'uso di OSM chiede di passare a un fornitore di mattonelle proprio.
-
-Se la CDN non risponde, al posto della mappa compare una riga di testo con il
-totale delle strutture.
+Lo script si chiamava `aggiorna_mappa.py` e riscriveva anche le coordinate di
+una mappa di copertura, tolta dal sito a settembre 2026 insieme a Leaflet e
+alle mattonelle OpenStreetMap.
 
 ## Le altre immagini
 
