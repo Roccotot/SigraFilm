@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<!-- versione 2026-09-07 17:35 UTC -->
-<html lang="it" data-versione="2026-09-07 17:35">
+<!-- versione 2026-09-10 10:19 UTC -->
+<html lang="it" data-versione="2026-09-10 10:19">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
@@ -486,6 +486,15 @@ section[id] { scroll-margin-top: calc(var(--nav-h) + 14px); }
 }
 .btn-ghost:hover { background: rgba(255,255,255,.13); transform: translateY(-3px); border-color: rgba(255,255,255,.3); }
 
+/* Il Portale NOC porta fuori dal sito, su un accesso riservato: la freccia
+   lo dice prima del clic, cosi' non sembra un'altra sezione della pagina. */
+.btn-noc::after {
+  content: '\2197';
+  font-size: .9em; font-weight: 400;
+  color: var(--gold);
+  margin-left: -2px;
+}
+
 .hero-trust {
   display: flex; flex-wrap: wrap; gap: 10px 26px;
   align-items: center;
@@ -579,14 +588,11 @@ section[id] { scroll-margin-top: calc(var(--nav-h) + 14px); }
 
 /* Schede: si alternano, una da sinistra e la successiva da destra.
    Regge a ogni larghezza, dalle quattro colonne alla colonna singola. */
-.js .service-card.reveal,
-.js .tool-card.reveal { transition: opacity .7s var(--ease), transform .85s var(--mo); }
-.js .service-card.reveal:not(.visible):nth-child(odd),
-.js .tool-card.reveal:not(.visible):nth-child(odd) {
+.js .service-card.reveal { transition: opacity .7s var(--ease), transform .85s var(--mo); }
+.js .service-card.reveal:not(.visible):nth-child(odd) {
   transform: translateX(calc(var(--corsa-scheda) * -1)) scale(.97);
 }
-.js .service-card.reveal:not(.visible):nth-child(even),
-.js .tool-card.reveal:not(.visible):nth-child(even) {
+.js .service-card.reveal:not(.visible):nth-child(even) {
   transform: translateX(var(--corsa-scheda)) scale(.97);
 }
 
@@ -1007,56 +1013,6 @@ section[id] { scroll-margin-top: calc(var(--nav-h) + 14px); }
 #lb-counter { color: var(--gold); font-weight: 700; font-variant-numeric: tabular-nums; flex-shrink: 0; }
 
 /* ============================================================
-   STRUMENTI
-   ============================================================ */
-.tools-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(258px, 1fr));
-  gap: 18px;
-}
-.tool-card {
-  position: relative;
-  display: flex; flex-direction: column; gap: 11px;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: var(--r-lg);
-  padding: 26px 24px 24px;
-  text-decoration: none;
-  overflow: hidden;
-  transition: transform .3s var(--ease), border-color .3s, background .3s, box-shadow .3s;
-}
-.tool-card::after {
-  content: '↗';
-  position: absolute; top: 20px; right: 22px;
-  color: var(--text-3); font-size: 1.05rem;
-  transition: color .25s, transform .25s var(--ease);
-}
-.tool-card:hover {
-  transform: translateY(-6px);
-  border-color: var(--gold-line);
-  background: var(--gold-dim);
-  box-shadow: 0 20px 50px rgba(249,194,0,.14);
-}
-.tool-card:hover::after { color: var(--gold); transform: translate(3px,-3px); }
-
-.tool-icon {
-  width: 48px; height: 48px;
-  display: grid; place-items: center;
-  font-size: 1.45rem;
-  background: rgba(255,255,255,.06);
-  border: 1px solid var(--border);
-  border-radius: 13px;
-}
-.tool-name { font-family: var(--ff-display); font-weight: 600; font-size: 1.02rem; }
-.tool-desc { font-size: .86rem; color: var(--text-3); line-height: 1.55; }
-.tool-badge {
-  margin-top: auto; padding-top: 12px;
-  font-size: .7rem; font-weight: 700;
-  letter-spacing: .1em; text-transform: uppercase;
-  color: var(--gold);
-}
-
-/* ============================================================
    MARCHI
    ============================================================ */
 .brand-chips {
@@ -1371,6 +1327,11 @@ section[id] { scroll-margin-top: calc(var(--nav-h) + 14px); }
   0%, 100% { transform: translateX(0); }
   50%      { transform: translateX(210%); }
 }
+/* Il testo si lasciava misurare dal titolo per intero, e la somma sforava di
+   tre pixel la riga: il tasto finiva sempre sotto, con mezza fascia vuota.
+   Ora il testo cede lo spazio e il tasto torna dov'era pensato, a destra. */
+.cta-band > :first-child { flex: 1 1 420px; min-width: 0; max-width: 62ch; }
+
 .cta-band h2 {
   font-family: var(--ff-display);
   font-size: clamp(1.5rem, 3vw, 2.1rem);
@@ -1601,7 +1562,10 @@ footer {
   .quickbar { display: flex; }
   body { padding-bottom: 74px; }
   #to-top { bottom: 88px; right: 14px; }
+  /* In colonna il flex-basis diventerebbe un'altezza: 420px di vuoto fra il
+     testo e il tasto. Qui il blocco torna a misurarsi sul suo contenuto. */
   .cta-band { flex-direction: column; align-items: flex-start; }
+  .cta-band > :first-child { flex: 0 1 auto; max-width: 100%; }
   .lb-arrow { width: 44px; height: 44px; }
   #lb-prev { left: 8px; } #lb-next { right: 8px; }
   #lightbox { padding: 66px 12px 84px; }
@@ -1669,7 +1633,6 @@ footer {
       <a href="#chisiamo">Chi siamo</a>
       <a href="#servizi">Servizi</a>
       <a href="#galleria">Galleria</a>
-      <a href="#strumenti">Strumenti</a>
       <a href="#marchi">Marchi</a>
     </nav>
 
@@ -1689,7 +1652,6 @@ footer {
   <a href="#chisiamo">Chi siamo</a>
   <a href="#servizi">Servizi</a>
   <a href="#galleria">Galleria</a>
-  <a href="#strumenti">Strumenti</a>
   <a href="#marchi">Marchi</a>
   <a href="#contatti">Contatti</a>
   <a class="drawer-cta" href="tel:+393381025100">📞 Chiama ora</a>
@@ -1711,13 +1673,15 @@ footer {
       <span class="eyebrow"><span class="dot"></span> Dal 1954 &middot; Assistenza in tutta Italia</span>
       <h1>Il cinema che si vede.<br><em>E si sente.</em></h1>
       <p class="hero-lead">
-        Progettiamo, installiamo e manteniamo impianti di proiezione e audio
-        per sale cinematografiche, teatri, arene estive e centri eventi.
+        Progettiamo, installiamo ed effettuiamo assistenza per impianti di
+        proiezione/audio per sale cinematografiche, teatri, arene estive e
+        centri eventi.
       </p>
 
       <div class="hero-actions">
         <a class="btn btn-primary" href="tel:+393381025100">📞 Chiamaci ora</a>
         <a class="btn btn-ghost" href="#servizi">Scopri i servizi</a>
+        <a class="btn btn-ghost btn-noc" href="http://188.8.192.138:5000/login" target="_blank" rel="noopener">🖥️ Portale NOC</a>
       </div>
 
       <div class="hero-trust">
@@ -1957,46 +1921,8 @@ footer {
   </div>
 </section>
 
-<!-- ============================ STRUMENTI ============================ -->
-<section class="section section-alt" id="strumenti">
-  <div class="wrap">
-    <div class="section-head reveal">
-      <span class="eyebrow">Strumenti online</span>
-      <h2>Applicazioni per chi lavora in cabina</h2>
-      <p>Strumenti sviluppati da noi per semplificare la gestione quotidiana del cinema. Si aprono in una nuova scheda.</p>
-    </div>
-
-    <div class="tools-grid">
-      <a class="tool-card reveal" href="https://roccotot.github.io/Converter/" target="_blank" rel="noopener">
-        <span class="tool-icon" aria-hidden="true">⚙️</span>
-        <span class="tool-name">Convertitore Macro</span>
-        <span class="tool-desc">Converti automaticamente le macro tra i diversi sistemi di proiezione.</span>
-        <span class="tool-badge">Accesso libero</span>
-      </a>
-      <a class="tool-card reveal" data-delay="1" href="https://roccotot.github.io/locandine-web/" target="_blank" rel="noopener">
-        <span class="tool-icon" aria-hidden="true">🖼️</span>
-        <span class="tool-name">Crea Locandine</span>
-        <span class="tool-desc">Genera locandine cinematografiche professionali in pochi clic.</span>
-        <span class="tool-badge">Accesso libero</span>
-      </a>
-      <a class="tool-card reveal" data-delay="2" href="https://roccotot.github.io/Barco-Log-Analyzer/" target="_blank" rel="noopener">
-        <span class="tool-icon" aria-hidden="true">🔍</span>
-        <span class="tool-name">Barco Log Analyzer</span>
-        <span class="tool-desc">Analizza i log dei proiettori Barco per diagnosticare errori e anomalie di sistema.</span>
-        <span class="tool-badge">Accesso libero</span>
-      </a>
-      <a class="tool-card reveal" data-delay="3" href="http://188.8.192.138:5000/login" target="_blank" rel="noopener">
-        <span class="tool-icon" aria-hidden="true">🖥️</span>
-        <span class="tool-name">Portale NOC</span>
-        <span class="tool-desc">Network Operations Center: monitoraggio remoto e gestione degli impianti cinema in tempo reale.</span>
-        <span class="tool-badge">Accesso riservato · login</span>
-      </a>
-    </div>
-  </div>
-</section>
-
 <!-- ============================ MARCHI ============================ -->
-<section class="section" id="marchi">
+<section class="section section-alt" id="marchi">
   <div class="wrap">
     <div class="section-head reveal">
       <span class="eyebrow">Marchi trattati</span>
@@ -2222,7 +2148,7 @@ footer {
 </section>
 
 <!-- ============================ CONTATTI ============================ -->
-<section class="section section-alt" id="contatti">
+<section class="section" id="contatti">
   <div class="wrap">
 
     <div class="cta-band reveal" style="margin-bottom:44px">
@@ -2231,8 +2157,7 @@ footer {
         <p>Raccontaci cosa ti serve: ti richiamiamo con una soluzione concreta e i tempi di intervento.</p>
       </div>
       <div class="hero-actions">
-        <a class="btn btn-primary" href="tel:+393381025100">📞 +39 338 1025100</a>
-        <a class="btn btn-ghost" href="mailto:assistenza@sigrafilm.it">✉️ Scrivici</a>
+        <a class="btn btn-primary" href="mailto:assistenza@sigrafilm.it">✉️ Scrivici</a>
       </div>
     </div>
 
@@ -2298,7 +2223,6 @@ footer {
           <li><a href="#chisiamo">Chi siamo</a></li>
           <li><a href="#servizi">Servizi</a></li>
           <li><a href="#galleria">Galleria</a></li>
-          <li><a href="#strumenti">Strumenti</a></li>
           <li><a href="#marchi">Marchi</a></li>
         </ul>
       </div>
@@ -2329,7 +2253,7 @@ footer {
 
     <div class="footer-credit">
       <span>Developed by <b>Rocco Totaro</b></span>
-      <span class="footer-ver" id="versione">v. 2026-09-07 17:35 UTC</span>
+      <span class="footer-ver" id="versione">v. 2026-09-10 10:19 UTC</span>
     </div>
   </div>
 </footer>
