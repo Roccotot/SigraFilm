@@ -49,7 +49,7 @@ REGOLE = [
     ".quickbar",        # barra Chiama / WhatsApp / Email su telefono
     ".quickbar a",
     ".nav-drawer",      # menu a tendina
-    ".nav-tel",         # tasto chiamata su telefono
+    ".nav-wa",          # tasto WhatsApp su telefono
     ".pulviscolo",      # strato dei granelli luminosi
     ".lb-btn",          # comandi dell'ingranditore foto
     ".carosello",       # carosello della galleria
