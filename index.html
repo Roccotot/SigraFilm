@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<!-- versione 2026-09-11 16:25 UTC -->
-<html lang="it" data-versione="2026-09-11 16:25">
+<!-- versione 2026-09-12 16:20 UTC -->
+<html lang="it" data-versione="2026-09-12 16:20">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
@@ -1443,6 +1443,10 @@ footer {
   .nav-links, .nav-cta { display: none; }
   .nav-toggle { display: flex; }
 
+  /* Su telefono i comandi stanno a sinistra e il marchio all'altro capo:
+     la spinta automatica cambia lato */
+  .brand { margin-right: 0; margin-left: auto; }
+
   .nav-wa {
     display: grid; place-items: center;
     width: 44px; height: 44px; flex-shrink: 0;
@@ -1545,6 +1549,14 @@ footer {
 <!-- ============================ NAV ============================ -->
 <header class="nav" id="nav">
   <div class="nav-inner">
+    <button class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="nav-drawer" aria-label="Apri il menu">
+      <span></span><span></span><span></span>
+    </button>
+
+    <a class="nav-wa" href="https://wa.me/390552691489" target="_blank" rel="noopener" aria-label="Scrivici su WhatsApp">
+      <span aria-hidden="true">💬</span>
+    </a>
+
     <a class="brand" href="#top" aria-label="Sigra Film — torna in cima">
       <img src="img/logo_sigra.png" width="58" height="34" alt="">
       <span>
@@ -1562,13 +1574,6 @@ footer {
 
     <a class="nav-cta" href="#contatti">Contattaci</a>
 
-    <a class="nav-wa" href="https://wa.me/390552691489" target="_blank" rel="noopener" aria-label="Scrivici su WhatsApp">
-      <span aria-hidden="true">💬</span>
-    </a>
-
-    <button class="nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="nav-drawer" aria-label="Apri il menu">
-      <span></span><span></span><span></span>
-    </button>
   </div>
 </header>
 
@@ -2221,7 +2226,7 @@ footer {
 
     <div class="footer-credit">
       <span>Developed by <b>Rocco Totaro</b></span>
-      <span class="footer-ver" id="versione">v. 2026-09-11 16:25 UTC</span>
+      <span class="footer-ver" id="versione">v. 2026-09-12 16:20 UTC</span>
     </div>
   </div>
 </footer>
