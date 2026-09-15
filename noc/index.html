@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<!-- Scorciatoia per la cabina: www.sigrafilm.it/noc porta al Portale NOC.
+     Il portale sta su un indirizzo IP con porta, scomodo da ricordare e da
+     digitare su un telefono in mezzo a una sala. Se un domani cambia, si
+     cambia qui e basta: chi ha salvato il segnalibro non se ne accorge.
+     Il reindirizzamento e' scritto due volte, in meta refresh e in
+     JavaScript, cosi' parte anche a script disattivati; il tasto sotto
+     resta per i browser che bloccano il salto verso un indirizzo in
+     http semplice. -->
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Portale NOC · Sigra Film</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="canonical" href="https://www.sigrafilm.it/noc/">
+<link rel="icon" type="image/svg+xml" href="../img/favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="../img/favicon-32.png">
+<link rel="apple-touch-icon" href="../img/apple-touch-icon.png">
+<meta http-equiv="refresh" content="0; url=http://188.8.192.138:5000/login">
+<style>
+  :root { --gold: #f9c200; --bg: #0a0a0b; --testo: #f4f4f5; --tenue: #8a8a92; }
+  * { box-sizing: border-box; }
+  html, body { height: 100%; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--testo);
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    display: grid; place-items: center;
+    padding: 24px;
+    text-align: center;
+    line-height: 1.6;
+  }
+  .scatola { display: flex; flex-direction: column; align-items: center; gap: 22px; max-width: 420px; }
+  img { width: 92px; height: 54px; border-radius: 8px; }
+  h1 { font-size: 1.32rem; font-weight: 700; margin: 0; letter-spacing: -.01em; }
+  p { margin: 0; color: var(--tenue); font-size: .94rem; }
+  a.tasto {
+    display: inline-block;
+    background: var(--gold); color: #000;
+    text-decoration: none; font-weight: 700; font-size: .98rem;
+    padding: 14px 28px; border-radius: 999px;
+  }
+  a.tasto:hover { background: #ffd23d; }
+  a.tasto:focus-visible { outline: 3px solid #fff; outline-offset: 3px; }
+  .minuta { font-size: .8rem; color: var(--tenue); }
+  .minuta a { color: var(--gold); }
+</style>
+</head>
+<body>
+  <div class="scatola">
+    <img src="../img/logo_sigra.png" width="92" height="54" alt="Sigra Film">
+    <h1>Ti stiamo portando al Portale NOC</h1>
+    <p>Se fra un attimo non succede niente, aprilo da qui.</p>
+    <a class="tasto" href="http://188.8.192.138:5000/login">Apri il Portale NOC</a>
+    <p class="minuta">Accesso riservato ai tecnici. <a href="https://www.sigrafilm.it/">Torna al sito</a></p>
+  </div>
+  <script>location.replace('http://188.8.192.138:5000/login');</script>
+</body>
+</html>
