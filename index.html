@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<!-- versione 2026-09-15 18:16 UTC -->
-<html lang="it" data-versione="2026-09-15 18:16">
+<!-- versione 2026-09-16 06:12 UTC -->
+<html lang="it" data-versione="2026-09-16 06:12">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
@@ -496,12 +496,30 @@ section[id] { scroll-margin-top: calc(var(--nav-h) + 14px); }
 }
 .btn-ghost:hover { background: rgba(255,255,255,.13); transform: translateY(-3px); border-color: rgba(255,255,255,.3); }
 
-/* Il Portale NOC porta fuori dal sito, su un accesso riservato: la freccia
-   lo dice prima del clic, cosi' non sembra un'altra sezione della pagina. */
+/* Il Portale NOC e' la porta dei tecnici: deve saltare all'occhio a chi apre
+   il sito di corsa, magari dal telefono in mezzo a una sala. Percio' e' piu'
+   grande degli altri due tasti e ha il bordo dorato pieno con un alone.
+   Non e' pero' dorato pieno come "Scrivici su WhatsApp": due tasti pieni
+   uno accanto all'altro si annullerebbero a vicenda. */
+.btn-noc {
+  padding: 19px 34px;
+  font-size: 1.08rem;
+  background: rgba(249,194,0,.14);
+  border: 2px solid var(--gold);
+  color: var(--gold);
+  box-shadow: 0 0 0 4px rgba(249,194,0,.09), 0 14px 38px rgba(249,194,0,.2);
+}
+.btn-noc:hover, .btn-noc:focus-visible {
+  background: var(--gold);
+  color: #000;
+  transform: translateY(-3px);
+  box-shadow: 0 0 0 5px rgba(249,194,0,.16), 0 20px 48px rgba(249,194,0,.38);
+}
+/* La freccia dice che si esce dal sito, prima del clic */
 .btn-noc::after {
   content: '\2197';
-  font-size: .9em; font-weight: 400;
-  color: var(--gold);
+  font-size: .92em; font-weight: 400;
+  color: currentColor;
   margin-left: -2px;
 }
 
@@ -1610,7 +1628,7 @@ footer {
       <div class="hero-actions">
         <a class="btn btn-primary" href="https://wa.me/390552691489" target="_blank" rel="noopener">💬 Scrivici su WhatsApp</a>
         <a class="btn btn-ghost" href="#servizi">Scopri i servizi</a>
-        <a class="btn btn-ghost btn-noc" href="http://188.8.192.138:5000/login" target="_blank" rel="noopener">🖥️ Portale NOC</a>
+        <a class="btn btn-noc" href="http://188.8.192.138:5000/login" target="_blank" rel="noopener">🖥️ Portale NOC</a>
       </div>
 
       <div class="hero-trust">
@@ -2247,7 +2265,7 @@ footer {
 
     <div class="footer-credit">
       <span>Developed by <b>Rocco Totaro</b></span>
-      <span class="footer-ver" id="versione">v. 2026-09-15 18:16 UTC</span>
+      <span class="footer-ver" id="versione">v. 2026-09-16 06:12 UTC</span>
     </div>
   </div>
 </footer>
