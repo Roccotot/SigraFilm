@@ -69,7 +69,9 @@ REGOLE = [
 
 # Tag di blocco che, chiusi con quello sbagliato, il browser sistema da sé
 # senza dire niente
-TAG = ["section", "figure", "article", "picture", "dl", "nav", "footer", "main"]
+# Il <div> è entrato nell'elenco quando si è scoperto che il contenitore della
+# sezione «Chi siamo» non era mai stato chiuso.
+TAG = ["div", "section", "figure", "article", "picture", "dl", "nav", "footer", "main"]
 
 
 def tag_sbilanciati(html: str) -> list:

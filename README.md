@@ -7,6 +7,10 @@ Non serve compilare niente: quello che è nel ramo è quello che va online.
 
 ```
 index.html                      la pagina (CSS e JS inclusi)
+404.html                        la pagina per gli indirizzi che non esistono
+noc/index.html                  la scorciatoia www.sigrafilm.it/noc
+robots.txt, sitemap.xml         le indicazioni per i motori di ricerca
+fonts/                          i caratteri Inter e Sora, serviti da qui
 img/                            logo e immagini fisse
 caroselli/                      le foto della galleria
   didascalie.txt                i testi sotto le foto
@@ -38,8 +42,9 @@ funziona da solo, e continua a funzionare anche se il JavaScript non parte.
    aggiorna `index.html` e ricommitta da sola. Puoi seguirla nella
    scheda **Actions**.
 
-Le foto compaiono in ordine alfabetico di nome file: **la prima occupa il
-riquadro grande** della griglia. Per cambiare l'ordine basta rinominarle
+Le foto compaiono in ordine alfabetico di nome file: **la prima è quella che
+apre il carosello**, la sola visibile subito sul telefono. Per cambiare
+l'ordine basta rinominarle
 (`C1.jpg`, `C2.jpg`, …).
 
 Per togliere una foto: cancella l'originale (il `.jpg`). Le versioni
@@ -97,7 +102,9 @@ git clone https://github.com/Roccotot/Support-Tool ../Support-Tool   # una volta
 python3 strumenti/aggiorna_numeri.py ../Support-Tool/index.html
 ```
 
-Lo script riscrive da solo i numeri dentro `index.html`; poi basta committare.
+Lo script riscrive da solo i numeri dentro `index.html` (i riquadri, la
+testata e la descrizione che Google mostra sotto il titolo); poi basta
+committare. Gli anni di attività si contano da soli dall'anno in corso.
 Dal Support-Tool non esce nulla che dica quali sale sono clienti: solo dei
 conteggi.
 
@@ -114,3 +121,18 @@ alle mattonelle OpenStreetMap.
 
 Se sostituisci una di queste, rigenera anche le versioni `-960` / `-1600` /
 `.webp` che le affiancano, oppure chiedi e si aggiorna il codice.
+
+## I caratteri
+
+Inter e Sora stanno in `fonts/`, non si caricano da Google Fonts: così
+nessuna visita passa l'indirizzo IP del visitatore a Google, cosa che in
+Europa è già stata giudicata un trattamento senza consenso, e la pagina non
+aspetta server esterni. Sono i file variabili del sottoinsieme latino, uno per
+famiglia, che coprono tutti i pesi usati. Entrambi sono sotto licenza SIL Open
+Font License, che ne permette la ridistribuzione.
+
+## Il Portale assistenza NOC
+
+L'indirizzo vero del portale è scritto solo in `noc/index.html`. Il tasto
+nella testata del sito punta lì, quindi se il portale cambia indirizzo basta
+correggere quel file.
