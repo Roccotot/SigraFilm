@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<!-- versione 2026-09-16 12:08 UTC -->
-<html lang="it" data-versione="2026-09-16 12:08">
+<!-- versione 2026-09-24 07:04 UTC -->
+<html lang="it" data-versione="2026-09-24 07:04">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
@@ -37,14 +37,37 @@
 <link rel="icon" type="image/png" sizes="16x16" href="img/favicon-16.png">
 <link rel="apple-touch-icon" href="img/apple-touch-icon.png">
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Sora:wght@600;700;800&display=swap">
+<!-- I caratteri stanno sul nostro dominio, non su Google Fonts: ogni visita
+     a fonts.googleapis.com passa a Google l'indirizzo IP del visitatore, e in
+     Europa un tribunale l'ha già giudicato un trattamento senza consenso.
+     In più si risparmiano due connessioni verso server esterni. Sono i file
+     variabili del sottoinsieme latino, che copre tutto l'italiano: uno solo
+     per famiglia serve ogni peso. -->
+<link rel="preload" as="font" type="font/woff2" href="fonts/inter-latin.woff2" crossorigin>
+<link rel="preload" as="font" type="font/woff2" href="fonts/sora-latin.woff2" crossorigin>
 <link rel="preload" as="image" href="img/banner_cinema-1600.webp" type="image/webp" imagesrcset="img/banner_cinema-960.webp 960w, img/banner_cinema-1600.webp 1600w" imagesizes="100vw" fetchpriority="high">
 
 <script>document.documentElement.classList.add('js');</script>
 
 <style>
+/* ============================================================
+   CARATTERI
+   ============================================================ */
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url(fonts/inter-latin.woff2) format('woff2');
+}
+@font-face {
+  font-family: 'Sora';
+  font-style: normal;
+  font-weight: 600 800;
+  font-display: swap;
+  src: url(fonts/sora-latin.woff2) format('woff2');
+}
+
 /* ============================================================
    DESIGN TOKENS
    ============================================================ */
@@ -516,7 +539,9 @@ section[id] { scroll-margin-top: calc(var(--nav-h) + 14px); }
   transform: translateY(-3px);
   box-shadow: 0 0 0 5px rgba(249,194,0,.16), 0 20px 48px rgba(249,194,0,.38);
 }
-/* La freccia dice che si esce dal sito, prima del clic */
+/* La freccia dice che si esce dal sito, prima del clic. Il tasto passa per
+   la scorciatoia noc/: l'indirizzo vero del portale sta scritto solo lì, e se
+   cambia si corregge in un posto solo. */
 .btn-noc::after {
   content: '\2197';
   font-size: .92em; font-weight: 400;
@@ -562,7 +587,6 @@ section[id] { scroll-margin-top: calc(var(--nav-h) + 14px); }
    SEZIONI
    ============================================================ */
 .section { padding: clamp(64px, 9vw, 110px) 0; position: relative; }
-/* Traslucidi di poco: quanto basta perché il pulviscolo si intraveda dietro */
 /* Traslucido quanto basta perché il pulviscolo si veda anche qui: a .86
    dietro queste sezioni — un terzo della pagina — restava praticamente
    spento. Il fondo sotto è comunque #0a0a0b, quindi il testo non ci perde. */
@@ -860,7 +884,7 @@ section[id] { scroll-margin-top: calc(var(--nav-h) + 14px); }
   cursor: pointer;
   transition: background .25s, transform .25s var(--mo);
 }
-.car-punti button[aria-selected="true"] { background: var(--gold); transform: scale(1.35); }
+.car-punti button[aria-current="true"] { background: var(--gold); transform: scale(1.35); }
 
 .g-item {
   position: relative;
@@ -874,6 +898,10 @@ section[id] { scroll-margin-top: calc(var(--nav-h) + 14px); }
   font: inherit; color: inherit;
   text-align: left;
 }
+/* Anche l'elemento picture deve prendere tutta l'altezza della lastra: con la sua
+   altezza automatica il 100% della foto non valeva nulla, e le foto più
+   larghe del 16:10 lasciavano due bande nere sopra e sotto */
+.g-item picture { height: 100%; }
 .g-item img {
   width: 100%; height: 100%;
   object-fit: cover;
@@ -950,10 +978,16 @@ section[id] { scroll-margin-top: calc(var(--nav-h) + 14px); }
   color: var(--text-2); font-size: .9rem;
   background: rgba(255,255,255,.07);
   border: 1px solid var(--border);
-  padding: 9px 18px; border-radius: 999px;
-  max-width: calc(100vw - 40px);
+  padding: 9px 18px; border-radius: 20px;
+  width: max-content; max-width: calc(100vw - 40px);
 }
-#lb-caption { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+/* Le didascalie ora dicono dove e cosa: sul telefono non stanno in una riga,
+   e troncate a metà non si leggevano. Fino a due righe, poi i puntini. */
+#lb-caption {
+  overflow: hidden;
+  display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2;
+  line-height: 1.4;
+}
 #lb-counter { color: var(--gold); font-weight: 700; font-variant-numeric: tabular-nums; flex-shrink: 0; }
 
 /* ============================================================
@@ -974,46 +1008,6 @@ section[id] { scroll-margin-top: calc(var(--nav-h) + 14px); }
   transition: border-color .25s, color .25s;
 }
 .brand-chips span:hover { border-color: var(--gold-line); color: var(--gold); }
-
-/* Entrano uno dopo l'altro, come una lista di titoli di coda */
-.js .cta-band.reveal { opacity: 1; transform: none; transition: none; }
-.js .cta-band.reveal > div:first-child {
-  opacity: 0; transform: translateX(-56px);
-  transition: opacity .6s var(--ease), transform .85s var(--mo);
-}
-.js .cta-band.reveal > .hero-actions {
-  opacity: 0; transform: translateX(56px);
-  transition: opacity .6s var(--ease) .12s, transform .85s var(--mo) .12s;
-}
-.js .cta-band.reveal.visible > div:first-child,
-.js .cta-band.reveal.visible > .hero-actions { opacity: 1; transform: none; }
-
-.js .contacts-grid.reveal { opacity: 1; transform: none; transition: none; }
-.js .contacts-grid.reveal .contact-card {
-  opacity: 0;
-  transition: opacity .6s var(--ease), transform .8s var(--mo), background .3s, border-color .3s;
-}
-.js .contacts-grid.reveal .contact-card:nth-child(odd)  { transform: translateX(-60px); }
-.js .contacts-grid.reveal .contact-card:nth-child(even) { transform: translateX(60px); }
-.js .contacts-grid.reveal.visible .contact-card { opacity: 1; transform: none; }
-.js .contacts-grid.reveal.visible .contact-card:nth-child(2) { transition-delay: .07s; }
-.js .contacts-grid.reveal.visible .contact-card:nth-child(3) { transition-delay: .14s; }
-.js .contacts-grid.reveal.visible .contact-card:nth-child(4) { transition-delay: .21s; }
-
-.js .reveal .brand-chips span {
-  opacity: 0; transform: translateX(-34px);
-  transition: opacity .45s var(--ease), transform .6s var(--mo);
-}
-.js .reveal.visible .brand-chips span { opacity: 1; transform: none; }
-.js .reveal.visible .brand-chips span:nth-child(1) { transition-delay: .04s; }
-.js .reveal.visible .brand-chips span:nth-child(2) { transition-delay: .08s; }
-.js .reveal.visible .brand-chips span:nth-child(3) { transition-delay: .12s; }
-.js .reveal.visible .brand-chips span:nth-child(4) { transition-delay: .16s; }
-.js .reveal.visible .brand-chips span:nth-child(5) { transition-delay: .20s; }
-.js .reveal.visible .brand-chips span:nth-child(6) { transition-delay: .24s; }
-.js .reveal.visible .brand-chips span:nth-child(7) { transition-delay: .28s; }
-.js .reveal.visible .brand-chips span:nth-child(8) { transition-delay: .32s; }
-.js .reveal.visible .brand-chips span:nth-child(n+9) { transition-delay: .36s; }
 
 .brand-wall {
   position: relative;
@@ -1522,7 +1516,6 @@ footer {
 @media (max-width: 520px) {
   .eyebrow { font-size: .68rem; letter-spacing: .07em; padding: 6px 13px 6px 10px; }
   .footer-grid { grid-template-columns: 1fr; }
-  .gallery-grid { grid-template-columns: 1fr; }
   .stat-box { padding: 20px 22px; }
   .hero-trust { gap: 8px 18px; font-size: .8rem; }
 }
@@ -1629,7 +1622,7 @@ footer {
       <div class="hero-actions">
         <a class="btn btn-primary" href="https://wa.me/390552691489" target="_blank" rel="noopener">💬 Scrivici su WhatsApp</a>
         <a class="btn btn-ghost" href="#servizi">Scopri i servizi</a>
-        <a class="btn btn-noc" href="http://188.8.192.138:5000/login" target="_blank" rel="noopener">🖥️ Portale assistenza NOC</a>
+        <a class="btn btn-noc" href="noc/" target="_blank" rel="noopener">🖥️ Portale assistenza NOC</a>
       </div>
 
       <div class="hero-trust">
@@ -1686,7 +1679,7 @@ footer {
 
     <div class="stats-band reveal" data-delay="2">
       <div class="stat-box">
-        <div class="stat-number" data-dato="anni" data-target="72" data-suffix="+">70+</div>
+        <div class="stat-number" data-dato="anni" data-target="72" data-suffix="+">72+</div>
         <div class="stat-label">Anni di attività,<br>dal 1954</div>
       </div>
       <div class="stat-box">
@@ -1702,8 +1695,8 @@ footer {
         <div class="stat-label">Sale sotto<br>assistenza</div>
       </div>
     </div>
-
-  </section>
+  </div>
+</section>
 
 <!-- ============================ SERVIZI ============================ -->
 <section class="section section-alt" id="servizi">
@@ -1774,47 +1767,47 @@ footer {
            role="group" aria-roledescription="carosello" aria-label="Installazioni realizzate"
            tabindex="0">
       <!-- GALLERIA:INIZIO -->
-      <button class="g-item" type="button" data-full="caroselli/20160314_113254-768x432-1400.webp" data-full-fallback="caroselli/20160314_113254-768x432.jpg" data-caption="20160314 113254 768x432">
+      <button class="g-item" type="button" data-full="caroselli/20160314_113254-768x432-1400.webp" data-full-fallback="caroselli/20160314_113254-768x432.jpg" data-caption="Conferenza fra le statue di una gipsoteca · audio e video">
         <picture>
           <source type="image/webp" srcset="caroselli/20160314_113254-768x432-720.webp">
-          <img src="caroselli/20160314_113254-768x432.jpg" alt="20160314 113254 768x432" width="720" height="405" loading="eager" decoding="async">
+          <img src="caroselli/20160314_113254-768x432.jpg" alt="Conferenza fra le statue di una gipsoteca · audio e video" width="720" height="405" loading="eager" decoding="async">
         </picture>
-        <span class="g-caption">20160314 113254 768x432 <span class="zoom" aria-hidden="true">⤢</span></span>
+        <span class="g-caption">Conferenza fra le statue di una gipsoteca · audio e video <span class="zoom" aria-hidden="true">⤢</span></span>
       </button>
-      <button class="g-item" type="button" data-full="caroselli/20160606_085809_HDR-768x432-1400.webp" data-full-fallback="caroselli/20160606_085809_HDR-768x432.jpg" data-caption="20160606 085809 HDR 768x432">
+      <button class="g-item" type="button" data-full="caroselli/20160606_085809_HDR-768x432-1400.webp" data-full-fallback="caroselli/20160606_085809_HDR-768x432.jpg" data-caption="Teatro all&#x27;italiana · proiezione su grande schermo">
         <picture>
           <source type="image/webp" srcset="caroselli/20160606_085809_HDR-768x432-720.webp">
-          <img src="caroselli/20160606_085809_HDR-768x432.jpg" alt="20160606 085809 HDR 768x432" width="720" height="405" loading="lazy" decoding="async">
+          <img src="caroselli/20160606_085809_HDR-768x432.jpg" alt="Teatro all&#x27;italiana · proiezione su grande schermo" width="720" height="405" loading="lazy" decoding="async">
         </picture>
-        <span class="g-caption">20160606 085809 HDR 768x432 <span class="zoom" aria-hidden="true">⤢</span></span>
+        <span class="g-caption">Teatro all&#x27;italiana · proiezione su grande schermo <span class="zoom" aria-hidden="true">⤢</span></span>
       </button>
-      <button class="g-item" type="button" data-full="caroselli/20161014_193356-Copia-768x432-1400.webp" data-full-fallback="caroselli/20161014_193356-Copia-768x432.jpg" data-caption="20161014 193356 Copia 768x432">
+      <button class="g-item" type="button" data-full="caroselli/20161014_193356-Copia-768x432-1400.webp" data-full-fallback="caroselli/20161014_193356-Copia-768x432.jpg" data-caption="Salone affrescato · allestimento per una serata di gala">
         <picture>
           <source type="image/webp" srcset="caroselli/20161014_193356-Copia-768x432-720.webp">
-          <img src="caroselli/20161014_193356-Copia-768x432.jpg" alt="20161014 193356 Copia 768x432" width="720" height="405" loading="lazy" decoding="async">
+          <img src="caroselli/20161014_193356-Copia-768x432.jpg" alt="Salone affrescato · allestimento per una serata di gala" width="720" height="405" loading="lazy" decoding="async">
         </picture>
-        <span class="g-caption">20161014 193356 Copia 768x432 <span class="zoom" aria-hidden="true">⤢</span></span>
+        <span class="g-caption">Salone affrescato · allestimento per una serata di gala <span class="zoom" aria-hidden="true">⤢</span></span>
       </button>
-      <button class="g-item" type="button" data-full="caroselli/20161014_201829-Copia-768x432-1400.webp" data-full-fallback="caroselli/20161014_201829-Copia-768x432.jpg" data-caption="20161014 201829 Copia 768x432">
+      <button class="g-item" type="button" data-full="caroselli/20161014_201829-Copia-768x432-1400.webp" data-full-fallback="caroselli/20161014_201829-Copia-768x432.jpg" data-caption="Salone affrescato · proiezione per l&#x27;anteprima de «I Medici»">
         <picture>
           <source type="image/webp" srcset="caroselli/20161014_201829-Copia-768x432-720.webp">
-          <img src="caroselli/20161014_201829-Copia-768x432.jpg" alt="20161014 201829 Copia 768x432" width="720" height="405" loading="lazy" decoding="async">
+          <img src="caroselli/20161014_201829-Copia-768x432.jpg" alt="Salone affrescato · proiezione per l&#x27;anteprima de «I Medici»" width="720" height="405" loading="lazy" decoding="async">
         </picture>
-        <span class="g-caption">20161014 201829 Copia 768x432 <span class="zoom" aria-hidden="true">⤢</span></span>
+        <span class="g-caption">Salone affrescato · proiezione per l&#x27;anteprima de «I Medici» <span class="zoom" aria-hidden="true">⤢</span></span>
       </button>
-      <button class="g-item" type="button" data-full="caroselli/Arena-Estiva-Teatro-Romano-Fiesole-Agosto-2016-768x432-1400.webp" data-full-fallback="caroselli/Arena-Estiva-Teatro-Romano-Fiesole-Agosto-2016-768x432.jpg" data-caption="Arena Estiva Teatro Romano Fiesole Agosto 2016 768x432">
+      <button class="g-item" type="button" data-full="caroselli/Arena-Estiva-Teatro-Romano-Fiesole-Agosto-2016-768x432-1400.webp" data-full-fallback="caroselli/Arena-Estiva-Teatro-Romano-Fiesole-Agosto-2016-768x432.jpg" data-caption="Arena estiva al Teatro Romano di Fiesole · agosto 2016">
         <picture>
           <source type="image/webp" srcset="caroselli/Arena-Estiva-Teatro-Romano-Fiesole-Agosto-2016-768x432-720.webp">
-          <img src="caroselli/Arena-Estiva-Teatro-Romano-Fiesole-Agosto-2016-768x432.jpg" alt="Arena Estiva Teatro Romano Fiesole Agosto 2016 768x432" width="720" height="405" loading="lazy" decoding="async">
+          <img src="caroselli/Arena-Estiva-Teatro-Romano-Fiesole-Agosto-2016-768x432.jpg" alt="Arena estiva al Teatro Romano di Fiesole · agosto 2016" width="720" height="405" loading="lazy" decoding="async">
         </picture>
-        <span class="g-caption">Arena Estiva Teatro Romano Fiesole Agosto 2016 768x432 <span class="zoom" aria-hidden="true">⤢</span></span>
+        <span class="g-caption">Arena estiva al Teatro Romano di Fiesole · agosto 2016 <span class="zoom" aria-hidden="true">⤢</span></span>
       </button>
-      <button class="g-item" type="button" data-full="caroselli/BUSSOLA DOMANI – LIDO DI CAMAIORE (LU)-1400.webp" data-full-fallback="caroselli/BUSSOLA DOMANI – LIDO DI CAMAIORE (LU).jpg" data-caption="BUSSOLA DOMANI – LIDO DI CAMAIORE (LU)">
+      <button class="g-item" type="button" data-full="caroselli/BUSSOLA DOMANI – LIDO DI CAMAIORE (LU)-1400.webp" data-full-fallback="caroselli/BUSSOLA DOMANI – LIDO DI CAMAIORE (LU).jpg" data-caption="Bussola Domani · Lido di Camaiore (LU)">
         <picture>
           <source type="image/webp" srcset="caroselli/BUSSOLA DOMANI – LIDO DI CAMAIORE (LU)-720.webp">
-          <img src="caroselli/BUSSOLA DOMANI – LIDO DI CAMAIORE (LU).jpg" alt="BUSSOLA DOMANI – LIDO DI CAMAIORE (LU)" width="720" height="540" loading="lazy" decoding="async">
+          <img src="caroselli/BUSSOLA DOMANI – LIDO DI CAMAIORE (LU).jpg" alt="Bussola Domani · Lido di Camaiore (LU)" width="720" height="540" loading="lazy" decoding="async">
         </picture>
-        <span class="g-caption">BUSSOLA DOMANI – LIDO DI CAMAIORE (LU) <span class="zoom" aria-hidden="true">⤢</span></span>
+        <span class="g-caption">Bussola Domani · Lido di Camaiore (LU) <span class="zoom" aria-hidden="true">⤢</span></span>
       </button>
       <button class="g-item" type="button" data-full="caroselli/C1-1400.webp" data-full-fallback="caroselli/C1.jpg" data-caption="Sala cinema · impianto di proiezione">
         <picture>
@@ -1837,13 +1830,6 @@ footer {
         </picture>
         <span class="g-caption">Teatro storico · grande schermo <span class="zoom" aria-hidden="true">⤢</span></span>
       </button>
-      <button class="g-item" type="button" data-full="caroselli/C4-1400.webp" data-full-fallback="caroselli/C4.jpg" data-caption="Arena estiva · proiezione all&#x27;aperto">
-        <picture>
-          <source type="image/webp" srcset="caroselli/C4-720.webp">
-          <img src="caroselli/C4.jpg" alt="Arena estiva · proiezione all&#x27;aperto" width="720" height="480" loading="lazy" decoding="async">
-        </picture>
-        <span class="g-caption">Arena estiva · proiezione all&#x27;aperto <span class="zoom" aria-hidden="true">⤢</span></span>
-      </button>
       <button class="g-item" type="button" data-full="caroselli/C5-1400.webp" data-full-fallback="caroselli/C5.jpg" data-caption="Struttura mobile · schermo per eventi">
         <picture>
           <source type="image/webp" srcset="caroselli/C5-720.webp">
@@ -1858,12 +1844,12 @@ footer {
         </picture>
         <span class="g-caption">Arena all&#x27;aperto · allestimento completo <span class="zoom" aria-hidden="true">⤢</span></span>
       </button>
-      <button class="g-item" type="button" data-full="caroselli/CAVA DI MARMO CARRARA-1400.webp" data-full-fallback="caroselli/CAVA DI MARMO CARRARA.jpg" data-caption="CAVA DI MARMO CARRARA">
+      <button class="g-item" type="button" data-full="caroselli/CAVA DI MARMO CARRARA-1400.webp" data-full-fallback="caroselli/CAVA DI MARMO CARRARA.jpg" data-caption="Proiezione in una cava di marmo · Carrara">
         <picture>
           <source type="image/webp" srcset="caroselli/CAVA DI MARMO CARRARA-720.webp">
-          <img src="caroselli/CAVA DI MARMO CARRARA.jpg" alt="CAVA DI MARMO CARRARA" width="720" height="720" loading="lazy" decoding="async">
+          <img src="caroselli/CAVA DI MARMO CARRARA.jpg" alt="Proiezione in una cava di marmo · Carrara" width="720" height="720" loading="lazy" decoding="async">
         </picture>
-        <span class="g-caption">CAVA DI MARMO CARRARA <span class="zoom" aria-hidden="true">⤢</span></span>
+        <span class="g-caption">Proiezione in una cava di marmo · Carrara <span class="zoom" aria-hidden="true">⤢</span></span>
       </button>
       <button class="g-item" type="button" data-full="caroselli/Cinema Tascabile-1400.webp" data-full-fallback="caroselli/Cinema Tascabile.jpeg" data-caption="Cinema Tascabile">
         <picture>
@@ -1872,40 +1858,40 @@ footer {
         </picture>
         <span class="g-caption">Cinema Tascabile <span class="zoom" aria-hidden="true">⤢</span></span>
       </button>
-      <button class="g-item" type="button" data-full="caroselli/GARAGE ITALIA – MILANO-1400.webp" data-full-fallback="caroselli/GARAGE ITALIA – MILANO.jpeg" data-caption="GARAGE ITALIA – MILANO">
+      <button class="g-item" type="button" data-full="caroselli/GARAGE ITALIA – MILANO-1400.webp" data-full-fallback="caroselli/GARAGE ITALIA – MILANO.jpeg" data-caption="Garage Italia · Milano">
         <picture>
           <source type="image/webp" srcset="caroselli/GARAGE ITALIA – MILANO-720.webp">
-          <img src="caroselli/GARAGE ITALIA – MILANO.jpeg" alt="GARAGE ITALIA – MILANO" width="720" height="540" loading="lazy" decoding="async">
+          <img src="caroselli/GARAGE ITALIA – MILANO.jpeg" alt="Garage Italia · Milano" width="720" height="540" loading="lazy" decoding="async">
         </picture>
-        <span class="g-caption">GARAGE ITALIA – MILANO <span class="zoom" aria-hidden="true">⤢</span></span>
+        <span class="g-caption">Garage Italia · Milano <span class="zoom" aria-hidden="true">⤢</span></span>
       </button>
-      <button class="g-item" type="button" data-full="caroselli/Paolo-1400.webp" data-full-fallback="caroselli/Paolo.jpg" data-caption="Paolo">
+      <button class="g-item" type="button" data-full="caroselli/Paolo-1400.webp" data-full-fallback="caroselli/Paolo.jpg" data-caption="Paolo allo stand Cinemeccanica">
         <picture>
           <source type="image/webp" srcset="caroselli/Paolo-720.webp">
-          <img src="caroselli/Paolo.jpg" alt="Paolo" width="720" height="405" loading="lazy" decoding="async">
+          <img src="caroselli/Paolo.jpg" alt="Paolo allo stand Cinemeccanica" width="720" height="405" loading="lazy" decoding="async">
         </picture>
-        <span class="g-caption">Paolo <span class="zoom" aria-hidden="true">⤢</span></span>
+        <span class="g-caption">Paolo allo stand Cinemeccanica <span class="zoom" aria-hidden="true">⤢</span></span>
       </button>
-      <button class="g-item" type="button" data-full="caroselli/Paolo_Andrea-1400.webp" data-full-fallback="caroselli/Paolo_Andrea.jpg" data-caption="Paolo Andrea">
+      <button class="g-item" type="button" data-full="caroselli/Paolo_Andrea-1400.webp" data-full-fallback="caroselli/Paolo_Andrea.jpg" data-caption="Paolo e Andrea in sala · presentazione di «Raffaello, il principe delle arti in 3D»">
         <picture>
           <source type="image/webp" srcset="caroselli/Paolo_Andrea-720.webp">
-          <img src="caroselli/Paolo_Andrea.jpg" alt="Paolo Andrea" width="720" height="405" loading="lazy" decoding="async">
+          <img src="caroselli/Paolo_Andrea.jpg" alt="Paolo e Andrea in sala · presentazione di «Raffaello, il principe delle arti in 3D»" width="720" height="405" loading="lazy" decoding="async">
         </picture>
-        <span class="g-caption">Paolo Andrea <span class="zoom" aria-hidden="true">⤢</span></span>
+        <span class="g-caption">Paolo e Andrea in sala · presentazione di «Raffaello, il principe delle arti in 3D» <span class="zoom" aria-hidden="true">⤢</span></span>
       </button>
-      <button class="g-item" type="button" data-full="caroselli/RIVA DEGLI ETRUSCHI – SAN VINCENZO (LI)-1400.webp" data-full-fallback="caroselli/RIVA DEGLI ETRUSCHI – SAN VINCENZO (LI).jpg" data-caption="RIVA DEGLI ETRUSCHI – SAN VINCENZO (LI)">
+      <button class="g-item" type="button" data-full="caroselli/RIVA DEGLI ETRUSCHI – SAN VINCENZO (LI)-1400.webp" data-full-fallback="caroselli/RIVA DEGLI ETRUSCHI – SAN VINCENZO (LI).jpg" data-caption="Arena estiva · Riva degli Etruschi, San Vincenzo (LI)">
         <picture>
           <source type="image/webp" srcset="caroselli/RIVA DEGLI ETRUSCHI – SAN VINCENZO (LI)-720.webp">
-          <img src="caroselli/RIVA DEGLI ETRUSCHI – SAN VINCENZO (LI).jpg" alt="RIVA DEGLI ETRUSCHI – SAN VINCENZO (LI)" width="720" height="480" loading="lazy" decoding="async">
+          <img src="caroselli/RIVA DEGLI ETRUSCHI – SAN VINCENZO (LI).jpg" alt="Arena estiva · Riva degli Etruschi, San Vincenzo (LI)" width="720" height="480" loading="lazy" decoding="async">
         </picture>
-        <span class="g-caption">RIVA DEGLI ETRUSCHI – SAN VINCENZO (LI) <span class="zoom" aria-hidden="true">⤢</span></span>
+        <span class="g-caption">Arena estiva · Riva degli Etruschi, San Vincenzo (LI) <span class="zoom" aria-hidden="true">⤢</span></span>
       </button>
-      <button class="g-item" type="button" data-full="caroselli/Roberto_Andrea-1400.webp" data-full-fallback="caroselli/Roberto_Andrea.jpg" data-caption="Roberto Andrea">
+      <button class="g-item" type="button" data-full="caroselli/Roberto_Andrea-1400.webp" data-full-fallback="caroselli/Roberto_Andrea.jpg" data-caption="Roberto e Andrea in regia durante un evento">
         <picture>
           <source type="image/webp" srcset="caroselli/Roberto_Andrea-720.webp">
-          <img src="caroselli/Roberto_Andrea.jpg" alt="Roberto Andrea" width="720" height="405" loading="lazy" decoding="async">
+          <img src="caroselli/Roberto_Andrea.jpg" alt="Roberto e Andrea in regia durante un evento" width="720" height="405" loading="lazy" decoding="async">
         </picture>
-        <span class="g-caption">Roberto Andrea <span class="zoom" aria-hidden="true">⤢</span></span>
+        <span class="g-caption">Roberto e Andrea in regia durante un evento <span class="zoom" aria-hidden="true">⤢</span></span>
       </button>
       <button class="g-item" type="button" data-full="caroselli/WhatsApp Image 2026-08-27 at 20.28.37-1400.webp" data-full-fallback="caroselli/WhatsApp Image 2026-08-27 at 20.28.37.jpeg" data-caption="Arena estiva in cortile storico · schermo e platea">
         <picture>
@@ -1933,7 +1919,7 @@ footer {
 
       <div class="carosello-comandi">
         <button class="car-btn" type="button" id="car-prec" aria-label="Immagine precedente">&#8249;</button>
-        <div class="car-punti" id="car-punti" role="tablist" aria-label="Scegli l'immagine"></div>
+        <div class="car-punti" id="car-punti" role="group" aria-label="Scegli l'immagine"></div>
         <button class="car-btn" type="button" id="car-succ" aria-label="Immagine successiva">&#8250;</button>
         <button class="car-btn car-pausa" type="button" id="car-pausa"
                 aria-label="Metti in pausa lo scorrimento automatico" aria-pressed="false">&#10073;&#10073;</button>
@@ -2266,7 +2252,7 @@ footer {
 
     <div class="footer-credit">
       <span>Developed by <b>Rocco Totaro</b></span>
-      <span class="footer-ver" id="versione">v. 2026-09-16 12:08 UTC</span>
+      <span class="footer-ver" id="versione">v. 2026-09-24 07:04 UTC</span>
     </div>
   </div>
 </footer>
@@ -2596,6 +2582,15 @@ footer {
 
   /* ---------- Contatori animati ---------- */
   var nums = document.querySelectorAll('.stat-number');
+  // Gli anni di attività si contano dall'anno in corso: il numero scritto
+  // nella pagina vale per chi non ha JavaScript, ma a gennaio invecchierebbe
+  var annoOggi = new Date().getFullYear();
+  var anni = document.querySelector('.stat-number[data-dato="anni"]');
+  if (anni && annoOggi - 1954 > +anni.dataset.target) {
+    anni.dataset.target = annoOggi - 1954;
+    anni.textContent = (annoOggi - 1954) + (anni.dataset.suffix || '');
+  }
+
   function runCounter(el) {
     var target = +el.dataset.target;
     var suffix = el.dataset.suffix || '';
@@ -2654,11 +2649,12 @@ footer {
     var PASSO = 5200;
     var timer = null, fermo = false, attuale = 0;
 
-    // Un punto per lastra: dice a che punto si è e ci porta con un clic
+    // Un punto per lastra: dice a che punto si è e ci porta con un clic.
+    // Sono semplici pulsanti con aria-current: il ruolo "tab" prometterebbe
+    // allo screen reader dei pannelli a schede che qui non ci sono.
     lastre.forEach(function (l, i) {
       var b = document.createElement('button');
       b.type = 'button';
-      b.setAttribute('role', 'tab');
       b.setAttribute('aria-label', 'Immagine ' + (i + 1) + ' di ' + lastre.length);
       b.addEventListener('click', function () { vaiA(i); sospendi(); });
       punti.appendChild(b);
@@ -2680,7 +2676,10 @@ footer {
         if (d < minimo) { minimo = d; migliore = i; }
       });
       attuale = migliore;
-      pallini.forEach(function (b, i) { b.setAttribute('aria-selected', String(i === attuale)); });
+      pallini.forEach(function (b, i) {
+        if (i === attuale) b.setAttribute('aria-current', 'true');
+        else b.removeAttribute('aria-current');
+      });
       var fine = Math.ceil(pista.scrollWidth - pista.clientWidth - 1);
       prec.disabled = x <= 1;
       succ.disabled = x >= fine;
@@ -2737,7 +2736,6 @@ footer {
     window.addEventListener('resize', function () { clearTimeout(attesa); attesa = setTimeout(aggiorna, 150); }, { passive: true });
 
     aggiorna();
-    // Con "riduci movimento" non parte da solo: lo scorrimento resta a comando
     parti();
   })();
 
@@ -2750,12 +2748,22 @@ footer {
   var current = 0;
   var lastFocus = null;
 
+  function precarica(i) {
+    new Image().src = items[(i + items.length) % items.length].dataset.full;
+  }
+
   function show(i) {
     current = (i + items.length) % items.length;
     var item = items[current];
     lbImg.style.opacity = '0';
     lbImg.alt = item.querySelector('img').alt;
-    lbImg.onload = function () { lbImg.style.opacity = '1'; };
+    lbImg.onload = function () {
+      lbImg.style.opacity = '1';
+      // Mentre si guarda questa, arrivano le due accanto: la freccia o il
+      // dito poi le mostrano subito, senza il riquadro vuoto dell'attesa
+      precarica(current + 1);
+      precarica(current - 1);
+    };
     lbImg.onerror = function () {
       // Browser senza WebP: ripiega sul JPEG originale
       var jpg = item.dataset.fullFallback;

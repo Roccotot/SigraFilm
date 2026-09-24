@@ -13,8 +13,8 @@ Le didascalie si scrivono in caroselli/didascalie.txt, una per riga:
     C1.jpg = Sala cinema · impianto di proiezione
 
 Le foto senza didascalia ne ricevono una ricavata dal nome del file.
-L'ordine in pagina è quello alfabetico dei nomi: la prima occupa il
-riquadro grande. Rinominare i file cambia l'ordine.
+L'ordine in pagina è quello alfabetico dei nomi: la prima apre il
+carosello. Rinominare i file cambia l'ordine.
 """
 
 from pathlib import Path
@@ -71,7 +71,12 @@ def leggi_didascalie():
 # Parole che un nome di file generato da telefono o macchina fotografica porta
 # con sé e che non dicono nulla di quello che si vede
 RUMORE = {"whatsapp", "image", "images", "img", "dsc", "dscn", "pxl", "photo",
-          "foto", "immagine", "screenshot", "schermata", "at", "copia", "copy"}
+          "foto", "immagine", "screenshot", "schermata", "at", "copia", "copy",
+          "hdr", "scaled", "edited", "modificata"}
+
+# Le misure che WordPress appende alle copie ridotte, "768x432": nel vecchio
+# sito finivano in galleria come didascalia, «20160314 113254 768x432»
+MISURA = re.compile(r"\d+x\d+", re.I)
 
 RIPIEGO = "Installazione Sigra Film"
 
@@ -83,7 +88,8 @@ def didascalia_di(foto, tabella):
 
     # Dal nome del file: "sala_grande-2.jpg" -> "Sala grande 2"
     parole = [x for x in re.split(r"[\s_\-.]+", foto.stem) if x]
-    utili = [x for x in parole if not x.isdigit() and x.lower() not in RUMORE]
+    utili = [x for x in parole if not x.isdigit() and x.lower() not in RUMORE
+             and not MISURA.fullmatch(x)]
 
     # "WhatsApp Image 2026-08-27 at 20.28.37" non descrive niente: meglio una
     # riga neutra che un nome di file esposto sul sito e letto ad alta voce
@@ -91,7 +97,13 @@ def didascalia_di(foto, tabella):
     if not utili:
         return RIPIEGO
 
-    grezzo = " ".join(parole)
+    # Via il rumore ma non i numeri, che nel nome scelto da una persona
+    # contano ("arena_estiva-2"). Un nome tutto in maiuscolo ("CAVA DI
+    # MARMO") si abbassa: sul sito sembrerebbe gridato.
+    grezzo = " ".join(x for x in parole
+                      if x.lower() not in RUMORE and not MISURA.fullmatch(x))
+    if grezzo.isupper():
+        grezzo = grezzo.lower()
     return grezzo[:1].upper() + grezzo[1:]
 
 
