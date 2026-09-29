@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>GiuLi — Theatre Management System for cinemas | Sigra Film</title>
-<meta name="description" content="GiuLi is Sigra Film's TMS: it watches the servers, projectors and sound processors of every screen, sends the schedule to the servers and alerts you on Telegram. No installation, from the browser and the phone.">
+<meta name="description" content="GiuLi is Sigra Film's TMS: it watches the servers, projectors and sound processors of every screen, builds playlists and packages, sends the schedule to the servers and alerts you on Telegram. No installation, from the browser and the phone.">
 <meta property="og:title" content="GiuLi — Theatre Management System">
 <meta property="og:description" content="Every screen under control, from a single page. Servers, projectors, sound, scheduling, KDMs and alerts.">
 <meta property="og:image" content="https://www.sigrafilm.it/giuli/assets/logo.png">
@@ -90,12 +90,18 @@
   <div class="wrap">
     <div class="sec-head"><span class="eyebrow">Features</span><h2>Everything happening in the booth, on one page</h2><p>From this week's schedule to the exact time of each screen server: GiuLi brings together information that today is scattered across different programs.</p></div>
     <div class="feat">
-      <div class="f"><h3><span class="e">📺</span>Live dashboard</h3><p>What each screen is playing, how far along it is, when it ends and what comes next. Lamp, dowser and server time at a glance.</p></div>
-      <div class="f"><h3><span class="e">🎛️</span>Screen controls</h3><p>Play, pause, stop, skips and playlist loading. The server's quick commands (macros), sound volume and input, waking Barco Series 4 projectors from Eco.</p></div>
-      <div class="f"><h3><span class="e">🗓️</span>Scheduling</h3><p>Daily timeline per screen, shows repeated over several days or imported from a file. They go straight to the server after checking playlist, KDMs and overlaps.</p></div>
-      <div class="f"><h3><span class="e">🎞️</span>Playlists with cues</h3><p>Content and the server's quick commands at the exact point of the playlist: lights, formats, sound.</p></div>
-      <div class="f"><h3><span class="e">📦</span>Content and copies</h3><p>The DCPs on every server. Copy from screen to screen, or from the TMS PC to a screen, over the network: no USB drives, no disks.</p></div>
-      <div class="f"><h3><span class="e">🔑</span>KDMs</h3><p>Validity per screen and upload to the servers. KDMs that arrive by email go to the right server by themselves.</p></div>
+      <div class="f"><h3><span class="e">📺</span>Live dashboard</h3><p>What each screen is playing, how far along it is, when it ends and what comes next. Markers for feature start, intermission and end credits, with time and countdown.</p></div>
+      <div class="f"><h3><span class="e">🖥️</span>Monitor</h3><p>The playlists of every screen that is playing, side by side on one display. Each one follows the clip on screen by itself.</p></div>
+      <div class="f"><h3><span class="e">🎛️</span>Screen controls</h3><p>Play, pause, stop, skips and playlist loading. The server's quick commands (macros), sound volume and input, lamp, dowser and waking Barco Series 4 projectors from Eco.</p></div>
+      <div class="f"><h3><span class="e">🗓️</span>Scheduling</h3><p>Timeline per screen: drag a show to another time, repeat it by picking days on the calendar, swap two screens. Everything goes to the server after checking playlist, KDMs and overlaps.</p></div>
+      <div class="f"><h3><span class="e">🎟️</span>From box office to server</h3><p>The week's sessions come from the box office file. Match each film to its playlist once, and "Schedule all" sends them to the servers.</p></div>
+      <div class="f"><h3><span class="e">⏱️</span>Automations</h3><p>A playlist before the first show and one after the last, on every screen, every day. When the schedule changes, GiuLi puts them back in place by itself.</p></div>
+      <div class="f"><h3><span class="e">🎞️</span>Playlists like in Screenwriter</h3><p>List with feature, schedules and KDM validity. In the editor you drag content filtered by type, blacks of any length and the server's quick commands to the exact point.</p></div>
+      <div class="f"><h3><span class="e">📦</span>Packages and screen packages</h3><p>Groups of clips, like this week's trailers, dropped into a playlist in one go. A screen package changes with the screen the playlist goes to.</p></div>
+      <div class="f"><h3><span class="e">⏸️</span>Doremi Intermission</h3><p>The intermission as in AAM: at a point of the feature the server plays another playlist, then resumes, even going back a few seconds. For Doremi and IMS3000.</p></div>
+      <div class="f"><h3><span class="e">💿</span>Content and copies</h3><p>The DCPs on every server, with KDM validity and the ones not used in any playlist. Copy screen to screen or from the TMS; when a playlist goes to a screen, missing content is copied by itself.</p></div>
+      <div class="f"><h3><span class="e">🔌</span>USB drives and disks</h3><p>Plug a USB drive or a disk into the PC: GiuLi shows its DCPs, KDMs and playlists and copies them to the TMS in one click. And the other way round, from the TMS to the drive.</p></div>
+      <div class="f"><h3><span class="e">🔑</span>KDMs</h3><p>Validity per screen and upload to the servers. KDMs that arrive by email go to the right server by themselves; those for other cinemas are recognised.</p></div>
       <div class="f"><h3><span class="e">⚠️</span>Device messages</h3><p>Errors, warnings and notifications from projectors and servers, with the same text their own software shows: maintenance, NTP, disks, lamp.</p></div>
       <div class="f"><h3><span class="e">📈</span>Reports</h3><p>Disk space of the TMS and the servers, serial numbers, lamp hours and strikes, alerts screen by screen.</p></div>
       <div class="f"><h3><span class="e">📨</span>Telegram alerts</h3><p>Real-time problems on your phone and, every evening, a summary of the next day for each cinema.</p></div>
@@ -133,10 +139,12 @@
       <div class="spot-txt">
         <span class="eyebrow">Scheduling</span>
         <h3>Schedule once, the servers play</h3>
-        <p>Click on the screen's timeline, pick the playlist and GiuLi writes the show into the server's schedule, after checking playlist, KDMs and overlaps. The red line is the PC time, the green one the time of each screen server.</p>
+        <p>Click on the screen's timeline, pick the playlist and GiuLi writes the show into the server's schedule, after checking playlist, KDMs and overlaps. The yellow line is the PC time, the blue one the time of each screen server.</p>
         <ul class="ticks">
+          <li>Drag a show to another time and Save updates the server</li>
+          <li>Green blocks when the KDMs are there, red with a key when one is missing</li>
+          <li>Inside every block, the lines for feature start and end credits</li>
           <li>No "central" computer the shows depend on</li>
-          <li>The schedule lock protects screens from manual commands</li>
           <li>Evening summary of tomorrow's schedule on Telegram</li>
         </ul>
       </div>
@@ -144,7 +152,7 @@
         <h4>Today · timeline</h4>
         <div class="tl">
           <div class="tl-row"><span>Screen 1</span><div class="tl-track"><div class="tl-show" style="left:2%;width:38%">16:30 Feature</div><div class="tl-show" style="left:44%;width:40%">20:00 Feature</div><div class="tl-srv" style="left:47.4%"></div></div></div>
-          <div class="tl-row"><span>Screen 2</span><div class="tl-track"><div class="tl-show" style="left:10%;width:33%">17:15 Preview</div><div class="tl-show" style="left:52%;width:36%">20:45 Feature</div><div class="tl-srv" style="left:47%"></div></div></div>
+          <div class="tl-row"><span>Screen 2</span><div class="tl-track"><div class="tl-show" style="left:10%;width:33%">17:15 Preview</div><div class="tl-show kdm-no" style="left:52%;width:36%">🔑 20:45 Feature</div><div class="tl-srv" style="left:47%"></div></div></div>
           <div class="tl-row"><span>Screen 3</span><div class="tl-track"><div class="tl-show" style="left:0%;width:30%">16:00 Matinée</div><div class="tl-show" style="left:36%;width:42%">19:30 Event</div><div class="tl-srv" style="left:46.6%"></div></div></div>
           <div class="tl-now"></div>
         </div>
@@ -152,6 +160,31 @@
     </div>
 
     <div class="spot">
+      <div class="spot-txt">
+        <span class="eyebrow">Playlists</span>
+        <h3>One playlist, right for every screen</h3>
+        <p>You build the playlist once, dragging content, blacks and server commands. Screen packages put the right trailers on each screen: send the playlist to screen 2 and the kids' trailers go in, screen 1 gets others, the rest get none. GiuLi works out the length for every screen and uses it in the schedule.</p>
+        <ul class="ticks">
+          <li>Packages: this week's trailers in one go</li>
+          <li>Screen packages with several combinations of screens and trailers</li>
+          <li>Doremi Intermission with the intermission playlist and rewind</li>
+          <li>KDM validity of the feature, screen by screen, right in the list</li>
+        </ul>
+      </div>
+      <div class="panel" aria-hidden="true">
+        <h4>Playlist · Evening</h4>
+        <div class="plx">
+          <div class="plx-row"><code>00:00:00</code><span class="pk adv">Ad</span><b>Opening ident</b><code>00:01:00</code></div>
+          <div class="plx-row sala"><code>00:01:00</code><span class="pk sala">Screens</span><b>Kids' trailers</b><span class="rooms"><i>2</i><i>4</i> +06:00 <i>1</i> +02:00</span></div>
+          <div class="plx-row"><code>00:01:00</code><span class="pk ftr">Feature</span><b>FILM_FTR_F_EN</b><code>01:42:56</code></div>
+          <div class="plx-row sub int"><code>+ 00:47:57</code><span class="pk int">INT</span><b>Doremi Intermission <span class="tag">Intermission ads</span></b><code>00:03:52</code></div>
+          <div class="plx-row sub"><code>+ 01:37:58</code><span class="pk cue">Cue</span><b>End credits · lights 50%</b><code></code></div>
+          <div class="plx-tot">Length: Screen 1 <b>01:49:48</b> · Screens 2 and 4 <b>01:53:48</b> · Screen 3 <b>01:47:48</b></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="spot rev">
       <div class="spot-txt">
         <span class="eyebrow">Reports</span>
         <h3>Disks, lamps and serial numbers, screen by screen</h3>
@@ -211,6 +244,7 @@
       <details><summary>Does it need an internet connection?</summary><p>No, GiuLi works on the cinema network. Internet is only needed for Telegram alerts and KDMs received by email.</p></details>
       <details><summary>What computer does it need?</summary><p>A Windows 10 or 11 PC switched on in the cinema network. Nothing to install: the first start sets everything up by itself.</p></details>
       <details><summary>Can I manage several cinemas?</summary><p>Yes. Each cinema has its own folder with data and credentials, and the "All cinemas" page shows every screen of every site.</p></details>
+      <details><summary>I already use AAM Screenwriter: what changes?</summary><p>Playlists and schedules stay on the screen servers. GiuLi reads them, including those with a Doremi Intermission, shows them in the schedule with the KDM checks, and can copy them between screens or import them into its own playlists.</p></details>
       <details><summary>What languages does it speak?</summary><p>English and Italian: switch with the flag at the top, on the login page too.</p></details>
     </div>
   </div>

@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>GiuLi — Theatre Management System per cinema | Sigra Film</title>
-<meta name="description" content="GiuLi è il TMS di Sigra Film: controlla server, proiettori e audio di ogni sala, manda la programmazione ai server e avvisa su Telegram. Nessuna installazione, dal browser e dal telefono.">
+<meta name="description" content="GiuLi è il TMS di Sigra Film: controlla server, proiettori e audio di ogni sala, crea playlist e pacchetti, manda la programmazione ai server e avvisa su Telegram. Nessuna installazione, dal browser e dal telefono.">
 <meta property="og:title" content="GiuLi — Theatre Management System">
 <meta property="og:description" content="Tutte le sale sotto controllo, da un solo schermo. Server, proiettori, audio, programmazione, KDM e avvisi.">
 <meta property="og:image" content="https://www.sigrafilm.it/giuli/assets/logo.png">
@@ -90,12 +90,18 @@
   <div class="wrap">
     <div class="sec-head"><span class="eyebrow">Funzioni</span><h2>Tutto quello che succede in cabina, in una pagina</h2><p>Dalla programmazione della settimana all'ora esatta del server di sala: GiuLi mette insieme le informazioni che oggi sono sparse tra software diversi.</p></div>
     <div class="feat">
-      <div class="f"><h3><span class="e">📺</span>Dashboard in tempo reale</h3><p>Cosa proietta ogni sala, a che punto è, quando finisce e cosa parte dopo. Lampada, serranda e ora del server a colpo d'occhio.</p></div>
-      <div class="f"><h3><span class="e">🎛️</span>Comandi di sala</h3><p>Play, pausa, stop, salti e caricamento playlist. Comandi rapidi (macro) del server, volume e ingresso audio, accensione dei Barco Serie 4 dall'Eco.</p></div>
-      <div class="f"><h3><span class="e">🗓️</span>Programmazione</h3><p>Timeline giornaliera per sala, spettacoli ripetuti su più giorni o importati da file. Vanno subito sul server, dopo il controllo di playlist, KDM e sovrapposizioni.</p></div>
-      <div class="f"><h3><span class="e">🎞️</span>Playlist con cue</h3><p>Contenuti e comandi rapidi del server nel punto esatto della playlist: luci, formati, audio.</p></div>
-      <div class="f"><h3><span class="e">📦</span>Contenuti e copie</h3><p>I DCP presenti su ogni server. Copia da sala a sala o dal PC del TMS alla sala in rete, senza chiavette né dischi.</p></div>
-      <div class="f"><h3><span class="e">🔑</span>KDM</h3><p>Validità per sala e caricamento sui server. I KDM che arrivano per email vanno da soli al server giusto.</p></div>
+      <div class="f"><h3><span class="e">📺</span>Dashboard in tempo reale</h3><p>Cosa proietta ogni sala, a che punto è, quando finisce e cosa parte dopo. Segnaposto di inizio film, intervallo e titoli di coda, con l'orario e il conto alla rovescia.</p></div>
+      <div class="f"><h3><span class="e">🖥️</span>Monitor</h3><p>Le playlist di tutte le sale in proiezione, affiancate su un solo schermo. Ognuna segue da sola la clip in corso.</p></div>
+      <div class="f"><h3><span class="e">🎛️</span>Comandi di sala</h3><p>Play, pausa, stop, salti e caricamento playlist. Comandi rapidi (macro) del server, volume e ingresso audio, lampada, serranda e accensione dei Barco Serie 4 dall'Eco.</p></div>
+      <div class="f"><h3><span class="e">🗓️</span>Programmazione</h3><p>Timeline per sala: trascini uno spettacolo a un altro orario, lo ripeti scegliendo i giorni sul calendario, scambi due sale. Tutto va sul server dopo il controllo di playlist, KDM e sovrapposizioni.</p></div>
+      <div class="f"><h3><span class="e">🎟️</span>Dal botteghino al server</h3><p>Le sessioni della settimana arrivano dal file del botteghino. Associ ogni film alla sua playlist una volta sola e con "Programma tutti" vanno sui server.</p></div>
+      <div class="f"><h3><span class="e">⏱️</span>Automatismi</h3><p>Una playlist prima del primo spettacolo e una dopo l'ultimo, in ogni sala e ogni giorno. Se il programma cambia, GiuLi le rimette a posto da solo.</p></div>
+      <div class="f"><h3><span class="e">🎞️</span>Playlist come in Screenwriter</h3><p>Elenco con film, programmazioni e validità dei KDM. Nell'editor trascini contenuti filtrati per tipo, neri della durata che vuoi e comandi rapidi del server nel punto esatto.</p></div>
+      <div class="f"><h3><span class="e">📦</span>Pacchetti e pacchetti sala</h3><p>Gruppi di clip, come i trailer della settimana, da mettere nella playlist in un colpo solo. Il pacchetto sala cambia secondo la sala in cui va la playlist.</p></div>
+      <div class="f"><h3><span class="e">⏸️</span>Doremi Intermission</h3><p>L'intervallo come in AAM: a un punto del film il server proietta un'altra playlist e poi riprende, anche tornando indietro di qualche secondo. Per Doremi e IMS3000.</p></div>
+      <div class="f"><h3><span class="e">💿</span>Contenuti e copie</h3><p>I DCP di ogni server, con la validità dei KDM e quelli non usati in nessuna playlist. Copia da sala a sala o dal TMS; quando una playlist va in sala, i contenuti che mancano partono da soli.</p></div>
+      <div class="f"><h3><span class="e">🔌</span>Chiavette e dischi USB</h3><p>Colleghi una chiavetta o un disco al PC: GiuLi mostra DCP, KDM e playlist e li copia nel TMS con un clic. E al contrario, dal TMS alla chiavetta.</p></div>
+      <div class="f"><h3><span class="e">🔑</span>KDM</h3><p>Validità per sala e caricamento sui server. I KDM che arrivano per email vanno da soli al server giusto; quelli per altri cinema vengono riconosciuti.</p></div>
       <div class="f"><h3><span class="e">⚠️</span>Messaggi dei dispositivi</h3><p>Errori, avvisi e notifiche di proiettori e server, con lo stesso testo che mostrano i loro software: manutenzione, NTP, dischi, lampada.</p></div>
       <div class="f"><h3><span class="e">📈</span>Rapporti</h3><p>Spazio disco di TMS e server, numeri di serie, ore lampada e accensioni, avvisi sala per sala.</p></div>
       <div class="f"><h3><span class="e">📨</span>Avvisi su Telegram</h3><p>Problemi in tempo reale sul telefono e, ogni sera, il riepilogo del giorno dopo per ogni cinema.</p></div>
@@ -133,10 +139,12 @@
       <div class="spot-txt">
         <span class="eyebrow">Programmazione</span>
         <h3>Programmi una volta, proiettano i server</h3>
-        <p>Clicchi sulla timeline della sala, scegli la playlist e GiuLi scrive lo spettacolo nel programma del server, dopo aver controllato playlist, KDM e sovrapposizioni. La linea rossa è l'ora del PC, quella verde l'ora del server di ogni sala.</p>
+        <p>Clicchi sulla timeline della sala, scegli la playlist e GiuLi scrive lo spettacolo nel programma del server, dopo aver controllato playlist, KDM e sovrapposizioni. La linea gialla è l'ora del PC, quella blu l'ora del server di ogni sala.</p>
         <ul class="ticks">
+          <li>Trascini uno spettacolo a un altro orario e con Salva il server si aggiorna</li>
+          <li>Blocchi verdi se i KDM ci sono, rossi con la chiave se ne manca uno</li>
+          <li>Dentro ogni blocco le linee di inizio film e titoli di coda</li>
           <li>Nessun computer "centrale" da cui dipendono gli spettacoli</li>
-          <li>Il lucchetto del programma protegge le sale dai comandi manuali</li>
           <li>Riepilogo serale della programmazione di domani su Telegram</li>
         </ul>
       </div>
@@ -144,7 +152,7 @@
         <h4>Oggi · timeline</h4>
         <div class="tl">
           <div class="tl-row"><span>Sala 1</span><div class="tl-track"><div class="tl-show" style="left:2%;width:38%">16:30 Film</div><div class="tl-show" style="left:44%;width:40%">20:00 Film</div><div class="tl-srv" style="left:47.4%"></div></div></div>
-          <div class="tl-row"><span>Sala 2</span><div class="tl-track"><div class="tl-show" style="left:10%;width:33%">17:15 Anteprima</div><div class="tl-show" style="left:52%;width:36%">20:45 Film</div><div class="tl-srv" style="left:47%"></div></div></div>
+          <div class="tl-row"><span>Sala 2</span><div class="tl-track"><div class="tl-show" style="left:10%;width:33%">17:15 Anteprima</div><div class="tl-show kdm-no" style="left:52%;width:36%">🔑 20:45 Film</div><div class="tl-srv" style="left:47%"></div></div></div>
           <div class="tl-row"><span>Sala 3</span><div class="tl-track"><div class="tl-show" style="left:0%;width:30%">16:00 Matinée</div><div class="tl-show" style="left:36%;width:42%">19:30 Evento</div><div class="tl-srv" style="left:46.6%"></div></div></div>
           <div class="tl-now"></div>
         </div>
@@ -152,6 +160,31 @@
     </div>
 
     <div class="spot">
+      <div class="spot-txt">
+        <span class="eyebrow">Playlist</span>
+        <h3>Una playlist sola, giusta per ogni sala</h3>
+        <p>Prepari la playlist una volta, trascinando contenuti, neri e comandi del server. I pacchetti sala mettono i trailer adatti a ogni sala: quando mandi la playlist in sala 2 entrano quelli per bambini, in sala 1 altri, nelle altre niente. GiuLi calcola la durata di ogni sala e la usa in programmazione.</p>
+        <ul class="ticks">
+          <li>Pacchetti: i trailer della settimana in un colpo solo</li>
+          <li>Pacchetti sala con più combinazioni di sale e trailer</li>
+          <li>Doremi Intermission con la playlist dell'intervallo e il riavvolgimento</li>
+          <li>Validità dei KDM del film, sala per sala, già nell'elenco</li>
+        </ul>
+      </div>
+      <div class="panel" aria-hidden="true">
+        <h4>Playlist · Serata</h4>
+        <div class="plx">
+          <div class="plx-row"><code>00:00:00</code><span class="pk adv">Pubblicità</span><b>Sigla di apertura</b><code>00:01:00</code></div>
+          <div class="plx-row sala"><code>00:01:00</code><span class="pk sala">Sale</span><b>Trailer bambini</b><span class="rooms"><i>2</i><i>4</i> +06:00 <i>1</i> +02:00</span></div>
+          <div class="plx-row"><code>00:01:00</code><span class="pk ftr">Film</span><b>FILM_FTR_F_IT</b><code>01:42:56</code></div>
+          <div class="plx-row sub int"><code>+ 00:47:57</code><span class="pk int">INT</span><b>Doremi Intermission <span class="tag">Intervallo pubblicità</span></b><code>00:03:52</code></div>
+          <div class="plx-row sub"><code>+ 01:37:58</code><span class="pk cue">Cue</span><b>Titoli di coda · luce 50%</b><code></code></div>
+          <div class="plx-tot">Durata: Sala 1 <b>01:49:48</b> · Sale 2 e 4 <b>01:53:48</b> · Sala 3 <b>01:47:48</b></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="spot rev">
       <div class="spot-txt">
         <span class="eyebrow">Rapporti</span>
         <h3>Dischi, lampade e numeri di serie, sala per sala</h3>
@@ -211,6 +244,7 @@
       <details><summary>Serve una connessione a internet?</summary><p>No, GiuLi lavora nella rete del cinema. Internet serve solo se vuoi gli avvisi su Telegram e i KDM ricevuti per email.</p></details>
       <details><summary>Che computer serve?</summary><p>Un PC Windows 10 o 11 acceso nella rete del cinema. Non serve installare nulla: il primo avvio prepara tutto da solo.</p></details>
       <details><summary>Posso gestire più cinema?</summary><p>Sì. Ogni cinema ha la sua cartella con dati e credenziali, e la pagina "Tutti i cinema" mostra ogni sala di ogni sede.</p></details>
+      <details><summary>Uso già AAM Screenwriter: cosa cambia?</summary><p>Le playlist e i programmi restano sui server di sala. GiuLi li legge, anche quelli con il Doremi Intermission, li mostra nella programmazione con i controlli dei KDM e li può copiare tra le sale o importare tra le sue playlist.</p></details>
       <details><summary>In che lingua è?</summary><p>Italiano e inglese: si cambia con la bandierina in alto, anche nella pagina di accesso.</p></details>
     </div>
   </div>
