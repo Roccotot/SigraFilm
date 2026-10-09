@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>GiuLi — Theatre Management System per cinema | Sigra Film</title>
-<meta name="description" content="GiuLi è il TMS di Sigra Film: controlla server, proiettori e audio di ogni sala, crea playlist e pacchetti, manda la programmazione ai server e avvisa su Telegram. Nessuna installazione, dal browser e dal telefono.">
+<meta name="description" content="GiuLi è il TMS di Sigra Film: controlla server, proiettori e audio di ogni sala, crea scalette e blocchi, manda la programmazione ai server, copia i DCP tra sale, TMS e NAS, legge lampade e messaggi dei proiettori e avvisa su Telegram. Nessuna installazione, dal browser e dal telefono.">
 <meta property="og:title" content="GiuLi — Theatre Management System">
 <meta property="og:description" content="Tutte le sale sotto controllo, da un solo schermo. Server, proiettori, audio, programmazione, KDM e avvisi.">
 <meta property="og:image" content="https://www.sigrafilm.it/giuli/assets/logo.png">
@@ -69,7 +69,7 @@
 
 <!-- ── STRISCIA COMPATIBILITÀ ── -->
 <div class="strip">
-  <div class="wrap"><span class="lbl">Funziona con</span><span>Doremi</span><span>Dolby IMS3000</span><span>Barco ICMP</span><span>Barco DP · Serie 4</span><span>Cinemeccanica</span><span>Dolby CP750 · CP850 · CP950</span><span>JBL CPi2000</span></div>
+  <div class="wrap"><span class="lbl">Funziona con</span><span>Doremi</span><span>Dolby IMS3000</span><span>Barco ICMP</span><span>Barco DP · Serie 4</span><span>Cinemeccanica</span><span>NEC</span><span>Christie</span><span>Dolby CP750 · CP850 · CP950</span><span>JBL CPi2000</span></div>
 </div>
 
 <!-- ── PERCHÉ ── -->
@@ -79,8 +79,8 @@
     <div class="why">
       <div class="card"><div class="ic">🛡️</div><h3>La serata non dipende dal TMS</h3><p>Gli spettacoli vengono scritti nel programma dei server di sala: sono i server a proiettarli. Se il PC di GiuLi si spegne, la serata va avanti.</p></div>
       <div class="card"><div class="ic">👁️</div><h3>Guarda senza toccare</h3><p>Stato, messaggi e dati dei dispositivi si leggono in sola lettura. I comandi partono solo quando li chiedi tu, con conferma dove serve.</p></div>
-      <div class="card"><div class="ic">⚡</div><h3>Pronto in cinque minuti</h3><p>Una cartella e un doppio clic su Windows: niente installazioni, niente database da configurare. Si apre da qualsiasi browser della rete.</p></div>
-      <div class="card"><div class="ic">🎬</div><h3>Un cinema o un circuito</h3><p>Ogni cinema ha i suoi dati e le sue credenziali. Una sola pagina mostra tutte le sale di tutte le sedi.</p></div>
+      <div class="card"><div class="ic">⚡</div><h3>Pronto in cinque minuti</h3><p>Una cartella e un doppio clic su Windows: niente installazioni, niente database da configurare. Si apre da qualsiasi browser della rete e riparte da solo all'accensione del PC.</p></div>
+      <div class="card"><div class="ic">🎬</div><h3>Un cinema o un circuito</h3><p>Ogni cinema ha i suoi dati e le sue credenziali. Una sola pagina mostra tutte le sale di tutte le sedi, divise per città.</p></div>
     </div>
   </div>
 </section>
@@ -90,24 +90,30 @@
   <div class="wrap">
     <div class="sec-head"><span class="eyebrow">Funzioni</span><h2>Tutto quello che succede in cabina, in una pagina</h2><p>Dalla programmazione della settimana all'ora esatta del server di sala: GiuLi mette insieme le informazioni che oggi sono sparse tra software diversi.</p></div>
     <div class="feat">
-      <div class="f"><h3><span class="e">📺</span>Dashboard in tempo reale</h3><p>Cosa proietta ogni sala, a che punto è, quando finisce e cosa parte dopo. Segnaposto di inizio film, intervallo e titoli di coda, con l'orario e il conto alla rovescia.</p></div>
-      <div class="f"><h3><span class="e">🖥️</span>Monitor</h3><p>Le playlist di tutte le sale in proiezione, affiancate su un solo schermo. Ognuna segue da sola la clip in corso.</p></div>
-      <div class="f"><h3><span class="e">🎛️</span>Comandi di sala</h3><p>Play, pausa, stop, salti e caricamento playlist. Comandi rapidi (macro) del server, volume e ingresso audio, lampada, serranda e accensione dei Barco Serie 4 dall'Eco.</p></div>
-      <div class="f"><h3><span class="e">🗓️</span>Programmazione</h3><p>Timeline per sala: trascini uno spettacolo a un altro orario, lo ripeti scegliendo i giorni sul calendario, scambi due sale. Tutto va sul server dopo il controllo di playlist, KDM e sovrapposizioni.</p></div>
-      <div class="f"><h3><span class="e">🎟️</span>Dal botteghino al server</h3><p>Le sessioni della settimana arrivano dal file del botteghino. Associ ogni film alla sua playlist una volta sola e con "Programma tutti" vanno sui server.</p></div>
-      <div class="f"><h3><span class="e">⏱️</span>Automatismi</h3><p>Una playlist prima del primo spettacolo e una dopo l'ultimo, in ogni sala e ogni giorno. Se il programma cambia, GiuLi le rimette a posto da solo.</p></div>
-      <div class="f"><h3><span class="e">🎞️</span>Editor delle playlist</h3><p>Elenco con film, programmazioni e validità dei KDM. Nell'editor trascini contenuti filtrati per tipo, neri della durata che vuoi e comandi rapidi del server nel punto esatto.</p></div>
-      <div class="f"><h3><span class="e">📦</span>Pacchetti e pacchetti sala</h3><p>Gruppi di clip, come i trailer della settimana, da mettere nella playlist in un colpo solo. Il pacchetto sala cambia secondo la sala in cui va la playlist.</p></div>
-      <div class="f"><h3><span class="e">⏸️</span>Doremi Intermission</h3><p>L'intervallo a metà film: a un punto del film il server proietta un'altra playlist e poi riprende, anche tornando indietro di qualche secondo. Per Doremi e IMS3000.</p></div>
-      <div class="f"><h3><span class="e">💿</span>Contenuti e copie</h3><p>I DCP di ogni server, con la validità dei KDM e quelli non usati in nessuna playlist. Copia da sala a sala o dal TMS; quando una playlist va in sala, i contenuti che mancano partono da soli.</p></div>
-      <div class="f"><h3><span class="e">🔌</span>Chiavette e dischi USB</h3><p>Colleghi una chiavetta o un disco al PC: GiuLi mostra DCP, KDM e playlist e li copia nel TMS con un clic. E al contrario, dal TMS alla chiavetta.</p></div>
-      <div class="f"><h3><span class="e">🔑</span>KDM</h3><p>Validità per sala e caricamento sui server. I KDM che arrivano per email vanno da soli al server giusto; quelli per altri cinema vengono riconosciuti.</p></div>
-      <div class="f"><h3><span class="e">⚠️</span>Messaggi dei dispositivi</h3><p>Errori, avvisi e notifiche di proiettori e server, con lo stesso testo che mostrano i loro software: manutenzione, NTP, dischi, lampada.</p></div>
-      <div class="f"><h3><span class="e">📈</span>Rapporti</h3><p>Spazio disco di TMS e server, numeri di serie, ore lampada e accensioni, avvisi sala per sala.</p></div>
+      <div class="f"><h3><span class="e">📺</span>Cruscotto in tempo reale</h3><p>Cosa proietta ogni sala, a che punto è, quando finisce e cosa parte dopo. Segnaposto di inizio film, intervallo e titoli di coda, con l'orario e il conto alla rovescia. I dispositivi con la loro icona e l'indirizzo che apre la loro pagina web.</p></div>
+      <div class="f"><h3><span class="e">🖥️</span>Schermo</h3><p>Le playlist di tutte le sale in proiezione, affiancate su un solo schermo. Ognuna segue da sola la clip in corso.</p></div>
+      <div class="f"><h3><span class="e">🎛️</span>Comandi di sala</h3><p>Play, pausa, stop, salti e caricamento scalette. I comandi rapidi del server diventano pulsanti con l'icona: volume, Flat e Scope, HDMI, serranda, lampada, luci. Audio, lampada, serranda e accensione dei Barco Serie 4 dall'Eco.</p></div>
+      <div class="f"><h3><span class="e">🗓️</span>Programmazione</h3><p>Timeline per sala: trascini uno spettacolo a un altro orario, lo ripeti scegliendo i giorni sul calendario, scambi due sale. Tutto va sul server dopo il controllo di scaletta, KDM, clip presenti e sovrapposizioni. Aggiorna rilegge tutto dai server.</p></div>
+      <div class="f"><h3><span class="e">🎟️</span>Dal botteghino al server</h3><p>Le sessioni della settimana arrivano dal file del botteghino. Associ ogni film alla sua scaletta una volta sola e con "Programma tutti" vanno sui server.</p></div>
+      <div class="f"><h3><span class="e">⏱️</span>Automatismi</h3><p>Una scaletta prima del primo spettacolo e una dopo l'ultimo, in ogni sala e ogni giorno. Se il programma cambia, GiuLi le rimette a posto da solo.</p></div>
+      <div class="f"><h3><span class="e">🎞️</span>Scalette</h3><p>Elenco con film, programmazioni e validità dei KDM. Nell'editor trascini contenuti filtrati per tipo, neri della durata che vuoi e comandi rapidi del server nel punto esatto. Anche le scalette già sui server di sala si aprono e si modificano.</p></div>
+      <div class="f"><h3><span class="e">📦</span>Blocchi e blocchi sala</h3><p>Gruppi di clip, come i trailer della settimana, da mettere nella scaletta in un colpo solo. Il blocco sala cambia secondo la sala in cui va la scaletta.</p></div>
+      <div class="f"><h3><span class="e">⏸️</span>Doremi Intermission</h3><p>L'intervallo a metà film: a un punto del film il server proietta un'altra scaletta e poi riprende, anche tornando indietro di qualche secondo. Per Doremi e IMS3000.</p></div>
+      <div class="f"><h3><span class="e">💿</span>Video e copie</h3><p>I DCP di ogni server, del TMS e dei NAS, con la validità dei KDM e quelli non usati in nessuna scaletta. Copi in più sale, nel TMS o sulla chiavetta in un colpo solo: le copie vanno in coda e partono insieme quando possono. Quando una scaletta va in sala, i contenuti che mancano partono da soli.</p></div>
+      <div class="f"><h3><span class="e">🗄️</span>NAS e cartelle FTP</h3><p>Le cartelle FTP dei distributori e i NAS del cinema, letti con tutte le sottocartelle, anche mille DCP. Da lì copi nelle sale o nel TMS e vedi subito quali sale li hanno già.</p></div>
+      <div class="f"><h3><span class="e">💽</span>TMS su più dischi</h3><p>Lo spazio del TMS su più dischi, senza RAID, visto come una cartella sola. Ogni disco copia per conto suo, così due film arrivano insieme; le versioni dello stesso film (OV e VF, italiano e inglese) restano sullo stesso disco.</p></div>
+      <div class="f"><h3><span class="e">🔌</span>Chiavette e dischi</h3><p>Colleghi una chiavetta o un disco al PC, anche interno: GiuLi mostra DCP, KDM e scalette, prima quelli che nel TMS non ci sono ancora, e li copia con un clic. E al contrario: una scaletta va sulla chiavetta insieme ai suoi contenuti.</p></div>
+      <div class="f"><h3><span class="e">🔑</span>Chiavi (KDM)</h3><p>Validità per sala e caricamento sui server. I KDM che arrivano per email vanno da soli al server giusto; quelli per altri cinema vengono riconosciuti.</p></div>
+      <div class="f"><h3><span class="e">⚠️</span>Messaggi dei dispositivi</h3><p>Errori, avvisi e notifiche di proiettori e server, con lo stesso testo che mostrano i loro software: manutenzione, NTP, dischi, lampada. Anche dai proiettori senza pagina web.</p></div>
+      <div class="f"><h3><span class="e">🙈</span>Avvisi senza rumore</h3><p>Gli avvisi di tutte le sedi in un elenco con filtri per città, cinema, tipo, livello, codice e dispositivo. Un errore già noto, come un proiettore in installazione, si nasconde con un clic e non arriva più da nessuna parte, nemmeno su Telegram.</p></div>
+      <div class="f"><h3><span class="e">🎚️</span>Configurazione dell'audio</h3><p>La configurazione dei Dolby CP750, equalizzazioni comprese, e dei CP850 e CP950 salvata da sola sul PC, in sola lettura: pronta se un processore va sostituito o riportato alle impostazioni di fabbrica.</p></div>
+      <div class="f"><h3><span class="e">📈</span>Diagnostica</h3><p>Spazio disco di TMS e server, ore della lampada o del laser con la barra della vita, versioni del software, schede e numeri di serie, avvisi sala per sala.</p></div>
+      <div class="f"><h3><span class="e">🗺️</span>Globale, città per città</h3><p>Tutte le sale di tutti i cinema in una pagina, divise per città: cosa proiettano, cosa parte dopo, cosa non risponde. Anche il menu dei cinema è per città.</p></div>
       <div class="f"><h3><span class="e">📨</span>Avvisi su Telegram</h3><p>Problemi in tempo reale sul telefono e, ogni sera, il riepilogo del giorno dopo per ogni cinema.</p></div>
       <div class="f"><h3><span class="e">🕒</span>Orologi dei server</h3><p>GiuLi confronta l'ora di ogni server con quella del PC e avvisa se gli spettacoli partirebbero in anticipo o in ritardo.</p></div>
       <div class="f"><h3><span class="e">👥</span>Utenti e registro</h3><p>Ruoli di sola lettura, operatore e amministratore. Registro degli eventi con filtri ed esportazione CSV.</p></div>
-      <div class="f"><h3><span class="e">💾</span>Backup automatico</h3><p>Ogni notte una copia di tutti i dati, gli ultimi 14 giorni conservati. Per spostare un cinema basta copiare la sua cartella.</p></div>
+      <div class="f"><h3><span class="e">💾</span>Backup automatico</h3><p>Ogni notte una copia di tutti i dati, comprese le configurazioni dei processori audio; gli ultimi 14 giorni conservati. Per spostare un cinema basta copiare la sua cartella.</p></div>
+      <div class="f"><h3><span class="e">🔁</span>Riparte da solo</h3><p>All'accensione del PC GiuLi riparte da solo, anche senza accedere a Windows: dopo un'interruzione di corrente il controllo delle sale torna senza che nessuno faccia niente.</p></div>
     </div>
   </div>
 </section>
@@ -119,11 +125,12 @@
       <div class="spot-txt">
         <span class="eyebrow">Messaggi di proiettori e server</span>
         <h3>Sai cosa non va prima che se ne accorga il pubblico</h3>
-        <p>GiuLi legge i messaggi attivi dei proiettori Barco e dei server Doremi e Dolby, con lo stesso codice e lo stesso testo del software del produttore. Gli errori sono rossi, gli avvisi gialli, le notifiche solo informative.</p>
+        <p>GiuLi legge i messaggi attivi dei proiettori Barco e Cinemeccanica e dei server Doremi e Dolby, con lo stesso codice e lo stesso testo del software del produttore, anche dai proiettori senza pagina web. Gli errori sono rossi, gli avvisi gialli, le notifiche solo informative.</p>
         <ul class="ticks">
           <li>Un bollino su ogni sala: passandoci sopra si leggono tutti i messaggi</li>
           <li>La manutenzione programmata resta gialla: non blocca la proiezione</li>
           <li>Errori e avvisi nuovi arrivano anche su Telegram</li>
+          <li>Gli avvisi di tutte le sedi in un elenco con filtri; quelli già noti si nascondono con un clic</li>
         </ul>
       </div>
       <div class="panel" aria-hidden="true">
@@ -142,7 +149,8 @@
         <p>Clicchi sulla timeline della sala, scegli la playlist e GiuLi scrive lo spettacolo nel programma del server, dopo aver controllato playlist, KDM e sovrapposizioni. La linea gialla è l'ora del PC, quella blu l'ora del server di ogni sala.</p>
         <ul class="ticks">
           <li>Trascini uno spettacolo a un altro orario e con Salva il server si aggiorna</li>
-          <li>Blocchi verdi se i KDM ci sono, rossi con la chiave se ne manca uno</li>
+          <li>Blocchi verdi se i KDM ci sono, rossi con la chiave se ne manca uno, ⚠ se sul server manca una clip</li>
+          <li>Aggiorna rilegge subito programma, scalette, KDM e contenuti dai server</li>
           <li>Dentro ogni blocco le linee di inizio film e titoli di coda</li>
           <li>Nessun computer "centrale" da cui dipendono gli spettacoli</li>
           <li>Riepilogo serale della programmazione di domani su Telegram</li>
@@ -161,18 +169,19 @@
 
     <div class="spot">
       <div class="spot-txt">
-        <span class="eyebrow">Playlist</span>
-        <h3>Una playlist sola, giusta per ogni sala</h3>
-        <p>Prepari la playlist una volta, trascinando contenuti, neri e comandi del server. I pacchetti sala mettono i trailer adatti a ogni sala: quando mandi la playlist in sala 2 entrano quelli per bambini, in sala 1 altri, nelle altre niente. GiuLi calcola la durata di ogni sala e la usa in programmazione.</p>
+        <span class="eyebrow">Scalette</span>
+        <h3>Una scaletta sola, giusta per ogni sala</h3>
+        <p>Prepari la scaletta una volta, trascinando contenuti, neri e comandi del server. I blocchi sala mettono i trailer adatti a ogni sala: quando mandi la scaletta in sala 2 entrano quelli per bambini, in sala 1 altri, nelle altre niente. GiuLi calcola la durata di ogni sala e la usa in programmazione.</p>
         <ul class="ticks">
-          <li>Pacchetti: i trailer della settimana in un colpo solo</li>
-          <li>Pacchetti sala con più combinazioni di sale e trailer</li>
-          <li>Doremi Intermission con la playlist dell'intervallo e il riavvolgimento</li>
+          <li>Blocchi: i trailer della settimana in un colpo solo</li>
+          <li>Blocchi sala con più combinazioni di sale e trailer</li>
+          <li>Doremi Intermission con la scaletta dell'intervallo e il riavvolgimento</li>
+          <li>Le scalette già sui server di sala si aprono e si modificano come le altre</li>
           <li>Validità dei KDM del film, sala per sala, già nell'elenco</li>
         </ul>
       </div>
       <div class="panel" aria-hidden="true">
-        <h4>Playlist · Serata</h4>
+        <h4>Scaletta · Serata</h4>
         <div class="plx">
           <div class="plx-row"><code>00:00:00</code><span class="pk adv">Pubblicità</span><b>Sigla di apertura</b><code>00:01:00</code></div>
           <div class="plx-row sala"><code>00:01:00</code><span class="pk sala">Sale</span><b>Trailer bambini</b><span class="rooms"><i>2</i><i>4</i> +06:00 <i>1</i> +02:00</span></div>
@@ -186,20 +195,72 @@
 
     <div class="spot rev">
       <div class="spot-txt">
-        <span class="eyebrow">Rapporti</span>
-        <h3>Dischi, lampade e numeri di serie, sala per sala</h3>
-        <p>Una pagina con lo spazio libero sui server e sul PC del TMS, le ore della lampada e quelle che restano, le accensioni, i numeri di serie di server e proiettori. Sono letti dai dispositivi, anche con il proiettore in Eco.</p>
+        <span class="eyebrow">Comandi rapidi</span>
+        <h3>I comandi del server, a colpo d'occhio</h3>
+        <p>GiuLi riconosce dal nome i comandi rapidi dei server di sala e li mostra come pulsanti con l'icona: i volumi come quadratini col numero, Flat e Scope, HDMI, serranda aperta o chiusa, lampada, luci, play e pausa. Le parole con cui li riconosce si cambiano in Automatismi.</p>
         <ul class="ticks">
-          <li>Spazio del PC del TMS in cima, per sapere quanti DCP ci stanno ancora</li>
-          <li>Gli ultimi dati restano visibili anche a dispositivo spento</li>
+          <li>Le famiglie con tanti comandi, come 26 volumi, diventano un menu a tendina: scegli e parte</li>
+          <li>Gli stessi pulsanti nel Cruscotto e nella pagina Comandi</li>
+          <li>Ogni dispositivo con la sua icona: proiettore, server, processore audio</li>
         </ul>
       </div>
       <div class="panel" aria-hidden="true">
-        <h4>Rapporti · dispositivi</h4>
+        <h4>Sala 1 · comandi rapidi</h4>
+        <div class="cmds">
+          <span class="cmd vol">5.0</span><span class="cmd vol">6.0</span><span class="cmd vol on">7.0</span><span class="cmd vol">Mute</span>
+          <span class="cmd sel">Volume… ▾</span>
+        </div>
+        <div class="cmds">
+          <span class="cmd fmt">FLAT</span><span class="cmd fmt">SCOPE</span><span class="cmd">HDMI</span><span class="cmd ok">▤ APERTA</span><span class="cmd">▥ CHIUSA</span><span class="cmd ok">💡 ON</span><span class="cmd">💡 OFF</span>
+        </div>
+        <div class="cmds">
+          <span class="cmd play">▶</span><span class="cmd">❚❚</span><span class="cmd">■</span><span class="cmd">Luci 50%</span><span class="cmd">Tende CHIUSE</span>
+        </div>
+        <div class="devs"><span><i class="di di-prj"></i>Proiettore</span><span><i class="di di-srv"></i>Server</span><span><i class="di di-aud"></i>Audio</span></div>
+      </div>
+    </div>
+
+    <div class="spot">
+      <div class="spot-txt">
+        <span class="eyebrow">Diagnostica</span>
+        <h3>Dischi, lampade e versioni, sala per sala</h3>
+        <p>Una pagina con lo spazio libero sui server e sul PC del TMS e tutto quello che i proiettori dicono di sé: ore della lampada o del laser sulla vita prevista, con una barra che diventa gialla e poi rossa, accensioni, watt e ampere, tipo, articolo e numero di serie della lampada. E poi versione del software, risoluzione, versioni dei componenti e schede.</p>
+        <ul class="ticks">
+          <li>Anche i proiettori a due lampade, ognuna con le sue ore</li>
+          <li>Barco DP serie 1 e 2, Serie 4 e Cinemeccanica DPC; NEC e Christie col loro protocollo</li>
+          <li>Spazio del PC del TMS in cima, per sapere quanti DCP ci stanno ancora</li>
+          <li>Letti in sola lettura; a proiettore spento restano gli ultimi valori</li>
+        </ul>
+      </div>
+      <div class="panel" aria-hidden="true">
+        <h4>Diagnostica · apparati</h4>
         <div class="rp">
           <div class="rp-row"><div class="num" style="width:36px;height:36px;font-size:11px">TMS</div><div class="rp-card"><b>Disco della cartella CONTENUTI</b><div class="rp-line"><span>1,2 TB / 3,6 TB</span><span>67% libero</span></div><div class="rp-bar"><i style="width:33%;background:var(--green)"></i></div></div></div>
-          <div class="rp-row"><div class="num" style="width:36px;height:36px;font-size:14px">1</div><div class="rp-card"><b>Server Sala 1</b><div class="rp-line"><span>S/N 314159 · software 2.8</span></div><div class="rp-bar"><i style="width:72%;background:var(--warn)"></i></div></div></div>
-          <div class="rp-row"><div class="num" style="width:36px;height:36px;font-size:14px">2</div><div class="rp-card"><b>Proiettore Sala 2</b><div class="rp-line"><span>💡 2.086 ore · restano 914</span><span>361 accensioni</span></div></div></div>
+          <div class="rp-row"><div class="num" style="width:36px;height:36px;font-size:14px">1</div><div class="rp-card"><b><span class="di di-prj"></span>Proiettore Sala 1</b><div class="rp-line"><span>S/N 2590… · software 4.5.454 · 2048 × 1080</span></div><div class="rp-line"><span>💡 XBO 2000W · 2.086 / 3.000 ore · restano 914</span><span>361 accensioni</span></div><div class="rp-bar"><i style="width:70%;background:var(--green)"></i></div></div></div>
+          <div class="rp-row"><div class="num" style="width:36px;height:36px;font-size:14px">2</div><div class="rp-card"><b><span class="di di-prj"></span>Proiettore Sala 2</b><div class="rp-line"><span>💡 3.099 / 2.400 ore · oltre di 699</span><span>529 accensioni · 1.594 W</span></div><div class="rp-bar"><i style="width:100%;background:var(--red)"></i></div><div class="rp-line"><span>▸ Versioni (12) · ▸ Schede (6)</span></div></div></div>
+        </div>
+      </div>
+    </div>
+    <div class="spot rev">
+      <div class="spot-txt">
+        <span class="eyebrow">Copie</span>
+        <h3>I DCP arrivano dove servono, anche tutti insieme</h3>
+        <p>Scegli i contenuti da una sala, dal TMS, da un NAS o da una chiavetta e tocchi le destinazioni: una o più sale, il TMS, la chiavetta. GiuLi mette le copie in coda e fa partire insieme quelle che non si intralciano: due sale diverse, due dischi diversi del TMS.</p>
+        <ul class="ticks">
+          <li>NAS e cartelle FTP letti con tutte le sottocartelle, anche mille DCP</li>
+          <li>TMS su più dischi senza RAID: ogni disco copia per conto suo</li>
+          <li>Le versioni dello stesso film restano sullo stesso disco</li>
+          <li>Il cerchio COPIE in alto, in ogni pagina: quante copie e a che punto</li>
+          <li>L'origine non viene mai toccata: si copia, non si sposta</li>
+        </ul>
+      </div>
+      <div class="panel" aria-hidden="true">
+        <h4>Copie · in corso</h4>
+        <div class="rp">
+          <div class="rp-row"><div class="num play" style="width:36px;height:36px;font-size:10px">TMS</div><div class="rp-card"><b>NAS → TMS · disco D:</b><div class="rp-line"><span>TRAILER/WICKED_TLR-2_F_IT-XX…</span><span>64%</span></div><div class="rp-bar"><i style="width:64%;background:var(--green)"></i></div></div></div>
+          <div class="rp-row"><div class="num play" style="width:36px;height:36px;font-size:10px">TMS</div><div class="rp-card"><b>Sala 2 → TMS · disco E:</b><div class="rp-line"><span>FILM_FTR_F_EN-IT_…_VF</span><span>31%</span></div><div class="rp-bar"><i style="width:31%;background:var(--green)"></i></div></div></div>
+          <div class="rp-row"><div class="num" style="width:36px;height:36px;font-size:14px">3</div><div class="rp-card"><b>TMS → Sale 3 e 5</b><div class="rp-line"><span>FILM_FTR_F_IT-XX_…_OV</span><span>in coda</span></div><div class="rp-bar"><i style="width:2%;background:var(--gold)"></i></div></div></div>
+          <div class="rp-row"><div class="num" style="width:36px;height:36px;font-size:10px">NAS</div><div class="rp-card"><b>NAS distribuzione · 997 DCP</b><div class="rp-line"><span>2 livelli di sottocartelle</span><span>2,8 TB</span></div></div></div>
         </div>
       </div>
     </div>
@@ -226,9 +287,9 @@
       <div class="card"><h3>🖥️ Server di sala</h3><ul>
         <li>Doremi DCP2000 · ShowVault</li><li>Dolby IMS3000</li><li>Barco ICMP / Alchemy</li></ul></div>
       <div class="card"><h3>📽️ Proiettori</h3><ul>
-        <li>Barco DP serie 1 e 2 <span>(DP2K, DP4K)</span></li><li>Barco Serie 4 <span>(SP2K, SP4K, con Eco)</span></li><li>Cinemeccanica DPC</li></ul></div>
+        <li>Barco DP serie 1 e 2 <span>(DP2K, DP4K, anche a due lampade)</span></li><li>Barco Serie 4 <span>(SP2K, SP4K, con Eco)</span></li><li>Cinemeccanica DPC e CMC4</li><li>NEC NC <span>(es. NC2000C, NC3541L)</span></li><li>Christie <span>(es. CP2210)</span></li></ul></div>
       <div class="card"><h3>🔊 Audio</h3><ul>
-        <li>Dolby CP750 · CP850 · CP950</li><li>JBL CPi2000</li></ul></div>
+        <li>Dolby CP750 · CP850 · CP950 <span>(con la copia della configurazione)</span></li><li>JBL CPi2000</li></ul></div>
     </div>
     <p class="note">Gli altri dispositivi di rete si possono monitorare e comandare con comandi personalizzati. Hai un modello diverso? Chiedici: lo verifichiamo insieme.</p>
   </div>
@@ -241,10 +302,11 @@
     <div class="faq">
       <details><summary>Cosa succede se il PC di GiuLi si spegne?</summary><p>Gli spettacoli già programmati partono lo stesso: sono nel programma dei server di sala. Quando il PC si riaccende, GiuLi riprende a leggere tutto da solo.</p></details>
       <details><summary>GiuLi può fermare uno spettacolo o spegnere un proiettore per errore?</summary><p>No. GiuLi non esegue comandi da solo: i comandi manuali chiedono conferma e rispettano il lucchetto del programma del server. Un proiettore con la luce accesa non viene mai mandato in Eco.</p></details>
+      <details><summary>E se va via la corrente?</summary><p>Gli spettacoli sono già nei server di sala. Quando il PC si riaccende GiuLi riparte da solo, anche senza che nessuno entri in Windows, e riprende a leggere tutto.</p></details>
       <details><summary>Serve una connessione a internet?</summary><p>No, GiuLi lavora nella rete del cinema. Internet serve solo se vuoi gli avvisi su Telegram e i KDM ricevuti per email.</p></details>
       <details><summary>Che computer serve?</summary><p>Un PC Windows 10 o 11 acceso nella rete del cinema. Non serve installare nulla: il primo avvio prepara tutto da solo.</p></details>
-      <details><summary>Posso gestire più cinema?</summary><p>Sì. Ogni cinema ha la sua cartella con dati e credenziali, e la pagina "Tutti i cinema" mostra ogni sala di ogni sede.</p></details>
-      <details><summary>Uso già un altro TMS: cosa cambia?</summary><p>Le playlist e i programmi restano sui server di sala. GiuLi li legge, anche quelli con il Doremi Intermission, li mostra nella programmazione con i controlli dei KDM e li può copiare tra le sale o importare tra le sue playlist.</p></details>
+      <details><summary>Posso gestire più cinema?</summary><p>Sì. Ogni cinema ha la sua cartella con dati e credenziali, e la pagina Globale mostra ogni sala di ogni sede, divisa per città.</p></details>
+      <details><summary>Uso già un altro TMS: cosa cambia?</summary><p>Le scalette e i programmi restano sui server di sala. GiuLi li legge, anche quelli con il Doremi Intermission, li mostra nella programmazione con i controlli dei KDM e delle clip, li apre per modificarli e li può copiare tra le sale o importare tra le sue scalette.</p></details>
       <details><summary>In che lingua è?</summary><p>Italiano e inglese: si cambia con la bandierina in alto, anche nella pagina di accesso.</p></details>
     </div>
   </div>
