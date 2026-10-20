@@ -62,6 +62,8 @@ REGOLE = [
     ".prod",            # schede dei server integrati (ICMP-X, IMS3000)
     ".prod-foto",
     ".prod--rovescio",  # scheda a colonne invertite
+    ".contratto",       # riquadro del contratto di manutenzione
+    ".contratto-voci",
     ".footer-legal",    # dati d'impresa
     ".diag",            # pannello di diagnosi
 ]

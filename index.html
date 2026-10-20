@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<!-- versione 2026-09-16 12:08 UTC -->
-<html lang="it" data-versione="2026-09-16 12:08">
+<!-- versione 2026-10-20 19:09 UTC -->
+<html lang="it" data-versione="2026-10-20 19:09">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
@@ -801,6 +801,71 @@ section[id] { scroll-margin-top: calc(var(--nav-h) + 14px); }
   margin-bottom: 8px; position: relative;
 }
 .service-card p { font-size: .9rem; color: var(--text-3); line-height: 1.6; position: relative; }
+
+/* Il contratto di manutenzione non e' una capacita' tecnica come le altre:
+   e' quello che un gestore compra. Percio' sta sotto le schede con un
+   riquadro suo, dove le tre voci hanno il posto per dire cosa comprendono
+   davvero — soprattutto il confine fra manodopera e pezzi di ricambio. */
+.contratto {
+  margin-top: clamp(26px, 4vw, 40px);
+  border: 1px solid var(--gold-line);
+  border-radius: var(--r-xl);
+  padding: clamp(28px, 4.5vw, 46px);
+  background:
+    radial-gradient(640px 300px at 6% 0%, rgba(249,194,0,.11), transparent 66%),
+    var(--surface);
+  display: grid;
+  grid-template-columns: minmax(0, .95fr) minmax(0, 1.05fr);
+  gap: clamp(24px, 4vw, 48px);
+  align-items: start;
+}
+@media (max-width: 860px) { .contratto { grid-template-columns: 1fr; } }
+
+.contratto-occhiello {
+  display: inline-block;
+  font-size: .72rem; font-weight: 700;
+  letter-spacing: .16em; text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 12px;
+}
+.contratto-testa h3 {
+  font-family: var(--ff-display);
+  font-size: clamp(1.25rem, 2.6vw, 1.6rem);
+  font-weight: 700; line-height: 1.18;
+  letter-spacing: -.018em;
+  margin-bottom: 12px;
+}
+.contratto-testa p { color: var(--text-3); font-size: .93rem; max-width: 46ch; }
+
+.contratto-voci { list-style: none; display: grid; gap: 20px; }
+/* Il segno di spunta e' posizionato, non un elemento flex: il titolo in
+   grassetto e la riga che lo spiega devono restare incolonnati sotto. */
+.contratto-voci li {
+  position: relative;
+  padding-left: 30px;
+  font-size: .9rem; color: var(--text-3); line-height: 1.6;
+}
+.contratto-voci li::before {
+  content: '✓';
+  position: absolute; left: 0; top: -1px;
+  width: 20px; height: 20px;
+  display: grid; place-items: center;
+  border-radius: 50%;
+  background: var(--gold-dim);
+  color: var(--gold); font-size: .75rem; font-weight: 700;
+}
+.contratto-voci b {
+  display: block;
+  color: var(--text); font-size: 1rem; font-weight: 600;
+  margin-bottom: 3px;
+}
+.contratto-invito {
+  grid-column: 1 / -1;
+  margin-top: 4px; padding-top: 20px;
+  border-top: 1px solid var(--border);
+  font-size: .9rem; color: var(--text-3);
+}
+.contratto-invito a { color: var(--gold); text-decoration: underline; text-underline-offset: 3px; }
 
 /* ============================================================
    GALLERIA
@@ -1712,7 +1777,8 @@ footer {
       <span class="eyebrow">Servizi</span>
       <h2>Dalla cabina allo schermo, tutto sotto controllo</h2>
       <p>Un servizio a 360°: seguiamo tutte le attività pre e post installazione, dalla
-        progettazione alla consegna delle attrezzature audio e video presenti in sala.</p>
+        progettazione alla consegna delle attrezzature audio e video presenti in sala.
+        E con il contratto di manutenzione continuiamo a seguirla negli anni.</p>
     </div>
 
     <div class="services-grid">
@@ -1747,15 +1813,52 @@ footer {
         <p>Punto cardine dell'azienda: diagnosi a distanza delle apparecchiature installate tramite software e hardware di gestione dedicati, per un intervento rapido e risolutivo.</p>
       </article>
       <article class="service-card reveal" data-delay="2">
+        <div class="service-icon" aria-hidden="true">🔐</div>
+        <h3>Reti e VPN</h3>
+        <p>Installiamo e configuriamo il collegamento VPN che rende possibile l'assistenza da remoto: un canale riservato verso la cabina, senza aprire la rete della sala.</p>
+      </article>
+      <article class="service-card reveal" data-delay="3">
         <div class="service-icon" aria-hidden="true">🎪</div>
         <h3>Eventi e noleggio</h3>
         <p>Organizziamo festival e rassegne in qualsiasi location, con maxischermi LCD, LED, OLED e laser, videowall e videoproiettori da 7.000 a 32.000 lumen.</p>
       </article>
-      <article class="service-card reveal" data-delay="3">
+      <article class="service-card reveal">
         <div class="service-icon" aria-hidden="true">🎓</div>
         <h3>Tecnici formati</h3>
         <p>Partecipiamo ai corsi di formazione sulle attrezzature cinematografiche e sulle innovazioni che il mercato propone, per mantenere lo standard del team.</p>
       </article>
+    </div>
+
+    <div class="contratto reveal" data-da="su">
+      <div class="contratto-testa">
+        <span class="contratto-occhiello">Contratto di manutenzione</span>
+        <h3>La sala seguita tutto l'anno, a costo noto</h3>
+        <p>
+          Invece di chiamare quando qualcosa si ferma, la sala entra in manutenzione
+          programmata: si sa quanto si spende e non ci sono sorprese a fine stagione.
+        </p>
+      </div>
+
+      <ul class="contratto-voci">
+        <li>
+          <b>Una manutenzione completa ogni anno</b>
+          Controllo e taratura dell'intero impianto, dal proiettore all'audio di sala.
+        </li>
+        <li>
+          <b>Interventi di riparazione inclusi</b>
+          Tutte le volte che serve, senza costi aggiuntivi: nel contratto c'è il nostro lavoro,
+          si pagano solo le parti da sostituire quando un componente è davvero danneggiato.
+        </li>
+        <li>
+          <b>Assistenza da remoto</b>
+          Con la VPN installata molti guasti si risolvono a distanza, nel tempo di una telefonata.
+        </li>
+      </ul>
+
+      <p class="contratto-invito">
+        Ogni sala è diversa: <a href="mailto:assistenza@sigrafilm.it">scrivici</a> e
+        prepariamo un contratto sulla tua.
+      </p>
     </div>
   </div>
 </section>
@@ -2266,7 +2369,7 @@ footer {
 
     <div class="footer-credit">
       <span>Developed by <b>Rocco Totaro</b></span>
-      <span class="footer-ver" id="versione">v. 2026-09-16 12:08 UTC</span>
+      <span class="footer-ver" id="versione">v. 2026-10-20 19:09 UTC</span>
     </div>
   </div>
 </footer>
