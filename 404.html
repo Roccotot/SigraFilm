@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<!-- La pagina che GitHub Pages mostra per un indirizzo che non esiste, per
+     esempio un vecchio link del sito precedente. Invece della pagina grigia
+     di GitHub, il marchio e una strada per tornare al sito.
+     I percorsi partono da "/" perché questa pagina viene servita a qualunque
+     profondità: da /vecchia/pagina/ un "img/..." relativo non si troverebbe. -->
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pagina non trovata · Sigra Film</title>
+<meta name="robots" content="noindex">
+<link rel="icon" type="image/svg+xml" href="/img/favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="/img/favicon-32.png">
+<link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
+<style>
+  :root { --gold: #f9c200; --bg: #0a0a0b; --testo: #f4f4f5; --tenue: #8a8a92; }
+  * { box-sizing: border-box; }
+  html, body { height: 100%; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--testo);
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    display: grid; place-items: center;
+    padding: 24px;
+    text-align: center;
+    line-height: 1.6;
+  }
+  .scatola { display: flex; flex-direction: column; align-items: center; gap: 22px; max-width: 440px; }
+  img { width: 92px; height: 54px; border-radius: 8px; }
+  .codice { font-size: .8rem; font-weight: 700; letter-spacing: .18em; color: var(--gold); margin: 0; }
+  h1 { font-size: 1.32rem; font-weight: 700; margin: 0; letter-spacing: -.01em; }
+  p { margin: 0; color: var(--tenue); font-size: .94rem; }
+  .tasti { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; }
+  a.tasto {
+    display: inline-block;
+    background: var(--gold); color: #000;
+    text-decoration: none; font-weight: 700; font-size: .98rem;
+    padding: 14px 28px; border-radius: 999px;
+  }
+  a.tasto:hover { background: #ffd23d; }
+  a.tasto.vuoto { background: transparent; color: var(--testo); border: 1px solid rgba(255,255,255,.2); }
+  a.tasto.vuoto:hover { border-color: var(--gold); color: var(--gold); }
+  a.tasto:focus-visible { outline: 3px solid #fff; outline-offset: 3px; }
+</style>
+</head>
+<body>
+  <main class="scatola">
+    <img src="/img/logo_sigra.png" width="92" height="54" alt="Sigra Film">
+    <p class="codice">ERRORE 404</p>
+    <h1>Questa pagina non c'è più</h1>
+    <p>Forse arrivi da un link del vecchio sito. Tutto quello che cercavi ora sta in una pagina sola.</p>
+    <div class="tasti">
+      <a class="tasto" href="/">Vai al sito</a>
+      <a class="tasto vuoto" href="/#contatti">Contattaci</a>
+    </div>
+  </main>
+</body>
+</html>

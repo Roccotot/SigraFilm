@@ -16,6 +16,7 @@ copertura: la mappa non c'è più. Dal Support-Tool non esce nulla che dica
 quali sale sono clienti, solo dei conteggi.
 """
 
+from datetime import date
 from pathlib import Path
 import re
 import sys
@@ -100,21 +101,30 @@ def main():
 
     pagina = PAGINA.read_text(encoding="utf-8")
 
-    anni = 2026 - 1954
+    anni = date.today().year - 1954
+    # Si riscrive sia il numero a cui arriva il contatore sia quello scritto
+    # nel riquadro: il secondo è quello che vedono i motori di ricerca e chi
+    # non ha JavaScript, e restava fermo al valore di partenza.
     for valore, etichetta in ((anni, "anni"), (n_chiusi, "chiusi"),
                               (n_estivi, "estivi"), (n_sale, "sale")):
         pagina = sostituisci(
             pagina,
             r'(<div class="stat-number" data-dato="' + etichetta +
-            r'" data-target=")\d+(")',
-            lambda m, v=valore: m.group(1) + str(v) + m.group(2),
+            r'" data-target=")\d+("[^>]*>)\d+',
+            lambda m, v=valore: m.group(1) + str(v) + m.group(2) + str(v),
             f'il numero "{etichetta}"')
+
+    # La descrizione che compare sotto il titolo nei risultati di Google
+    pagina = sostituisci(
+        pagina, r'(<meta name="description" content="[^"]*?)\d+( cinema e )\d+( arene)',
+        lambda m: m.group(1) + str(n_chiusi) + m.group(2) + str(n_estivi) + m.group(3),
+        "i numeri nella descrizione per i motori di ricerca")
 
     pagina = sostituisci(
         pagina, r'(<b data-dato="hero-sale">)\d+(</b>)',
         lambda m: m.group(1) + str(n_sale) + m.group(2), "le sale nella testata")
     PAGINA.write_text(pagina, encoding="utf-8")
-    print("\nindex.html aggiornato: i quattro numeri e le sale in testata.")
+    print("\nindex.html aggiornato: i quattro numeri, le sale in testata e la descrizione.")
 
 
 if __name__ == "__main__":

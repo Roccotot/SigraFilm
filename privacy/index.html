@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<!-- Informativa sulla privacy di Sigra Film (sito e GiuLi). Pagina a sé, con lo stile del sito: stessi colori e stessi
+     caratteri, serviti dal nostro dominio. Niente script, niente cookie, niente risorse esterne. La versione inglese è
+     in /en/privacy/: se si cambia una, si cambia anche l'altra (e la data in cima a tutte e due). -->
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Informativa sulla privacy · Sigra Film</title>
+<meta name="description" content="Come Sigra Film tratta i dati personali di chi visita il sito e dei cinema che usano GiuLi.">
+<link rel="canonical" href="https://www.sigrafilm.it/privacy/">
+<link rel="alternate" hreflang="it" href="https://www.sigrafilm.it/privacy/">
+<link rel="alternate" hreflang="en" href="https://www.sigrafilm.it/en/privacy/">
+<link rel="icon" type="image/svg+xml" href="../img/favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="../img/favicon-32.png">
+<link rel="apple-touch-icon" href="../img/apple-touch-icon.png">
+<link rel="preload" as="font" type="font/woff2" href="../fonts/inter-latin.woff2" crossorigin>
+<style>
+  @font-face { font-family: 'Inter'; font-style: normal; font-weight: 400 700; font-display: swap; src: url(../fonts/inter-latin.woff2) format('woff2'); }
+  @font-face { font-family: 'Sora'; font-style: normal; font-weight: 600 800; font-display: swap; src: url(../fonts/sora-latin.woff2) format('woff2'); }
+  :root {
+    --gold: #f9c200; --gold-dim: rgba(249,194,0,.14); --gold-line: rgba(249,194,0,.32);
+    --bg: #0a0a0b; --surface: rgba(255,255,255,.035); --border: rgba(255,255,255,.09);
+    --text: #f4f4f5; --text-2: rgba(244,244,245,.78); --muted: rgba(244,244,245,.5);
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; background: var(--bg); color: var(--text); font: 400 1rem/1.7 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif; }
+  a { color: var(--gold); text-underline-offset: 3px; }
+  a:hover { color: #ffd84d; }
+  a:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; border-radius: 3px; }
+  .wrap { max-width: 820px; margin: 0 auto; padding: 0 20px; }
+  header { border-bottom: 1px solid var(--border); background: rgba(10,10,11,.9); position: sticky; top: 0; z-index: 2; backdrop-filter: blur(10px); }
+  header .wrap { display: flex; align-items: center; gap: 14px; min-height: 64px; }
+  .brand { display: flex; align-items: center; gap: 10px; color: var(--text); text-decoration: none; }
+  .brand img { width: 52px; height: 30px; border-radius: 5px; }
+  .brand b { font: 700 1.02rem 'Sora', 'Inter', sans-serif; letter-spacing: -.01em; }
+  .grow { flex: 1; }
+  .lang { font-size: .85rem; color: var(--muted); text-decoration: none; border: 1px solid var(--border); border-radius: 999px; padding: 4px 12px; }
+  .lang:hover { color: var(--text); border-color: var(--gold-line); }
+  main { padding: 44px 0 56px; }
+  .kicker { color: var(--gold); font: 600 .78rem 'Inter', sans-serif; letter-spacing: .14em; text-transform: uppercase; margin: 0 0 10px; }
+  h1 { font: 700 clamp(1.7rem, 4.2vw, 2.4rem)/1.2 'Sora', 'Inter', sans-serif; letter-spacing: -.02em; margin: 0 0 10px; }
+  .date { color: var(--muted); font-size: .9rem; margin: 0 0 28px; }
+  .breve { background: var(--gold-dim); border: 1px solid var(--gold-line); border-radius: 14px; padding: 18px 22px; margin: 0 0 30px; }
+  .breve h2 { margin: 0 0 8px; font-size: 1.05rem; border: 0; padding: 0; }
+  .breve ul { margin: 0; padding-left: 20px; color: var(--text-2); }
+  .breve li { margin: 4px 0; }
+  nav.indice { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 16px 22px; margin: 0 0 36px; }
+  nav.indice b { display: block; font-size: .8rem; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; }
+  nav.indice ol { margin: 0; padding-left: 22px; columns: 2; column-gap: 32px; font-size: .93rem; }
+  nav.indice li { margin: 0; padding: 3px 0; break-inside: avoid; }
+  nav.indice a { color: var(--text-2); text-decoration: none; }
+  nav.indice a:hover { color: var(--gold); }
+  section { scroll-margin-top: 80px; margin: 0 0 30px; }
+  h2 { font: 700 1.2rem/1.35 'Sora', 'Inter', sans-serif; margin: 0 0 10px; border-top: 1px solid var(--border); padding-top: 22px; }
+  h2 .n { color: var(--gold); margin-right: 8px; }
+  p, li { color: var(--text-2); }
+  p { margin: 0 0 12px; }
+  ul { margin: 0 0 12px; padding-left: 22px; }
+  li { margin: 5px 0; }
+  strong { color: var(--text); font-weight: 600; }
+  .tab { width: 100%; border-collapse: collapse; margin: 6px 0 14px; font-size: .94rem; }
+  .tab th, .tab td { text-align: left; vertical-align: top; padding: 9px 12px; border-bottom: 1px solid var(--border); }
+  .tab th { color: var(--muted); font-weight: 600; font-size: .8rem; letter-spacing: .06em; text-transform: uppercase; }
+  .tab td:first-child { color: var(--text); }
+  .scheda { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 14px 18px; margin: 4px 0 14px; }
+  .scheda p { margin: 2px 0; }
+  footer { border-top: 1px solid var(--border); padding: 26px 0 34px; font-size: .8rem; color: var(--muted); }
+  footer .wrap { display: flex; flex-wrap: wrap; gap: 6px 14px; justify-content: space-between; }
+  footer a { color: var(--muted); }
+  footer a:hover { color: var(--gold); }
+  @media (max-width: 640px) {
+    main { padding: 30px 0 44px; }
+    nav.indice ol { columns: 1; }
+    .tab th { display: none; }
+    .tab tr { display: block; border-bottom: 1px solid var(--border); padding: 8px 0; }
+    .tab td { display: block; border: 0; padding: 2px 0; }
+  }
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <a class="brand" href="../"><img src="../img/logo_sigra.png" width="52" height="30" alt=""><b>Sigra Film</b></a>
+    <span class="grow"></span>
+    <a class="lang" href="../en/privacy/" hreflang="en" lang="en">English</a>
+  </div>
+</header>
+
+<main>
+  <div class="wrap">
+    <p class="kicker">Privacy</p>
+    <h1>Informativa sulla privacy</h1>
+    <p class="date">Ultimo aggiornamento: 15 ottobre 2026</p>
+
+    <div class="breve">
+      <h2>In breve</h2>
+      <ul>
+        <li>Il sito <strong>non usa cookie</strong>, non ha statistiche, pubblicità né moduli da compilare.</li>
+        <li><strong>GiuLi funziona sul PC del cinema</strong>: i dati che gestisce restano lì e non arrivano a noi.</li>
+        <li>Trattiamo solo i dati che servono per la licenza di GiuLi, l'assistenza, i contratti e le fatture.</li>
+        <li>Non vendiamo dati, non facciamo pubblicità e non mandiamo newsletter.</li>
+        <li>Per qualsiasi domanda o richiesta: <a href="mailto:assistenza@sigrafilm.it">assistenza@sigrafilm.it</a>.</li>
+      </ul>
+    </div>
+
+    <nav class="indice" aria-label="Indice">
+      <b>Indice</b>
+      <ol>
+        <li><a href="#titolare">Chi tratta i dati</a></li>
+        <li><a href="#ambito">A chi si rivolge</a></li>
+        <li><a href="#sito">Il sito</a></li>
+        <li><a href="#giuli">GiuLi e i dati del cinema</a></li>
+        <li><a href="#dati">Quali dati trattiamo</a></li>
+        <li><a href="#finalita">Perché e su quale base</a></li>
+        <li><a href="#destinatari">A chi li comunichiamo</a></li>
+        <li><a href="#estero">Trasferimenti fuori dall'UE</a></li>
+        <li><a href="#conservazione">Per quanto tempo</a></li>
+        <li><a href="#sicurezza">Sicurezza</a></li>
+        <li><a href="#diritti">I tuoi diritti</a></li>
+        <li><a href="#obbligo">Sei obbligato a darci i dati?</a></li>
+        <li><a href="#minori">Minori</a></li>
+        <li><a href="#modifiche">Modifiche</a></li>
+        <li><a href="#contatti">Contatti</a></li>
+      </ol>
+    </nav>
+
+    <section id="titolare">
+      <h2><span class="n">1</span>Chi tratta i dati</h2>
+      <p>Il titolare del trattamento è:</p>
+      <div class="scheda">
+        <p><strong>Sigrafilm S.a.s. di Braschi Andrea e Paola &amp; C.</strong></p>
+        <p>Via S. Antonino 7/R, 50123 Firenze (FI), Italia</p>
+        <p>P.IVA / C.F. IT 06890600486</p>
+        <p>Email <a href="mailto:assistenza@sigrafilm.it">assistenza@sigrafilm.it</a> · PEC <a href="mailto:sigrafilm@pec.it">sigrafilm@pec.it</a></p>
+      </div>
+      <p>Per la nostra attività la legge non richiede un responsabile della protezione dei dati (DPO): per tutto ciò che riguarda la privacy scrivi all'indirizzo email qui sopra.</p>
+    </section>
+
+    <section id="ambito">
+      <h2><span class="n">2</span>A chi si rivolge</h2>
+      <p>Questa informativa riguarda:</p>
+      <ul>
+        <li>chi visita il sito <strong>www.sigrafilm.it</strong>, compresa la pagina di GiuLi;</li>
+        <li>i <strong>cinema che usano GiuLi</strong>, il nostro sistema di gestione delle sale (TMS), e le persone che ci lavorano o ci contattano per loro.</li>
+      </ul>
+      <p>È scritta secondo il Regolamento (UE) 2016/679 (GDPR) e il Codice in materia di protezione dei dati personali (D.Lgs. 196/2003 e successive modifiche).</p>
+    </section>
+
+    <section id="sito">
+      <h2><span class="n">3</span>Il sito</h2>
+      <p>Il sito è fatto di pagine statiche e raccoglie il minimo indispensabile:</p>
+      <ul>
+        <li><strong>niente cookie</strong>, né nostri né di altri: per questo non c'è un banner da accettare;</li>
+        <li><strong>niente statistiche</strong> sulle visite, niente pubblicità, niente pulsanti dei social che ti seguono;</li>
+        <li><strong>niente moduli</strong>: non ti chiediamo di scrivere dati sul sito;</li>
+        <li>i caratteri tipografici sono serviti dal nostro dominio, non da servizi esterni.</li>
+      </ul>
+      <p>Il sito è ospitato da <strong>GitHub Pages</strong> (GitHub, Inc.). Come ogni server, GitHub registra nei suoi registri tecnici alcuni dati della visita, come l'indirizzo IP, il browser e la pagina chiesta, per far funzionare il servizio e proteggerlo da abusi. Noi non riceviamo questi dati e non li usiamo. Come li tratta GitHub è spiegato nella sua <a href="https://docs.github.com/site-policy/privacy-policies/github-general-privacy-statement" target="_blank" rel="noopener">informativa sulla privacy</a>.</p>
+      <p>Nel sito ci sono collegamenti a <strong>WhatsApp</strong>, alla tua <strong>email</strong> e a <strong>Google Maps</strong>. Si attivano solo se li tocchi: da quel momento valgono le regole sulla privacy di quei servizi.</p>
+    </section>
+
+    <section id="giuli">
+      <h2><span class="n">4</span>GiuLi e i dati del cinema</h2>
+      <p><strong>GiuLi funziona sul PC del cinema.</strong> I dati che gestisce restano su quel PC e non vengono mandati a noi. Sono, per esempio, gli utenti con le loro password, la programmazione, le playlist, i contenuti, i KDM, gli avvisi e i registri. Di questi dati è titolare il cinema.</p>
+      <p>Alcune funzioni di GiuLi possono comunicare con l'esterno, per esempio gli avvisi su Telegram o la lettura della casella email in cui arrivano i KDM. Le attiva e le configura il cinema, verso servizi e account suoi: noi non riceviamo quei dati.</p>
+      <p>Noi trattiamo i dati del cinema solo in due casi.</p>
+      <ul>
+        <li><strong>Licenza.</strong> Per emettere la licenza di GiuLi riceviamo il nome del cliente e del cinema, il numero di sale, il periodo di validità e il <em>codice impianto</em> del PC. Il codice impianto è un codice calcolato dalle caratteristiche tecniche del PC e non contiene dati personali. Teniamo un registro delle licenze emesse.</li>
+        <li><strong>Assistenza.</strong> Quando il cinema ce lo chiede, un nostro tecnico si collega al PC di GiuLi attraverso una <strong>VPN</strong> (un collegamento privato e cifrato). Durante l'intervento può vedere i dati presenti su GiuLi. Li usiamo solo per risolvere il problema e non ne teniamo copia, salvo quando serve all'intervento, per esempio un registro degli errori, che poi cancelliamo. Per questi dati agiamo per conto del cinema, che ne resta titolare.</li>
+      </ul>
+    </section>
+
+    <section id="dati">
+      <h2><span class="n">5</span>Quali dati trattiamo</h2>
+      <p>Come titolare trattiamo questi dati dei cinema clienti e delle persone che ci lavorano:</p>
+      <ul>
+        <li><strong>dati di contatto</strong>: nome, ruolo, email, numero di telefono;</li>
+        <li><strong>dati per contratti e fatture</strong>: ragione sociale, indirizzo, partita IVA o codice fiscale, codice SDI o PEC;</li>
+        <li><strong>comunicazioni</strong>: email, messaggi WhatsApp e telefonate di richiesta di assistenza o di informazioni, con il loro contenuto;</li>
+        <li><strong>dati della licenza</strong> di GiuLi, descritti sopra.</li>
+      </ul>
+      <p>Non ti chiediamo dati particolari, come quelli sulla salute o sulle opinioni: per favore non mandarceli.</p>
+    </section>
+
+    <section id="finalita">
+      <h2><span class="n">6</span>Perché e su quale base</h2>
+      <table class="tab">
+        <thead><tr><th>Per cosa</th><th>Base giuridica (art. 6 GDPR)</th></tr></thead>
+        <tbody>
+          <tr><td>Rispondere alle richieste, prima e dopo un contratto</td><td>Misure precontrattuali e contratto (lett. b)</td></tr>
+          <tr><td>Emettere e gestire le licenze di GiuLi, dare assistenza e fornire i nostri servizi</td><td>Contratto (lett. b)</td></tr>
+          <tr><td>Fatture, contabilità e altri obblighi di legge</td><td>Obbligo legale (lett. c)</td></tr>
+          <tr><td>Proteggere i nostri sistemi e tutelare i nostri diritti, anche in giudizio</td><td>Legittimo interesse (lett. f)</td></tr>
+        </tbody>
+      </table>
+      <p>Non usiamo i dati per pubblicità o newsletter, non creiamo profili e non prendiamo decisioni automatiche che ti riguardano. <strong>Non vendiamo dati a nessuno.</strong></p>
+    </section>
+
+    <section id="destinatari">
+      <h2><span class="n">7</span>A chi li comunichiamo</h2>
+      <p>I dati li vediamo noi di Sigra Film. Li comunichiamo solo a chi ci aiuta a lavorare e solo per quanto serve:</p>
+      <ul>
+        <li>il fornitore della nostra <strong>posta elettronica</strong> (MKLINK);</li>
+        <li><strong>WhatsApp Business</strong>, se ci scrivi su WhatsApp;</li>
+        <li>il nostro <strong>commercialista</strong> e il programma di <strong>fatturazione elettronica</strong>, e il Sistema di Interscambio dell'Agenzia delle Entrate per l'invio delle fatture;</li>
+        <li>banche, per incassi e pagamenti;</li>
+        <li>autorità pubbliche, quando la legge lo richiede.</li>
+      </ul>
+      <p>Chi tratta i dati per nostro conto lo fa come responsabile del trattamento, con le garanzie previste dal GDPR. Gli altri, come le banche e le autorità, li trattano come titolari autonomi.</p>
+    </section>
+
+    <section id="estero">
+      <h2><span class="n">8</span>Trasferimenti fuori dall'Unione Europea</h2>
+      <p>Di regola i dati restano in Italia e nell'Unione Europea. Fanno eccezione GitHub, che ospita il sito, e WhatsApp, che può trattare dati negli Stati Uniti. In questi casi il trasferimento avviene con le garanzie previste dal GDPR: la decisione di adeguatezza della Commissione Europea per l'EU-U.S. Data Privacy Framework oppure le clausole contrattuali standard.</p>
+    </section>
+
+    <section id="conservazione">
+      <h2><span class="n">9</span>Per quanto tempo</h2>
+      <table class="tab">
+        <thead><tr><th>Dati</th><th>Quanto li teniamo</th></tr></thead>
+        <tbody>
+          <tr><td>Contratti, fatture e documenti contabili</td><td>10 anni, come prevede la legge</td></tr>
+          <tr><td>Richieste di assistenza e corrispondenza</td><td>5 anni</td></tr>
+          <tr><td>Registro delle licenze di GiuLi</td><td>10 anni dalla scadenza della licenza</td></tr>
+        </tbody>
+      </table>
+      <p>Passati questi tempi i dati vengono cancellati, salvo quando servono per difendere un nostro diritto in una contestazione già aperta.</p>
+    </section>
+
+    <section id="sicurezza">
+      <h2><span class="n">10</span>Sicurezza</h2>
+      <p>Proteggiamo i dati con misure adatte: accesso riservato alle persone che ne hanno bisogno, password, collegamenti cifrati come la VPN per l'assistenza, copie di sicurezza. Nessun sistema è sicuro al cento per cento: se dovesse succedere una violazione dei dati, faremo quello che prevede la legge, compreso avvisare il Garante e, quando serve, le persone interessate.</p>
+    </section>
+
+    <section id="diritti">
+      <h2><span class="n">11</span>I tuoi diritti</h2>
+      <p>Puoi chiederci in ogni momento di:</p>
+      <ul>
+        <li>sapere se trattiamo tuoi dati e averne una copia;</li>
+        <li>correggerli o completarli;</li>
+        <li>cancellarli, quando non dobbiamo più tenerli;</li>
+        <li>limitarne l'uso;</li>
+        <li>opporti al trattamento basato sul nostro legittimo interesse;</li>
+        <li>riceverli in un formato leggibile da un computer, per darli ad altri (portabilità).</li>
+      </ul>
+      <p>Scrivi a <a href="mailto:assistenza@sigrafilm.it">assistenza@sigrafilm.it</a> o alla PEC <a href="mailto:sigrafilm@pec.it">sigrafilm@pec.it</a>. Ti rispondiamo entro un mese; se la richiesta è complessa possiamo prendere altri due mesi, avvisandoti. Prima di rispondere possiamo chiederti qualcosa per essere sicuri che sia proprio tu.</p>
+      <p>Se pensi che trattiamo i tuoi dati in modo non corretto, puoi presentare un reclamo al <a href="https://www.garanteprivacy.it" target="_blank" rel="noopener">Garante per la protezione dei dati personali</a>.</p>
+    </section>
+
+    <section id="obbligo">
+      <h2><span class="n">12</span>Sei obbligato a darci i dati?</h2>
+      <p>No, ma senza i dati necessari non possiamo emettere la licenza di GiuLi, dare assistenza, fare il contratto o la fattura.</p>
+    </section>
+
+    <section id="minori">
+      <h2><span class="n">13</span>Minori</h2>
+      <p>Il sito e i nostri servizi sono rivolti alle aziende e ai professionisti del cinema, non ai minori. Non raccogliamo consapevolmente dati di minori: se dovesse succedere, li cancelliamo.</p>
+    </section>
+
+    <section id="modifiche">
+      <h2><span class="n">14</span>Modifiche</h2>
+      <p>Se cambia qualcosa aggiorniamo questa pagina e la data in cima. Le modifiche importanti le segnaliamo anche ai cinema che usano GiuLi.</p>
+    </section>
+
+    <section id="contatti">
+      <h2><span class="n">15</span>Contatti</h2>
+      <div class="scheda">
+        <p><strong>Sigrafilm S.a.s. di Braschi Andrea e Paola &amp; C.</strong></p>
+        <p>Via S. Antonino 7/R, 50123 Firenze (FI), Italia</p>
+        <p>Email <a href="mailto:assistenza@sigrafilm.it">assistenza@sigrafilm.it</a> · PEC <a href="mailto:sigrafilm@pec.it">sigrafilm@pec.it</a></p>
+      </div>
+    </section>
+  </div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>&copy; 2026 Sigrafilm S.a.s. &mdash; Firenze · P.IVA IT 06890600486</span>
+    <span><a href="../">www.sigrafilm.it</a> · <a href="../en/privacy/" hreflang="en" lang="en">English</a></span>
+  </div>
+</footer>
+</body>
+</html>

@@ -1,0 +1,7 @@
+# Tutto il sito è pubblico. La scorciatoia /noc/ porta con sé un
+# "noindex" e resta fuori dai risultati da sola: bloccarla qui impedirebbe
+# ai motori di leggere proprio quell'indicazione.
+User-agent: *
+Allow: /
+
+Sitemap: https://www.sigrafilm.it/sitemap.xml

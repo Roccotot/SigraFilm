@@ -4,15 +4,28 @@
 # Una foto senza riga qui prende una didascalia ricavata dal nome del file.
 #
 # L'ordine in pagina è quello alfabetico dei nomi file:
-# la prima immagine occupa il riquadro grande della griglia.
+# la prima immagine è quella che apre il carosello.
 
 C1.jpg = Sala cinema · impianto di proiezione
 C2.jpg = Sala digitale · schermo e audio
 C3.jpg = Teatro storico · grande schermo
-C4.jpg = Arena estiva · proiezione all'aperto
 C5.jpg = Struttura mobile · schermo per eventi
 C6.jpg = Arena all'aperto · allestimento completo
 
 WhatsApp Image 2026-08-27 at 20.28.37.jpeg = Arena estiva in cortile storico · schermo e platea
 WhatsApp Image 2026-08-27 at 20.30.33.jpeg = Proiezione serale sotto le mura · allestimento completo
 WhatsApp Image 2026-09-03 at 11.37.41.jpeg = Proiezione a pellicola · proiettore e sala
+
+20160314_113254-768x432.jpg = Conferenza fra le statue di una gipsoteca · audio e video
+20160606_085809_HDR-768x432.jpg = Teatro all'italiana · proiezione su grande schermo
+20161014_193356-Copia-768x432.jpg = Salone affrescato · allestimento per una serata di gala
+20161014_201829-Copia-768x432.jpg = Salone affrescato · proiezione per l'anteprima de «I Medici»
+Arena-Estiva-Teatro-Romano-Fiesole-Agosto-2016-768x432.jpg = Arena estiva al Teatro Romano di Fiesole · agosto 2016
+BUSSOLA DOMANI – LIDO DI CAMAIORE (LU).jpg = Bussola Domani · Lido di Camaiore (LU)
+CAVA DI MARMO CARRARA.jpg = Proiezione in una cava di marmo · Carrara
+Cinema Tascabile.jpeg = Cinema Tascabile
+GARAGE ITALIA – MILANO.jpeg = Garage Italia · Milano
+RIVA DEGLI ETRUSCHI – SAN VINCENZO (LI).jpg = Arena estiva · Riva degli Etruschi, San Vincenzo (LI)
+Paolo.jpg = Paolo allo stand Cinemeccanica
+Paolo_Andrea.jpg = Paolo e Andrea in sala · presentazione di «Raffaello, il principe delle arti in 3D»
+Roberto_Andrea.jpg = Roberto e Andrea in regia durante un evento
