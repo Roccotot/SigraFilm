@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<!-- versione 2026-11-16 19:15 UTC -->
-<html lang="it" data-versione="2026-11-16 19:15">
+<!-- versione 2026-11-16 19:22 UTC -->
+<html lang="it" data-versione="2026-11-16 19:22">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
@@ -49,15 +49,19 @@
 
 <script>document.documentElement.classList.add('js');</script>
 
-<!-- Veste cinematografica, in prova: si accende solo aggiungendo ?cinema
-     all'indirizzo. Senza, questo blocco non carica nulla e la pagina resta
-     quella di sempre. Il sipario nero va messo qui, prima che si disegni
-     qualunque cosa, altrimenti la pagina lampeggerebbe sotto il conto alla
-     rovescia. Se lo script non arriva o non parte, dopo quattro secondi il
-     sipario si alza da solo sulla pagina normale. -->
+<!-- Veste cinematografica: la sala in 3D, il conto alla rovescia, la
+     pellicola dei servizi. Sta in due file a parte (cinema/) che questo
+     blocco carica e accende. Il sipario nero va messo qui, prima che si
+     disegni qualunque cosa, altrimenti la pagina lampeggerebbe sotto il conto
+     alla rovescia. Se i file non arrivano o lo script non parte, dopo quattro
+     secondi il sipario si alza da solo sulla pagina semplice, che resta
+     intera qui sotto. Per vedere quella, o per escludere la veste se desse
+     problemi su un dispositivo: aggiungere ?cinema=0 all'indirizzo. -->
+<link rel="preload" as="style" href="cinema/cinema.css">
+<link rel="preload" as="script" href="cinema/cinema.js">
 <script>
 (function () {
-  if (!/[?&]cinema(=1|&|$)/.test(location.search)) return;
+  if (/[?&]cinema=0(&|$)/.test(location.search)) return;
   var d = document.documentElement;
   d.classList.add('cinema', 'cinema-carica');
   var stile = document.createElement('style');
@@ -2452,7 +2456,7 @@ footer {
 
     <div class="footer-credit">
       <span>Developed by <b>Rocco Totaro</b></span>
-      <span class="footer-ver" id="versione">v. 2026-11-16 19:15 UTC</span>
+      <span class="footer-ver" id="versione">v. 2026-11-16 19:22 UTC</span>
     </div>
   </div>
 </footer>

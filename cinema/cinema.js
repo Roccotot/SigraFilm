@@ -1,9 +1,10 @@
 /* ==========================================================================
    Veste cinematografica di sigrafilm.it
    --------------------------------------------------------------------------
-   Si accende solo quando <html> ha la classe "cinema", che mette lo script
-   in testa a index.html. Senza quella classe questo file non fa nulla e la
-   pagina resta quella di sempre.
+   Si accende quando <html> ha la classe "cinema", che mette lo script in
+   testa a index.html. Senza quella classe (indirizzo con ?cinema=0, oppure
+   file non arrivati in tempo) questo file non fa nulla e resta la pagina
+   semplice.
 
    Dentro ci sono sei cose, ognuna per conto suo: se una non riesce a partire
    le altre vanno avanti, e sotto resta comunque la pagina normale.
@@ -504,7 +505,7 @@
   /* ========================================================================
      1. IL CONTO ALLA ROVESCIA
      La "coda" che sta in testa a ogni pellicola: 3, 2, 1 con la lancetta che
-     spazza il quadrante. Dura poco piu' di un secondo; chi torna sulla pagina
+     spazza il quadrante. Dura due secondi e mezzo; chi torna sulla pagina
      da un'altra del sito non la rivede. Un tocco o un tasto la saltano.
      ======================================================================== */
   function contoAllaRovescia(finito) {
@@ -538,7 +539,7 @@
     function segnaPronto() { pronto = true; }
     if (document.readyState === 'complete') segnaPronto();
     else window.addEventListener('load', segnaPronto);
-    setTimeout(segnaPronto, 2600);          // comunque non si aspetta oltre
+    setTimeout(segnaPronto, 3400);          // comunque non si aspetta oltre
 
     function chiudi() {
       if (chiuso) return;
@@ -566,7 +567,7 @@
       el.classList.toggle('rigata', Math.random() < 0.35);
     }, 90);
 
-    var DURATA = 430, cifra = 3, partenza = ora();
+    var DURATA = 860, cifra = 3, partenza = ora();
     (function giro() {
       if (chiuso) return;
       var t = (ora() - partenza) / DURATA;
