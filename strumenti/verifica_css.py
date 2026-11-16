@@ -112,6 +112,30 @@ def main():
 
     guasti += tag_sbilanciati(re.sub(r"<!--.*?-->", "", s, flags=re.S))
 
+    # La veste cinematografica sta in due file a parte, caricati solo quando la
+    # pagina la accende. Qui si controlla che ci siano, che il foglio abbia le
+    # graffe in pari, che ogni sua regola parta da html.cinema / html.scena-ok
+    # (cosi' senza quella classe non tocca la pagina) e che porti il segnale
+    # che lo script aspetta prima di partire.
+    if "cinema/cinema.js" in s:
+        cartella = PAGINA.parent / "cinema"
+        foglio, copione = cartella / "cinema.css", cartella / "cinema.js"
+        if not foglio.exists() or not copione.exists():
+            guasti.append("la pagina carica cinema/ ma mancano cinema.css o cinema.js")
+        else:
+            c = re.sub(r"/\*.*?\*/", "", foglio.read_text(encoding="utf-8"), flags=re.S)
+            if c.count("{") != c.count("}"):
+                guasti.append(f"cinema.css: graffe sbilanciate ({c.count('{')} aperte, {c.count('}')} chiuse)")
+            if "--cinema-pronto" not in c:
+                guasti.append("cinema.css: manca il segnale --cinema-pronto")
+            senza = re.sub(r"@media[^{]*\{", "", c)
+            for sel in re.findall(r"(?:^|\})\s*([^{}@]+?)\s*\{", senza):
+                for parte in sel.split(","):
+                    if not parte.strip().startswith(("html.cinema", "html.scena-ok")):
+                        guasti.append(f"cinema.css: la regola «{parte.strip()[:50]}» non parte da html.cinema")
+            if "--cinema-pronto" not in copione.read_text(encoding="utf-8"):
+                guasti.append("cinema.js: non aspetta il segnale --cinema-pronto")
+
     if guasti:
         print("Pagina NON integra:")
         for g in guasti:

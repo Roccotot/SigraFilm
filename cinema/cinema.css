@@ -1,0 +1,340 @@
+/* ==========================================================================
+   Veste cinematografica di sigrafilm.it — gli stili
+   --------------------------------------------------------------------------
+   Ogni regola comincia da html.cinema: senza quella classe questo foglio non
+   tocca niente, e la pagina resta quella di sempre. La classe la mette lo
+   script in testa a index.html; il resto lo fa cinema.js.
+   ========================================================================== */
+
+/* Il segnale che cinema.js aspetta prima di partire: se questo foglio non
+   arriva, lo script rinuncia e lascia la pagina normale. */
+html.cinema { --cinema-pronto: 1; }
+
+/* ---------- La sala in 3D ---------- */
+/* Alta quanto la finestra "grande" dei telefoni: quando la barra degli
+   indirizzi si ritira non resta una striscia scoperta in fondo, e la tela
+   non cambia misura a ogni scorrimento. */
+html.cinema .scena3d {
+  position: fixed; top: 0; left: 0;
+  width: 100%; height: 100vh; height: 100lvh;
+  z-index: 0;
+  display: block;
+  pointer-events: none;
+}
+
+/* Quando la scena c'e', la fotografia della testata, il fascio disegnato in
+   CSS e il pulviscolo piatto le lasciano il posto. Se il WebGL non parte la
+   classe non arriva e restano loro. */
+html.scena-ok .pulviscolo,
+html.scena-ok .hero-bg,
+html.scena-ok .hero-luce,
+html.scena-ok .hero::after { display: none; }
+
+/* La veletta dietro il titolo: solo quanto serve a leggerlo, e solo dal lato
+   del testo. Sta sopra la scena (che e' opaca) e sotto il contenuto. */
+html.scena-ok .hero::before {
+  z-index: 0;
+  background:
+    linear-gradient(90deg, rgba(5,5,6,.78) 0%, rgba(5,5,6,.5) 38%, rgba(5,5,6,.12) 66%, transparent 82%),
+    linear-gradient(180deg, transparent 58%, rgba(10,10,11,.5) 100%);
+}
+@media (max-width: 820px) {
+  html.scena-ok .hero::before {
+    background: linear-gradient(180deg, transparent 0%, rgba(5,5,6,.34) 26%, rgba(5,5,6,.5) 60%, rgba(10,10,11,.5) 100%);
+  }
+}
+/* Il sommario della testata sta sopra la luce: un'ombra sua lo stacca meglio
+   di una veletta piu' scura, che spegnerebbe il fascio. Il titolo no: la riga
+   dorata e' un gradiente ritagliato sul testo, e l'ombra le passerebbe
+   attraverso sporcandola. */
+html.scena-ok .hero .hero-lead { text-shadow: 0 1px 14px rgba(0,0,0,.9), 0 0 3px rgba(0,0,0,.6); color: rgba(244,244,245,.86); }
+
+/* ---------- Il conto alla rovescia ---------- */
+html.cinema .conto {
+  position: fixed; inset: 0; z-index: 100000;
+  display: grid; place-items: center;
+  background: #000;
+  color: #e9e4d6;
+  cursor: pointer;
+  overflow: hidden;
+  transition: opacity .5s var(--ease), visibility .5s;
+}
+html.cinema .conto.via { opacity: 0; visibility: hidden; pointer-events: none; }
+html.cinema .conto.breve > * { display: none; }
+html.cinema .conto.lampo { background: #fff6dc; }
+html.cinema .conto.lampo > * { opacity: 0; }
+
+/* il quadrante: croce di centratura, due anelli, la lancetta che spazza */
+html.cinema .conto-quadro {
+  position: relative;
+  width: min(64vmin, 440px); aspect-ratio: 1;
+  display: grid; place-items: center;
+  background:
+    linear-gradient(rgba(233,228,214,.34), rgba(233,228,214,.34)) center / 1px 100% no-repeat,
+    linear-gradient(rgba(233,228,214,.34), rgba(233,228,214,.34)) center / 100% 1px no-repeat;
+}
+html.cinema .conto-spazzata {
+  position: absolute; inset: 0; border-radius: 50%;
+  background: conic-gradient(from 0deg, rgba(233,228,214,.2) calc(var(--g, 0) * 360deg), transparent 0);
+}
+html.cinema .conto-anello {
+  position: absolute; inset: 7%; border-radius: 50%;
+  border: 2px solid rgba(233,228,214,.75);
+}
+html.cinema .conto-anello + .conto-anello { inset: 15%; border-width: 1px; border-color: rgba(233,228,214,.45); }
+html.cinema .conto-numero {
+  position: relative;
+  font-family: var(--ff-display);
+  font-weight: 800;
+  font-size: min(36vmin, 250px);
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -.03em;
+}
+html.cinema .conto-piede {
+  position: absolute; left: 0; right: 0; bottom: max(26px, 6vh);
+  text-align: center;
+  font-size: .7rem; font-weight: 600;
+  letter-spacing: .28em; text-transform: uppercase;
+  color: rgba(233,228,214,.5);
+}
+/* un graffio verticale che compare e scompare, come su una copia vissuta */
+html.cinema .conto.rigata::after {
+  content: ''; position: absolute; top: 0; bottom: 0; left: var(--riga, 30%);
+  width: 1px; background: rgba(255,255,255,.28);
+}
+
+/* ---------- Il nastro ---------- */
+html.cinema .nastro {
+  position: relative; z-index: 2;
+  margin: -30px -5vw -18px;
+  padding: 13px 0;
+  background: var(--gold);
+  color: #0a0a0b;
+  transform: rotate(-1.8deg);
+  overflow: hidden;
+  box-shadow: 0 18px 50px rgba(0,0,0,.55);
+  -webkit-user-select: none; user-select: none;
+}
+html.cinema .nastro-corsa {
+  display: flex; align-items: center;
+  width: max-content;
+  will-change: transform;
+}
+html.cinema .nastro-corsa span {
+  flex: none;
+  margin-right: 26px;
+  font-family: var(--ff-display);
+  font-weight: 700;
+  font-size: clamp(.92rem, 1.5vw, 1.2rem);
+  letter-spacing: .05em; text-transform: uppercase;
+  white-space: nowrap;
+}
+html.cinema .nastro-corsa i {
+  flex: none;
+  width: 8px; height: 8px; margin-right: 26px;
+  background: currentColor;
+  transform: rotate(45deg);
+}
+
+/* ---------- I numeri, uno alla volta ---------- */
+html.cinema .numeri {
+  position: relative;
+  height: calc(var(--n, 4) * 58vh + 100vh);
+}
+html.cinema .numeri-fermo {
+  position: sticky; top: 0;
+  height: 100vh; height: 100svh;
+  display: flex; align-items: center;
+  overflow: hidden;
+}
+/* un'ombra larga dietro le cifre: il fascio dietro resta, ma non le mangia */
+html.cinema .numeri-fermo::before {
+  content: ''; position: absolute; inset: 0;
+  background: radial-gradient(70% 62% at 26% 54%, rgba(5,5,6,.66), rgba(5,5,6,.3) 55%, transparent 80%);
+  pointer-events: none;
+}
+html.cinema .numeri-interno {
+  position: relative;
+  padding-top: var(--nav-h);
+  display: flex; flex-direction: column; align-items: flex-start;
+}
+html.cinema .numeri-occhiello { margin-bottom: 0; }
+html.cinema .numeri-palco {
+  position: relative;
+  width: 100%;
+  height: clamp(250px, 50vh, 470px);
+}
+html.cinema .numeri-quadro {
+  position: absolute; inset: 0;
+  display: flex; flex-direction: column; justify-content: center; align-items: flex-start;
+  opacity: 0;
+  transform: translate3d(0, 46px, 0);
+  transition: opacity .45s var(--ease), transform .7s var(--mo);
+  pointer-events: none;
+}
+html.cinema .numeri-quadro.attivo { opacity: 1; transform: none; }
+html.cinema .numeri-quadro.passato { transform: translate3d(0, -46px, 0); }
+html.cinema .numeri-cifra {
+  font-family: var(--ff-display);
+  font-weight: 800;
+  font-size: clamp(6rem, 25vw, 17rem);
+  line-height: .86;
+  letter-spacing: -.045em;
+  color: var(--gold);
+  font-variant-numeric: tabular-nums;
+  text-shadow: 0 0 90px rgba(249,194,0,.3), 0 6px 30px rgba(0,0,0,.6);
+}
+html.cinema .numeri-dida {
+  margin-top: clamp(14px, 2.4vh, 26px);
+  font-family: var(--ff-display);
+  font-weight: 600;
+  font-size: clamp(1.2rem, 2.7vw, 2.1rem);
+  line-height: 1.15;
+  letter-spacing: -.01em;
+  color: var(--text);
+  text-shadow: 0 2px 18px rgba(0,0,0,.7);
+}
+html.cinema .numeri-passi { display: flex; gap: 8px; margin-top: 6px; }
+html.cinema .numeri-passi i {
+  width: clamp(34px, 6vw, 62px); height: 3px; border-radius: 2px;
+  background: rgba(255,255,255,.2);
+  transition: background .35s var(--ease);
+}
+html.cinema .numeri-passi i.acceso { background: var(--gold); }
+
+/* Telefono di traverso: poca altezza, quindi cifre piu' piccole e niente
+   occhiello, altrimenti la didascalia finirebbe sotto la barra dei contatti. */
+@media (max-height: 480px) {
+  html.cinema .numeri-occhiello { display: none; }
+  html.cinema .numeri-interno { padding-bottom: 70px; }
+  html.cinema .numeri-palco { height: 150px; }
+  html.cinema .numeri-cifra { font-size: 5.2rem; }
+  html.cinema .numeri-dida { font-size: 1.05rem; margin-top: 8px; }
+}
+
+/* ---------- Le sezioni "a foglio" ---------- */
+/* Angoli larghi e un filo di margine: i fogli scivolano sopra la sala invece
+   di tagliarla da bordo a bordo. "clip" ritaglia la pellicola sugli angoli
+   senza rendere il foglio scorrevole, che fermerebbe lo sticky. */
+html.cinema .section-alt {
+  background: rgba(12,12,14,.58);
+  margin-inline: clamp(8px, 1.3vw, 20px);
+  border: 1px solid var(--border);
+  border-radius: clamp(24px, 3.4vw, 46px);
+  overflow: clip;
+}
+
+/* ---------- La pellicola dei servizi ---------- */
+html.cinema .pellicola { position: relative; }
+html.cinema .pellicola-fermo { position: sticky; top: 0; }
+html.cinema .pellicola-fermo > .section-head { margin-bottom: clamp(20px, 3vh, 34px); }
+/* Su schermi bassi titolo e pellicola non ci stanno insieme: si ferma la sola
+   pellicola e il titolo, che resterebbe tagliato sotto la barra, si spegne. */
+html.cinema .pellicola-fermo > .section-head.reveal { transition: opacity .3s var(--ease); }
+html.cinema .pellicola-fermo.pellicola-sola > .section-head.reveal { opacity: 0; }
+
+html.cinema .pellicola-finestra {
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  overflow: hidden;
+}
+html.cinema .pellicola .services-grid {
+  position: relative;
+  display: flex; align-items: stretch;
+  width: max-content;
+  gap: 16px;
+  padding: 46px max(20px, calc((100vw - var(--wrap)) / 2));
+  background: rgba(3,3,4,.72);
+  border-block: 1px solid rgba(255,255,255,.1);
+  counter-reset: fotogramma;
+  will-change: transform;
+}
+/* le perforazioni: corrono con la pellicola, sopra e sotto i fotogrammi */
+html.cinema .pellicola .services-grid::before,
+html.cinema .pellicola .services-grid::after {
+  content: ''; position: absolute; left: 0; right: 0;
+  height: 18px;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='36' height='18'%3E%3Crect x='10' y='2' width='16' height='14' rx='3.5' fill='%23fff' fill-opacity='.17'/%3E%3C/svg%3E") repeat-x;
+}
+html.cinema .pellicola .services-grid::before { top: 14px; }
+html.cinema .pellicola .services-grid::after  { bottom: 14px; }
+
+html.cinema .pellicola .service-card {
+  flex: 0 0 clamp(270px, 27vw, 400px);
+  padding: clamp(26px, 2.4vw, 36px);
+  background: rgba(20,20,23,.9);
+  border-radius: 14px;
+  counter-increment: fotogramma;
+  /* in fila non entrano piu' di lato: resta solo il sollevarsi al passaggio */
+  opacity: 1;
+}
+html.cinema .pellicola .service-card:not(:hover) { transform: none; }
+html.cinema .pellicola .service-card::after {
+  content: counter(fotogramma, decimal-leading-zero);
+  position: absolute; top: 20px; right: 22px;
+  font-family: var(--ff-display);
+  font-size: .72rem; font-weight: 600; letter-spacing: .16em;
+  color: rgba(255,255,255,.3);
+}
+@media (max-width: 820px) {
+  html.cinema .pellicola .service-card { flex-basis: min(76vw, 310px); }
+  html.cinema .pellicola .services-grid { padding-block: 40px; gap: 12px; }
+}
+
+html.cinema .pellicola-conta {
+  display: flex; align-items: center; gap: 14px;
+  margin-top: clamp(14px, 2.4vh, 24px);
+  font-family: var(--ff-display);
+  font-size: .78rem; font-weight: 600; letter-spacing: .16em;
+  color: var(--text-3);
+  font-variant-numeric: tabular-nums;
+}
+html.cinema .pellicola-quale { color: var(--gold); }
+html.cinema .pellicola-riga {
+  flex: 0 1 190px; height: 2px; border-radius: 2px;
+  background: rgba(255,255,255,.16);
+  overflow: hidden;
+}
+html.cinema .pellicola-riga i {
+  display: block; height: 100%;
+  background: var(--gold);
+  transform: scaleX(0); transform-origin: left center;
+}
+
+/* Quando non c'e' altezza per fermare la sezione: la pellicola si sfoglia
+   col dito, un fotogramma alla volta. */
+html.cinema .pellicola--libera .pellicola-fermo { position: static; }
+html.cinema .pellicola--libera .pellicola-finestra {
+  overflow-x: auto;
+  scroll-snap-type: x proximity;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+html.cinema .pellicola--libera .pellicola-finestra::-webkit-scrollbar { display: none; }
+html.cinema .pellicola--libera .service-card { scroll-snap-align: center; }
+
+/* ---------- La luce che segue il puntatore ---------- */
+/* Sta fra la sala e i contenuti: accende lo sfondo dietro il testo, non il
+   testo. */
+html.cinema .luce-puntatore {
+  position: fixed; left: 0; top: 0; z-index: 0;
+  width: 620px; height: 620px; margin: -310px 0 0 -310px;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, rgba(255,232,180,.11), rgba(255,232,180,.045) 46%, transparent 72%);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity .5s var(--ease);
+  will-change: transform;
+}
+html.cinema .luce-puntatore.accesa { opacity: 1; }
+
+/* I tasti principali vanno incontro al puntatore. "translate" e' una
+   proprieta' a se': non pesta il transform che i tasti usano gia' per
+   sollevarsi. */
+html.cinema .hero-actions .btn-primary,
+html.cinema .hero-actions .btn-noc,
+html.cinema .cta-band .btn-primary {
+  translate: var(--mx, 0px) var(--my, 0px);
+  transition: transform .2s var(--ease), box-shadow .2s var(--ease), background .2s, border-color .2s, color .2s, translate .35s var(--mo);
+}
