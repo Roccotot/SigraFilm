@@ -261,7 +261,12 @@ html.cinema .pellicola .services-grid::before { top: 14px; }
 html.cinema .pellicola .services-grid::after  { bottom: 14px; }
 
 html.cinema .pellicola .service-card {
-  flex: 0 0 clamp(270px, 27vw, 400px);
+  /* Larghezza scritta per esteso, non solo come base flessibile: Safari
+     (e quindi ogni browser su iPad e iPhone) misura la fila sommando la
+     larghezza che ogni scheda avrebbe con il testo tutto su una riga, e la
+     pellicola veniva lunga il triplo, con metri di nero vuoto in fondo. */
+  flex: none;
+  width: clamp(270px, 27vw, 400px);
   padding: clamp(26px, 2.4vw, 36px);
   background: rgba(20,20,23,.9);
   border-radius: 14px;
@@ -278,7 +283,7 @@ html.cinema .pellicola .service-card::after {
   color: rgba(255,255,255,.3);
 }
 @media (max-width: 820px) {
-  html.cinema .pellicola .service-card { flex-basis: min(76vw, 310px); }
+  html.cinema .pellicola .service-card { width: min(76vw, 310px); }
   html.cinema .pellicola .services-grid { padding-block: 40px; gap: 12px; }
 }
 

@@ -805,6 +805,12 @@
         var spazio = window.innerHeight - sotto - fondo;
         var tutto = fermo.offsetHeight;
         var daFinestra = tutto - finestra.offsetTop;
+        /* La lunghezza della pellicola si prende dall'ultima scheda, non da
+           quella che il browser ha dato alla fila: se un browser la sbaglia,
+           la corsa finisce comunque sull'ultimo fotogramma. */
+        var ultima = schede[schede.length - 1];
+        var coda = parseFloat(getComputedStyle(griglia).paddingRight) || 0;
+        griglia.style.width = Math.ceil(ultima.offsetLeft + ultima.offsetWidth + coda) + 'px';
         corsa = Math.max(0, griglia.offsetWidth - finestra.clientWidth);
         var su = null;
         sola = false;
