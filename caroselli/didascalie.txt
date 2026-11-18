@@ -29,3 +29,10 @@ RIVA DEGLI ETRUSCHI – SAN VINCENZO (LI).jpg = Arena estiva · Riva degli Etrus
 Paolo.jpg = Paolo allo stand Cinemeccanica
 Paolo_Andrea.jpg = Paolo e Andrea in sala · presentazione di «Raffaello, il principe delle arti in 3D»
 Roberto_Andrea.jpg = Roberto e Andrea in regia durante un evento
+
+Arena castello.jpg = Arena estiva fra le mura di un castello · schermo e platea
+Teatro palchi.jpg = Teatro storico a palchi · proiezione su grande schermo
+Biblioteca.jpg = Proiezione in una biblioteca monumentale · proiettore e platea
+Cabina schermo.jpg = Dalla cabina allo schermo · proiettore e sala
+Regia convegno.jpg = Regia audio e video per un convegno · mixer e schermi
+Sala convegni.jpg = Sala convegni allestita per una proiezione · luci e schermo

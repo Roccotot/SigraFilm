@@ -21,6 +21,7 @@ from pathlib import Path
 import html
 import re
 import sys
+from urllib.parse import quote
 
 try:
     from PIL import Image, ImageOps
@@ -147,7 +148,10 @@ def blocco_html(voci):
             f'      <button class="g-item" type="button" data-full="caroselli/{grande.name}"'
             f' data-full-fallback="caroselli/{foto.name}" data-caption="{d}">',
             f'        <picture>',
-            f'          <source type="image/webp" srcset="caroselli/{mini.name}">',
+            # In srcset lo spazio separa l'indirizzo dalla misura: un nome con
+            # spazi va codificato, altrimenti il browser scarta la versione
+            # leggera e scarica la foto originale, cinque o sei volte piu' pesante.
+            f'          <source type="image/webp" srcset="caroselli/{quote(mini.name)}">',
             f'          <img src="caroselli/{foto.name}" alt="{d}"'
             f' width="{dim_mini[0]}" height="{dim_mini[1]}"{primo} decoding="async">',
             f'        </picture>',
